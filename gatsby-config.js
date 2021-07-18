@@ -1,13 +1,43 @@
 module.exports = {
   siteMetadata: {
     title: "Yonder",
+    subtitle: "Hillsborough, NC",
+    description: "Southern Cocktails & Brew",
+    siteUrl: "https://yonderbarnc.com",
+    titleTemplate: "Yonder %s",
+    menuLinks: [
+      {
+        name: "Home",
+        path: "/",
+      },
+      {
+        name: "Menu",
+        path: "/menu",
+      },
+      {
+        name: "About",
+        path: "/about",
+      },
+      {
+        name: "Contact",
+        path: "/contact",
+      },
+      {
+        name: "Events",
+        path: "/events",
+      },
+      {
+        name: "Order Now",
+        path: "/order-now",
+      },
+    ],
   },
   plugins: [
     {
       resolve: "gatsby-source-sanity",
       options: {
-        projectId: "yonder-sanity",
-        dataset: "",
+        projectId: "hiyhitvr",
+        dataset: "production",
       },
     },
     "gatsby-plugin-theme-ui",
@@ -17,7 +47,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        icon: "src/images/icon.png",
+        icon: "src/images/yonderlogo.png",
       },
     },
     "gatsby-plugin-mdx",
@@ -39,5 +69,12 @@ module.exports = {
       },
       __key: "pages",
     },
+    {
+      resolve: "gatsby-theme-style-guide",
+      options: {
+        basePath: "/design-system",
+      },
+    },
+    "gatsby-plugin-layout"
   ],
 };
