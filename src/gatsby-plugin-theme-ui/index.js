@@ -1,8 +1,3 @@
-import "@fontsource/diplomata"
-import "@fontsource/courier-prime"
-import "@fontsource/aileron/600.css"
-import "@fontsource/aileron/300.css"
-import "@fontsource/courgette"
 
 import colors, { lightColors } from './colors'
 import spaces from './spaces'
@@ -18,7 +13,7 @@ const theme = {
             '"Roboto", sans-serif',
         heading: "'Georgia', serif",
         display: '"Georgia", serif',
-        monospace: '"Courier Prime", monospace',
+        monospace: '"Courier", monospace',
     },
     fontSizes: [...spaces.fontSizes],
     fontWeights: {

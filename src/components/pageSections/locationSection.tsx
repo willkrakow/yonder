@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import React from "react";
-import { jsx, Grid, Container, Themed, Box, Button } from "theme-ui";
+import { jsx, Grid, Themed, Box, Button } from "theme-ui";
 import GoogleMapReact from "google-map-react";
 import { IDailyHours } from "../../typings";
 import { useStaticQuery, graphql } from "gatsby";
