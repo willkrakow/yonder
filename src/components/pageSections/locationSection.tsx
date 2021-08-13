@@ -346,90 +346,89 @@ const LocationSection = () => {
   }, [currentDay]);
 
   return (
-      <ScrollAnimation animateOnce={true} animateIn="fadeInUp">
-        <Grid columns={[1, 2, 2]} gap={6}>
-          <Box>
-            <div style={{ height: "100%", width: "100%" }}>
-              <GoogleMapReact
-                bootstrapURLKeys={{
-                  key: "AIzaSyCvVDXPXHetj1jbEsA2Cd1LYEAukq7RN2M",
+    <ScrollAnimation animateOnce={true} animateIn="fadeInUp">
+      <Grid columns={[1, 2, 2]} gap={6}>
+        <Box>
+          <div style={{ height: "100%", width: "100%" }}>
+            <GoogleMapReact
+              bootstrapURLKeys={{
+                key: process.env.GATSBY_GOOGLE_MAP_KEY || "",
+              }}
+              defaultCenter={defaultProps.center}
+              defaultZoom={defaultProps.zoom}
+              options={createMapOptions}
+            >
+              <Marker
+                lat={36.077236095375}
+                lng={-79.10064213038407}
+                text="&#10553; Our Location"
+              />
+            </GoogleMapReact>
+          </div>
+        </Box>
+        <Box>
+          <Themed.h3>Stop on by</Themed.h3>
+          <Themed.p>
+            We're open 7 days a week, give or take a few. Stay for a drink, stay
+            for a day. Heck you can even help us close if you're about that.
+          </Themed.p>
+          <Themed.ul sx={{ pl: 0, ml: 5 }}>
+            {hours.map((h) => (
+              <Themed.li
+                key={h.day}
+                sx={{
+                  py: 3,
+                  listStyleType: "none",
+                  backgroundColor:
+                    h.day === currentDay ? alpha("primary", 0.2) : null,
+                  boxShadow: h.day === currentDay ? "sm" : "none",
                 }}
-                defaultCenter={defaultProps.center}
-                defaultZoom={defaultProps.zoom}
-                options={createMapOptions}
               >
-                <Marker
-                  lat={36.077236095375}
-                  lng={-79.10064213038407}
-                  text="&#10553; Our Location"
-                />
-              </GoogleMapReact>
-            </div>
-          </Box>
-          <Box>
-            <Themed.h3>Stop on by</Themed.h3>
-            <Themed.p>
-              We're open 7 days a week, give or take a few. Stay for a drink,
-              stay for a day. Heck you can even help us close if you're about
-              that.
-            </Themed.p>
-            <Themed.ul sx={{ pl: 0, ml: 5 }}>
-              {hours.map((h) => (
-                <Themed.li
-                  key={h.day}
+                <span
+                  aria-label={h.day}
                   sx={{
-                    py: 3,
-                    listStyleType: "none",
-                    backgroundColor:
-                      h.day === currentDay ? alpha("primary", 0.2) : null,
-                    boxShadow: h.day === currentDay ? "sm" : "none",
+                    color: "primary",
+                    pl: 4,
+                    fontWeight: h.day === currentDay ? "bold" : "normal",
                   }}
                 >
+                  {h.day}
+                </span>
+                {!h.opensAt ? (
+                  <span> – CLOSED</span>
+                ) : (
+                  <span>
+                    {" "}
+                    –{" "}
+                    {`${h.opensAt.toString().split(":")[0]}pm – ${
+                      h.closesAt.toString().split(":")[0]
+                    }pm`}
+                  </span>
+                )}
+                {isOpen && (
                   <span
-                    aria-label={h.day}
                     sx={{
-                      color: "primary",
-                      pl: 4,
-                      fontWeight: h.day === currentDay ? "bold" : "normal",
+                      color: "accent",
+                      textTransform: "uppercase",
+                      fontWeight: "bold",
+                      ml: 3,
                     }}
                   >
-                    {h.day}
+                    open now
                   </span>
-                  {!h.opensAt ? (
-                    <span> – CLOSED</span>
-                  ) : (
-                    <span>
-                      {" "}
-                      –{" "}
-                      {`${h.opensAt.toString().split(":")[0]}pm – ${
-                        h.closesAt.toString().split(":")[0]
-                      }pm`}
-                    </span>
-                  )}
-                  {isOpen && (
-                    <span
-                      sx={{
-                        color: "accent",
-                        textTransform: "uppercase",
-                        fontWeight: "bold",
-                        ml: 3,
-                      }}
-                    >
-                      open now
-                    </span>
-                  )}
-                </Themed.li>
-              ))}
-            </Themed.ul>
-            <a
-              sx={{ textDecoration: "none" }}
-              href="https://www.google.com/maps/dir//Yonder:+Southern+Cocktails+and+Brew,+114+W+King+St,+Hillsborough,+NC+27278/@36.075492,-79.1022201,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x89acdf924f5833c9:0x39c761f95557be93!2m2!1d-79.1000315!2d36.0754905!3e0"
-            >
-              <Button sx={{ mt: 4 }}>Get directions</Button>
-            </a>
-          </Box>
-        </Grid>
-      </ScrollAnimation>
+                )}
+              </Themed.li>
+            ))}
+          </Themed.ul>
+          <a
+            sx={{ textDecoration: "none" }}
+            href="https://www.google.com/maps/dir//Yonder:+Southern+Cocktails+and+Brew,+114+W+King+St,+Hillsborough,+NC+27278/@36.075492,-79.1022201,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x89acdf924f5833c9:0x39c761f95557be93!2m2!1d-79.1000315!2d36.0754905!3e0"
+          >
+            <Button sx={{ mt: 4 }}>Get directions</Button>
+          </a>
+        </Box>
+      </Grid>
+    </ScrollAnimation>
   );
 };
 
