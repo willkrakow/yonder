@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import { PageProps } from "gatsby";
 import React from "react";
-import { Themed, Box, Select, jsx, Button, Grid, Textarea, Input, Label, Card, Flex } from "theme-ui";
+import { Themed, Container, Box, Select, jsx, Button, Grid, Textarea, Input, Label, Card, Flex } from "theme-ui";
 import Seo from '../components/seo'
 import AddressBlock from "../components/addressBlock";
 
@@ -29,13 +29,13 @@ const EventsPage = (props: PageProps) => {
   ];
   console.log(props);
   return (
-    <React.Fragment>
+    <Container>
       <Seo pageTitle={`Contact Us`} />
       <Grid columns={[1, 2, null]} gap={[3, 4, 6]}>
         <div>
           <Grid columns={2} mb={5}>
             {eventItems.map((i, index) => (
-              <Themed.h3
+              <Themed.h4
               key={index}
                 sx={{
                   borderBottom: "none",
@@ -46,7 +46,7 @@ const EventsPage = (props: PageProps) => {
                 <span sx={{ color: "accent" }} >&#10003;</span>
                 {i}
                 <br />
-              </Themed.h3>
+              </Themed.h4>
             ))}
           </Grid>
           <Themed.p sx={{ fontWeight: "bold", mb: 4, mt: 3 }}>
@@ -63,10 +63,9 @@ const EventsPage = (props: PageProps) => {
             stop on by.
           </Themed.p>
 
-          <AddressBlock withContactInfo withLogo={false} textColor={"text"} />
+          <AddressBlock withContactInfo withLocation withLogo={false} textColor={"text"} />
         </div>
         <Card mb={5} sx={{ width: "100%" }}>
-          <Themed.h3 sx={{ textAlign: "center" }}>Contact Us</Themed.h3>
           <Flex
             as="form"
             //@ts-ignore
@@ -146,7 +145,7 @@ const EventsPage = (props: PageProps) => {
           </Flex>
         </Card>
       </Grid>
-    </React.Fragment>
+    </Container>
   );
 };
 

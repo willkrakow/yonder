@@ -5,11 +5,17 @@ import {jsx, Themed } from 'theme-ui'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { Link } from 'gatsby'
 import { ImageAsset } from '../typings'
+import { StylePropertyValue } from '@theme-ui/css'
+import { Property } from 'csstype'
+import { darken } from '@theme-ui/color'
+
+
 
 interface Props {
   title: string;
   link: string;
   image: ImageAsset;
+  headerRightStyle?: StylePropertyValue<Property.Position>
 }
 
 
@@ -28,21 +34,20 @@ const PictureCard = ({ title, link, image }: Props) => {
           color: "text",
           textDecoration: "none",
           backgroundColor: "background",
-          boxShadow: "2px 2px 4px 2px rgba(0,0,0,0.2)",
-          position: "absolute",
-          bottom: 0,
-          left: 0,
+          boxShadow: "sm",
           alignSelf: "flex-end",
           justifySelf: "flex-start",
           transition: "all 0.2s ease",
           "&:hover": {
-            backgroundColor: "backgroundFill",
+            backgroundColor: darken("background", 0.1),
             transform: "scale(1.02)",
           },
         }}
       >
-        <Link to={link} sx={{ textDecoration: "none" }} >
-          <Themed.h4>{title}</Themed.h4>
+        <Link to={link} sx={{ textDecoration: "none" }}>
+          <Themed.h4>
+            {title} <span sx={{ color: "secondary" }}>&rarr;</span>
+          </Themed.h4>
         </Link>
       </header>
     </React.Fragment>

@@ -2,19 +2,20 @@
 import { PageProps, graphql } from 'gatsby'
 import React from 'react'
 import { jsx } from 'theme-ui'
-import MenuSection from '../components/menuSection'
+import MenuCategorySection from '../components/menuCategorySection'
 import _ from 'lodash'
-import { Wine } from '../typings'
+import { WineProps } from '../typings'
 import Seo from '../components/seo'
 
-
-interface WinePageProps extends PageProps {
+interface IWinePage {
   data: {
     sanityCategory: {
-      drinks: Array<Wine>;
+      drinks: Array<WineProps>;
     };
   };
 }
+
+type WinePageProps = IWinePage & PageProps
 
 
 
@@ -27,7 +28,7 @@ const WinePage = (props: WinePageProps) => {
       <React.Fragment>
         <Seo pageTitle={`Wine`} />
         {menuSections.map(s => (
-          <MenuSection key={s[0]} title={s[0]} menuitems={s[1].filter(i => i.available)} descriptionItems={["ABV", "origin"]} />
+          <MenuCategorySection nested index={0} key={s[0]} title={s[0]} menuitems={s[1].filter(i => i.available)} descriptionItems={["ABV", "origin"]} />
         ))}
       </React.Fragment>
     );
@@ -39,22 +40,11 @@ export const query = graphql`
     sanityCategory(name: { eq: "Wine" }) {
       drinks {
         ... on SanityWine {
-          _key
-          _type
-          name
-          origin
-          price
-          drinkType
-          available
-          variety
-          maker
-          ABV
+          ...WineFragment
         }
       }
       categoryImage {
-        asset {
-          gatsbyImageData
-        }
+        ...ImageFragment
       }
     }
   }

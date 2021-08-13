@@ -1,9 +1,11 @@
 import { IGatsbyImageData } from "gatsby-plugin-image";
+import {eventTags} from './eventTags'
 
-export interface Drink {
+export { eventTags }
+export interface IDrink {
     name: string,
     price: number,
-    slug: Slug,
+    slug: ISlug,
     id: string,
     category: any,
     available?: boolean
@@ -11,21 +13,21 @@ export interface Drink {
 }
 
 
-export interface Category {
+export interface ICategory {
   _key: string,
   _type: string,
   name: string,
-  slug: Slug,
+  slug: ISlug,
   categoryImage: ImageAsset,
   description: string,
-  drinks: Array<Wine & Beer & Cocktail>
+  drinks: Array<WineProps & BeerProps & CocktailProps>
 }
 
 
-export interface Slug {
+export interface ISlug {
     current: string
 }
-export interface Beer extends Drink{
+export interface IBeer {
     ABV: number,
     IBU: number,
     maker?: string,
@@ -34,7 +36,8 @@ export interface Beer extends Drink{
     drinkType: string | any,
 }
 
-export interface Wine extends Drink {
+
+export interface IWine {
     drinkType: string,
     ABV: number,
     maker?: string,
@@ -42,27 +45,48 @@ export interface Wine extends Drink {
     variety?: string,
 }
 
-export interface Cocktail extends Drink {
+
+
+export interface ICocktail {
     liquor: string,
     ingredients: string[]
 }
+
+export type BeerProps = IBeer & IDrink
+export type WineProps = IWine & IDrink
+export type CocktailProps = ICocktail & IDrink
+
 
 export interface ImageAsset {
     asset: {
         gatsbyImageData: IGatsbyImageData
     }
     caption?: string
+    altText?: string
 }
 
 export interface BlockText {
+    _key: string,
+    _type: string,
     children: Array<{
         text: string,
     }>
 }[]
 
-export type EventTag = "Music" | "Art" | "Local" | "Poetry" | "Yoga" | "Authors" | "Weekly Event" | "Holiday" | string | null
+export enum EEventTag {
+Music = "Music",
+Local = "Local",
+Poetry = "Poetry",
+Art = "ART",
+Yoga = "YOGA",
+Authors = "AUTHORS",
+Weekly = "WEEKLY",
+Holiday = "HOLIDAY",
+}
 
-export interface Event {
+export type EventTag = EEventTag | string | null
+
+export interface IEvent {
     name: string,
     subtitle?: string,
     date: string,
@@ -73,7 +97,7 @@ export interface Event {
     image: ImageAsset,
     description: BlockText[],
     id: string,
-    slug: Slug,
+    slug: ISlug,
     eventUrl?: string,
     eventTags?: EventTag[]
 
@@ -93,7 +117,7 @@ export interface Art {
     }>,
     startDate?: string,
     endDate?: string,
-    slug: Slug
+    slug: ISlug
 }
 
 export interface Artist {
@@ -122,25 +146,27 @@ export interface Address {
     country: string,
 }
 
-export interface DailyHours {
+
+
+export interface IDailyHours {
     day: "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday",
-    closed: boolean,
-    hourClose: number | null | undefined,
-    minuteClose: number | null | undefined,
-    hourOpen: number | null | undefined,
-    minuteOpen: number | null | undefined,
-    isAm?: boolean,
+    opensAt: string | Date,
+    closesAt: string | Date,
 }
 
-export interface HeroProps extends QueryPrototypeProps {
-    mainText: string,
-    subtitleText?: string,
-    heroImage: ImageAsset,
+export type HeroProps = IHero & QueryPrototypeProps
+
+export interface IHero  {
+    title: string,
+    subtitle?: string,
+    image: ImageAsset,
     cta?: CtaProps
 }
 
+export type CenterTextProps = ICenterText & QueryPrototypeProps
 
-export interface CenterTextProps extends QueryPrototypeProps {
+
+export interface ICenterText {
   bodyText: string;
   headerText: string;
 }
@@ -150,26 +176,45 @@ export interface QueryPrototypeProps {
   _type: string;
 }
 
-export interface CtaProps extends QueryPrototypeProps {
-  buttonText?: string;
-  isInternal?: boolean;
-  link: URL;
+export type CtaProps = ICta & QueryPrototypeProps
+
+export interface ICta {
+  buttonText: string;
+  isInternal: boolean;
+  link: string;
   text?: string;
 }
 
-export interface EventSectionProps extends QueryPrototypeProps {
-  mainText?: string;
-  content: Event[];
-  backgroundImage?: ImageAsset;
-}
-
-export interface FormSectionProps extends QueryPrototypeProps {
-  collectEmail?: boolean;
-  collectName?: boolean;
-  collectMessage?: boolean;
-}
 
 
 export interface ImageGridProps {
-  categories: Category[]
+  categories: ICategory[]
+}
+
+
+export interface IEventsPrototype {
+  data: {
+    allSanityMutatedEvent: {
+      group: Array<{
+        fieldValue: string;
+        nodes: Array<MutatedEvent>;
+      }>;
+    };
+  };
+}
+
+export interface IMutatedEvent {
+  month: number;
+  day: number;
+  year: number;
+  parent: IEvent;
+}
+
+export type MutatedEvent = IEvent & IMutatedEvent;
+
+export interface IMonthGroup {
+  nodes: MutatedEvent[];
+  filterEvents: (e: MutatedEvent) => boolean;
+  monthNumberString: string,
+  index: number,
 }

@@ -7,10 +7,6 @@ module.exports = {
     titleTemplate: "Yonder %s",
     menuLinks: [
       {
-        name: "Home",
-        path: "/",
-      },
-      {
         name: "Menu",
         path: "/menu",
       },
@@ -25,10 +21,6 @@ module.exports = {
       {
         name: "Events",
         path: "/events",
-      },
-      {
-        name: "Order Now",
-        path: "/order-now",
       },
     ],
   },

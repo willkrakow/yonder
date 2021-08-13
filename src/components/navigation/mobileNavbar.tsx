@@ -1,11 +1,24 @@
 /** @jsx jsx */
 import React from 'react'
-import { Flex, Close, jsx, MenuButton, Themed, Grid } from 'theme-ui'
+import { Flex, Switch, Close, jsx, MenuButton, Themed, Grid, useColorMode, Box, Label } from 'theme-ui'
 import { NavbarProps } from '.';
 import NavListItem from './navListItem';
+import { alpha } from '@theme-ui/color';
+import AddressBlock from '../addressBlock';
+import SocialIcons from './socialIcons';
+import SiteTitle from './siteTitle';
 
-const MobileNavbar = ({ menuLinks, siteTitle }: NavbarProps) => {
+
+
+
+
+const MobileNavbar = ({ menuLinks, siteTitle, context }: NavbarProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [ colorMode, setColorMode ] = useColorMode();
+
+  const handleSwitch = (): void => {
+    colorMode === "light" ? setColorMode("dark") : setColorMode("light");
+  }
 
   React.useEffect(() => {
       
@@ -24,61 +37,79 @@ const MobileNavbar = ({ menuLinks, siteTitle }: NavbarProps) => {
   const handleClick = () => setIsOpen(!isOpen);
   return (
     <React.Fragment>
+      <div sx={{ display: isOpen ? "flex" : "none", position: "fixed", inset: 0, zIndex: 700, backgroundColor: alpha("background", 0.5) }}></div>
       <Flex
         as="nav"
         sx={{
           width: "100%",
-          background: "linear-gradient(180deg, black, transparent)",
-          p: 4,
+          px: 4,
           display: ["flex", null, "none"],
           flexDirection: "column",
           placeSelf: "start",
           justifySelf: "center",
+          borderBottomWidth: 1,
+          borderBottomStyle: "solid",
+          borderBottomColor: "secondary",
         }}
       >
-        <Grid columns={["3fr 1fr"]}>
-          <Themed.h1>{siteTitle}</Themed.h1>
-          <MenuButton variant="icon" onClick={handleClick} sx={{ width: 6, height: 6, placeSelf: 'center', 'svg': {width: 5, height: 5} }} />
+        <Grid
+          columns={["3fr 1fr"]}
+          sx={{ placeItems: "center", justifyItems: "start" }}
+        >
+          <SiteTitle />
+          <MenuButton
+            variant="icon"
+            onClick={handleClick}
+            sx={{
+              width: 6,
+              height: 6,
+              placeSelf: "center",
+              justifyContent: "flex-end",
+              svg: { width: 5, height: 5 },
+              color: "primary",
+            }}
+          />
         </Grid>
         <Close
           onClick={handleClick}
           sx={{
             display: isOpen ? "block" : "none",
-            color: "light",
+            color: "primary",
             position: "absolute",
-            top: 4,
+            top: 5,
             right: 4,
-            zIndex: 109,
-            'svg': {
-                width: 5,
-                height: 5,
-            }
+            zIndex: 702,
+            svg: {
+              width: 5,
+              height: 5,
+            },
           }}
         />
         <ul
           sx={{
             listStyleType: "none",
             height: "100vh",
-            zIndex: 99,
+            zIndex: 701,
             display: "flex",
             flexDirection: "column",
-            justifyContent: "space-evenly",
-            position: "absolute",
+            justifyContent: "space-around",
+            position: "fixed",
             top: 0,
-            left: isOpen ? 6 : "100%",
+            left: isOpen ? [6, 9, null] : "100%",
             bottom: 0,
             right: 0,
             margin: 0,
             padding: isOpen ? 4 : 0,
-            boxShadow: isOpen ? `-64px 0 rgba(0,0,0,0.5)` : "none",
-            backgroundColor: "primary",
+            backgroundColor: alpha("background", 0.98),
             opacity: isOpen ? "1.0" : "0.0",
             transition: "all 0.2s ease",
             overflow: "hidden",
+            pt: isOpen ? 6 : 0,
           }}
         >
           {menuLinks.map((l, index) => (
             <NavListItem
+              isActive={context.location.pathname === l.path}
               key={index}
               index={index}
               link={l}
@@ -88,6 +119,35 @@ const MobileNavbar = ({ menuLinks, siteTitle }: NavbarProps) => {
               position="right"
             />
           ))}
+          <li>
+            <SiteTitle />
+            <AddressBlock withLocation />
+          </li>
+          <li>
+            <SocialIcons />
+          </li>
+          <Flex
+          as="li"
+            sx={{
+              justifyContent: "space-between",
+              alignItems: "center",
+              py: 2,
+              px: 3,
+              backgroundColor: alpha("primary", 0.2),
+              borderRadius: "20px",
+            }}
+          >
+            <Box>
+              <Switch
+                onChange={handleSwitch}
+                value={colorMode}
+                id="colormode"
+              />
+            </Box>
+            <Label htmlFor="colormode" sx={{ flex: 1, ml: 2 }}>
+              {colorMode === "light" ? "🌞 Light mode" : "🌚 Dark mode"}
+            </Label>
+          </Flex>
         </ul>
       </Flex>
     </React.Fragment>

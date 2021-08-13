@@ -2,22 +2,23 @@
 
 import { PageProps, graphql } from "gatsby";
 import React from "react";
-import { jsx, Themed } from "theme-ui";
+import { jsx, Container, Themed } from "theme-ui";
 import { Art } from "../typings";
-import { ArtGrid } from "../components/imageGrid";
-import { ArtDescription, ArtistBio } from "../components/pageSections";
-interface Props extends PageProps {
+import { ArtGrid, ArtistBio, ArtDescription } from "../components/art";
+interface IArt {
   data: {
     art: Art;
   };
 }
 
-const ArtTemplate = (props: Props) => {
+type ArtPageProps = IArt & PageProps
+
+const ArtTemplate = (props: ArtPageProps) => {
   console.log(props);
   const { art } = props.data;
   return (
     <React.Fragment>
-      <>
+      <Container sx={{ maxWidth: 10 }} >
         <header sx={{ mb: 5 }}>
           <Themed.h3>{art.name}</Themed.h3>
           <Themed.h5>by {art.artist.name}</Themed.h5>
@@ -26,7 +27,7 @@ const ArtTemplate = (props: Props) => {
         <Themed.h4 sx={{ mt: 5 }}>Gallery</Themed.h4>
         <ArtGrid artist={art.artist} artArr={art.images} />
         <ArtistBio {...art.artist} />
-      </>
+      </Container>
     </React.Fragment>
   );
 };

@@ -2,8 +2,8 @@
 
 import React from "react";
 import { PageProps, graphql, useStaticQuery } from "gatsby";
-import { Themed, jsx, Grid } from "theme-ui";
-import { StaticImage } from "gatsby-plugin-image";
+import { Themed, jsx, Grid, Box } from "theme-ui";
+import "animate.css/animate.compat.css";
 import {
   Navbar,
   Footer,
@@ -12,7 +12,7 @@ import {
 } from "../components/navigation";
 import StaticHead from "./staticHead";
 import Seo from "../components/seo";
-
+import { Global } from "@emotion/react";
 export interface MenuProps {
   site: {
     siteMetadata: {
@@ -23,6 +23,7 @@ export interface MenuProps {
     };
   };
 }
+import { darken, lighten } from "@theme-ui/color";
 
 export interface LayoutProps extends PageProps {
   pageContext: {
@@ -32,7 +33,7 @@ export interface LayoutProps extends PageProps {
 }
 
 export default (context: LayoutProps) => {
-  console.log(context);
+  
   const data: MenuProps = useStaticQuery(graphql`
     {
       site {
@@ -50,8 +51,27 @@ export default (context: LayoutProps) => {
     }
   `);
   const { menuLinks } = data.site.siteMetadata;
+
+  const isHome = context.location.pathname === "/"
   return (
     <React.Fragment>
+      <Global
+        styles={(theme) => ({
+          "*": {
+            scrollBehavior: "smooth",
+          },
+          main: {
+            minHeight: "100vh",
+          },
+          body: {
+            background:
+              `linear-gradient(to bottom right, ${lighten(
+                "background",
+                0.05
+              )(theme)}, ${darken("background", 0.1)(theme)})`,
+          },
+        })}
+      />
       <StaticHead />
       <Seo
         pageDescription={
@@ -60,37 +80,51 @@ export default (context: LayoutProps) => {
         pageTitle={context.path === "/" ? null : context.pageContext.title}
         path={context.location.origin}
       />
-      <Grid as="header">
-        <StaticImage
-          src={`https://images.pexels.com/photos/941864/pexels-photo-941864.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260`}
-          alt="Dark bar"
-          layout={"fullWidth"}
-          aspectRatio={2 / 1}
-          quality={100}
-          //@ts-ignore
-          sx={{
-            gridArea: "1/1",
-            minHeight: "75vh",
-            maxHeight: "75vh",
-          }}
-        />
-
-        <Grid
-          sx={{ gridArea: "1/1", position: "relative", placeItems: "center" }}
-        >
+      <Grid
+        as="header"
+        columns={[1, 1, 2]}
+        px={[1, 3, 4]}
+        sx={{ rowGap: 0, columnGap: [0, 0, 6] }}
+      >
+        <Box sx={{ gridColumn: ["span 1", "span 1", "span 2"] }}>
           <MobileNavbar
+            context={context}
             menuLinks={menuLinks}
             siteTitle={data.site.siteMetadata.title}
           />
           <Navbar
+            context={context}
             menuLinks={menuLinks}
             siteTitle={data.site.siteMetadata.title}
           />
-          {context.location !== "/" && (
-            <Themed.h2 sx={{ color: "light", alignSelf: "flex-start", p: 3 }}>
-              {context?.pageContext?.title ||
-                context.location.pathname.slice(1).toUpperCase()}
-            </Themed.h2>
+        </Box>
+
+        <Grid
+          sx={{
+            position: "relative",
+            placeItems: "center",
+            alignContent: "center",
+            justifyContent: "center",
+            overflow: "hidden",
+            gridColumn: isHome ? "span 1" : "span 2",
+          }}
+        >
+          {!isHome && (
+            <>
+              <Themed.h2
+                sx={{
+                  alignSelf: "flex-start",
+                  justifySelf: "center",
+                  textAlign: "center",
+                  gridColumn: "span 2",
+                  p: 3,
+                  mb: 5,
+                }}
+              >
+                {context?.pageContext?.title ||
+                  context.location.pathname.slice(1).toUpperCase()}
+              </Themed.h2>
+            </>
           )}
         </Grid>
       </Grid>

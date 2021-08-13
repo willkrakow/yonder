@@ -1,7 +1,7 @@
 /**@jsx jsx */
 import React, { HTMLAttributes } from 'react'
 import { jsx, Themed } from 'theme-ui'
-import { WineProps, BeerProps, CocktailProps } from '../pages/menu'
+import { WineProps, BeerProps, CocktailProps } from '../typings'
 
 
 interface ListItemProps {
@@ -18,7 +18,7 @@ const ListItem = ({ drink, descriptionItems, ...props }: ListItemProps) => {
   
   return (
     <React.Fragment>
-      <Themed.li
+      <li
         {...props}
         sx={{
           position: "relative",
@@ -27,26 +27,35 @@ const ListItem = ({ drink, descriptionItems, ...props }: ListItemProps) => {
           mb: 4,
         }}
       >
-        <Themed.h4 sx={{ flexBasis: "70%", alignSelf: "center" }}>{drink.name}</Themed.h4>
+        <Themed.h4 sx={{ flexBasis: "70%", mb: 0, fontSize: 1 }}>
+          {drink.name}
+        </Themed.h4>
         <span
           sx={{
             flex: "1 1 20%",
             color: "text",
-            textAlign: "center",
             fontWeight: "body",
             fontStyle: "italic",
-            alignSelf: "start",
+            alignSelf: "flex-start",
+            fontSize: 1,
+            height: "50%",
+            textAlign: "right",
           }}
         >
           ${drink.price.toString()}
         </span>
-        <Themed.p sx={{ flexBasis: "100%", position: "relative" }} >
-          <span sx={{ fontWeight: "bold" }}>{drink[firstDescriptor] && `${drink[firstDescriptor]}`}</span>
-          <span>{drink[firstDescriptor] && drink[secondDescriptor] && ` | `}</span>
-          <span>{drink[secondDescriptor] &&  `${drink[secondDescriptor]}`}</span>
+        <Themed.p sx={{ flexBasis: "100%", position: "relative", mb: 0 }}>
+          <span>
+            {drink[firstDescriptor] && `${drink[firstDescriptor]}% ${" "}`}
+          </span>
+          <span>
+            {drink[firstDescriptor] && drink[secondDescriptor] && `  |  `}
+          </span>
+          <span>
+            {drink[secondDescriptor] && `${" "} ${drink[secondDescriptor]}`}
+          </span>
         </Themed.p>
-        
-      </Themed.li>
+      </li>
     </React.Fragment>
   );
 };

@@ -3,7 +3,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 import { jsx } from "theme-ui";
-import { Address, DailyHours } from "../../typings";
+import { Address, IDailyHours } from "../../typings";
 
 interface Props {
   siteSettings: {
@@ -11,7 +11,7 @@ interface Props {
     email: string;
     facebook: string;
     instagram: string;
-    hours: Array<DailyHours>;
+    openingHours: Array<IDailyHours>;
     id: string;
     phoneNumber: string;
     siteUrl: string;
@@ -52,6 +52,11 @@ const Seo = ({ path, pageTitle, pageDescription }: SeoProps) => {
   const data: Props = useStaticQuery(graphql`
     {
       siteSettings: sanitySiteSettings {
+        openingHours {
+          opensAt
+          closesAt
+          day
+        }
         address {
           city
           zip
@@ -62,15 +67,6 @@ const Seo = ({ path, pageTitle, pageDescription }: SeoProps) => {
         email
         facebook
         instagram
-        hours {
-          day
-          closed
-          hourClose
-          hourOpen
-          isAm
-          minuteClose
-          minuteOpen
-        }
         id
         phoneNumber
         siteUrl
@@ -104,40 +100,21 @@ const Seo = ({ path, pageTitle, pageDescription }: SeoProps) => {
 
   const {
     address,
-    hours,
     phoneNumber,
     email,
     siteUrl,
     title,
     description,
     logo,
+    openingHours,
   } = data.siteSettings;
   const defaultTitle = pageTitle ? `${pageTitle} | ${title}` : title;
   const defaultDescription = pageDescription ? pageDescription : description;
   const defaultPath = path ? path : siteUrl;
   
-  const padAndMakeString = (num: number): string => {
-    if (num < 10) {
-      return `0${num}`;
-    }
-    return num.toString();
-  };
 
-  const hoursSpec = hours.map((h) => {
-    return h.hourOpen && h.hourClose
-      ? `
-        {
-                    "@type": "OpeningHoursSpecification",
-                    "closes":  "${padAndMakeString(
-                      h.hourClose
-                    )}:${padAndMakeString(h.minuteClose || 0)}:00",
-                    "dayOfWeek": "https://schema.org/${h.day}",
-                    "opens":  "${padAndMakeString(
-                      h.hourOpen
-                    )}:${padAndMakeString(h.minuteOpen || 0)}:00",
-                },
-                `
-      : null;
+  const schedule = openingHours.map((h) => {
+    return `${h.day} ${h.opensAt}-${h.closesAt}`;
   });
   return (
     <React.Fragment>
@@ -217,7 +194,7 @@ const Seo = ({ path, pageTitle, pageDescription }: SeoProps) => {
             },
             "name": ${title},
             "email": ${email}
-            "openingHoursSpecification": ${JSON.stringify(hoursSpec)},
+            "openingHours": ${JSON.stringify(schedule)},
             "priceRange": "$$",
             "servesCuisine": [
                 "Cocktails",

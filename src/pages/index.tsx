@@ -1,24 +1,18 @@
 /** @jsx jsx*/
 import * as React from "react";
 import { graphql } from "gatsby";
-import CenterTextSection from "../components/centerTextSection";
-import { MenuSection } from "../components/imageGrid";
-import Form from "../components/form";
+import { CenterTextSection, MenuSection, MenuSectionProps, FormSection, FormSectionProps, Hero, EventSection, EventSectionProps } from '../components/pageSections'
 import {
   CenterTextProps,
   CtaProps,
-  EventSectionProps,
-  FormSectionProps,
 } from "../typings";
 // @ts-ignore
 import { Themed, jsx } from "theme-ui";
-import Hero from "../components/hero";
-import EventSection from "../components/eventSection";
 interface IndexPageProps {
   data: {
     sanityLandingPage: {
       content: Array<
-        CenterTextProps | CtaProps | EventSectionProps | FormSectionProps | any
+        CenterTextProps | CtaProps | EventSectionProps | FormSectionProps | MenuSectionProps | any
       >;
       name: string;
       id: string;
@@ -29,80 +23,51 @@ interface IndexPageProps {
 export const query = graphql`
   {
     sanityLandingPage(name: { eq: "Home" }) {
-      name
-      id
       content {
-        ... on SanityCenterTextSection {
-          _key
-          _type
-          bodyText
-          headerText
-        }
         ... on SanityCta {
-          _key
-          _type
-          link
-          isInternal
-          buttonText
-          text
+          ...CtaFragment
+        }
+        ... on SanityCenterTextSection {
+          ...CenterTextFragment
         }
         ... on SanityEventSection {
           _key
           _type
-          mainText
           content {
-            description {
-              children {
-                text
-                _key
-                _type
-              }
-              _key
-              _type
-            }
-            date(formatString: "dddd, MMMM DD")
-            _key
-            _type
+            ...EventFragment
             slug {
               current
             }
-            subtitle
-            name
             image {
               asset {
-                gatsbyImageData
+                gatsbyImageData(height: 500, layout: FULL_WIDTH)
               }
             }
-          }
-        }
-        ... on SanityFormSection {
-          _key
-          _type
-          buttonText
-          collectEmail
-          collectMessage
-          collectName
-          formIntro {
-            bodyText
-            headerText
           }
         }
         ... on SanityMenuSection {
           _key
           _type
+          title
+          description
+          cta {
+            ...CtaFragment
+          }
           categories {
-            _key
-            id
+            categoryImage {
+              asset {
+                gatsbyImageData(aspectRatio: 1.1)
+                altText
+              }
+            }
             name
             slug {
               current
             }
-            categoryImage {
-              asset {
-                gatsbyImageData(width: 500, height: 500)
-              }
-            }
           }
+        }
+        ... on SanityFormSection {
+          ...FormFragment
         }
         ... on SanityHero {
           _key
@@ -113,9 +78,12 @@ export const query = graphql`
             link
             text
           }
-          heroImage {
+          title
+          subtitle
+          image {
             asset {
-              gatsbyImageData
+              gatsbyImageData(layout: FULL_WIDTH)
+              altText
             }
           }
         }
@@ -136,16 +104,16 @@ const IndexPage: React.FC<IndexPageProps> = (props) => {
         el = <CenterTextSection key={b._key} bodyText={b.bodyText} headerText={b.headerText} />
         break
       case "hero":
-        el = <Hero key={b._key} _key={b._key} _type={b._type} heroImage={b.heroImage} mainText={b.mainText} subtitleText={b.subtitleText || null} cta={b.cta || null} />
+        el = <Hero key={b._key} _key={b._key} _type={b._type} image={b.image} title={b.title} subtitle={b.subtitle || null} cta={b.cta || null} />
         break
       case "menuSection":
-        el = <MenuSection categories={b.categories} key={b._key} />
+        el = <MenuSection categories={b.categories} title={b.title} description={b.description} cta={b.cta} key={b._key} />
         break
       case "eventSection":
         el = <EventSection key={b._key} content={b.content} _key={b._key} _type={b._type} />
         break
       case "formSection":
-        el = <Form collectEmail={b.collectEmail} collectName={b.collectName || false} collectMessage={b.collectMessage || false} buttonText={b.buttonText || "Submit"} />
+        el = <FormSection key={b._key} _key={b._key} _type={b._type} collectEmail={b.collectEmail} collectName={b.collectName || false} collectMessage={b.collectMessage || false} buttonText={b.buttonText || "Submit"} />
         break
       default:
         el = null

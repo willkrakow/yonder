@@ -1,0 +1,1 @@
+export const eventTags: string[] = ["Music", "Art", "Local", "Authors", "Yoga", "Weekly Event", "Poetry"]

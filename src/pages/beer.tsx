@@ -1,19 +1,21 @@
 /**@jsx jsx*/
 import { PageProps, graphql } from "gatsby";
 import React from "react";
-import MenuSection from "../components/menuSection";
-import { Beer } from "../typings";
+import MenuCategorySection from "../components/menuCategorySection";
+import { BeerProps } from "../typings";
 //@ts-ignore
 import { jsx } from 'theme-ui'
 import Seo from "../components/seo";
 
-interface BeerPageProps extends PageProps {
+interface IBeerPage {
   data: {
     sanityCategory: {
-        drinks: Array<Beer>;
+        drinks: Array<BeerProps>;
     };
   };
 }
+
+type BeerPageProps = IBeerPage & PageProps
 
 const BeerPage = (props: BeerPageProps) => {
   console.log(props)
@@ -28,8 +30,10 @@ const BeerPage = (props: BeerPageProps) => {
     <>
     <Seo pageTitle={`Beer`} />
       {sections.map((s) => (
-        <MenuSection
+        <MenuCategorySection
           key={s.name}
+          nested
+          index={0}
           title={s.name}
           menuitems={s.items.filter(i => i.available)}
           descriptionItems={["ABV", "origin"]}
@@ -44,23 +48,12 @@ export const query = graphql`
     sanityCategory(name: { eq: "Beer" }) {
       drinks {
         ... on SanityBeer {
-          _key
-          _type
-          maker
-          ABV
-          IBU
-          name
-          available
-          origin
-          price
-          drinkType
-          medium
+          ...BeerFragment
         }
       }
+      id
       categoryImage {
-        asset {
-          gatsbyImageData
-        }
+        ...ImageFragment
       }
     }
   }

@@ -1,0 +1,81 @@
+/**@jsx jsx */
+import React from "react";
+import { jsx, Themed, Grid, Button, Card, Container, Box } from "theme-ui";
+import { Link } from "gatsby";
+import { ICategory, ICta } from "../../typings";
+import { GatsbyImage } from "gatsby-plugin-image";
+import ScrollAnimation from "react-animate-on-scroll";
+
+
+export interface MenuSectionProps {
+  title: string;
+  description: string;
+  categories: ICategory[];
+  cta: ICta;
+}
+
+const MenuSection = ({
+  title,
+  description,
+  cta,
+  categories,
+}: MenuSectionProps) => {
+  return (
+    <>
+      <Container as="section" sx={{ backgroundColor: "background" }}>
+        <Grid columns={[1, 2, 3]} gap={5}>
+          <ScrollAnimation animateIn="fadeInUp" animateOnce={true}>
+            <Box
+              pr={5}
+              pb={6}
+              sx={{ gridColumn: ["span 1", "span 2", "span 1"] }}
+            >
+              <Themed.h3>{title}</Themed.h3>
+              <Themed.p>{description}</Themed.p>
+              {cta.text && (
+                <Themed.p sx={{ fontWeight: "bold" }}>{cta.text}</Themed.p>
+              )}
+              
+              {cta.isInternal ? (
+                <Link to="/menu">
+                  <Button>{cta.buttonText}</Button>
+                </Link>
+              ): (
+                <a href={"/menu"}>
+                  <Button>{cta.buttonText}</Button>
+                </a>
+              )}
+            </Box>
+          </ScrollAnimation>
+          {categories.map((category) => (
+            <Card key={category.slug.current} sx={{ display: "grid" }}>
+              <GatsbyImage
+                image={category.categoryImage.asset.gatsbyImageData}
+                alt={category.name}
+                sx={{ gridArea: "1/1" }}
+              />
+              <div
+                sx={{
+                  gridArea: "1/1",
+                  position: "relative",
+                  placeItems: "center",
+                  placeContent: "center",
+                  display: "grid",
+                }}
+              >
+                <Link
+                  sx={{ textAlign: "center", textDecoration: "none" }}
+                  to={`/${category.slug.current}`}
+                >
+                  <Button variant="secondary">{category.name}</Button>
+                </Link>
+              </div>
+            </Card>
+          ))}
+        </Grid>
+      </Container>
+    </>
+  );
+};
+
+export default MenuSection;

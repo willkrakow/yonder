@@ -21,9 +21,11 @@ interface BlockProps {
   withContactInfo?: boolean,
   textColor?: "light" | "dark" | string,
   centered?: boolean,
+  withTitle?: boolean,
+  copyright?: Date,
 }
 
-const AddressBlock = ({withLogo, withLocation, centered, withContactInfo, textColor}: BlockProps) => {
+const AddressBlock = ({withLogo, withTitle, withLocation, centered, withContactInfo, copyright }: BlockProps) => {
     const data: Props = useStaticQuery(graphql`
       {
         siteSettings: sanitySiteSettings {
@@ -37,7 +39,7 @@ const AddressBlock = ({withLogo, withLocation, centered, withContactInfo, textCo
           title
           logo {
             asset {
-              gatsbyImageData(layout: CONSTRAINED)
+              gatsbyImageData
             }
           }
           phoneNumber
@@ -48,19 +50,27 @@ const AddressBlock = ({withLogo, withLocation, centered, withContactInfo, textCo
 
     const { address, email, logo, title, phoneNumber } = data.siteSettings
     return (
-      <address sx={{ mt: 5, textAlign: `${centered ? "center" : "left"}`, fontStyle: "normal" }}>
-        {withLogo ? (
-          <div sx={{ px: 5, py: 3 }}>
+      <address
+        sx={{
+          textAlign: `${centered ? "center" : "left"}`,
+          fontStyle: "normal",
+          fontSize: 0
+        }}
+      >
+        {withLogo && (
+          <div sx={{ px: 5, py: 3,  }}>
             <GatsbyImage
               image={logo.asset.gatsbyImageData}
               alt={title || "Yonder"}
+              sx={{ maxWidth: 8 }}
             />
           </div>
-        ) : (
-          <Themed.h1 sx={{ fontSize: 3, color: textColor }}>{title}</Themed.h1>
+        )}
+        {withTitle && (
+          <Themed.h5>{title}</Themed.h5>
         )}
         {withLocation && (
-          <Themed.p sx={{ color: textColor }}>
+          <Themed.p>
             {address.streetOne}
             <br />
             {address.streetTwo && (
@@ -74,7 +84,7 @@ const AddressBlock = ({withLogo, withLocation, centered, withContactInfo, textCo
           </Themed.p>
         )}
         {withContactInfo && (
-          <Themed.p sx={{ color: textColor }}>
+          <Themed.p sx={{ mb: 0 }}>
             {phoneNumber && (
               <>
                 {phoneNumber}
@@ -84,6 +94,10 @@ const AddressBlock = ({withLogo, withLocation, centered, withContactInfo, textCo
             {email}
           </Themed.p>
         )}
+        {copyright && (
+          <Themed.p sx={{ color: "muted"}}>
+            &copy; Copyright {copyright.getFullYear().toString()}
+          </Themed.p>)}
       </address>
     );
 }

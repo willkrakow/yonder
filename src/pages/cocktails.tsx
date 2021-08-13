@@ -2,24 +2,26 @@
 import React from 'react'
 import { jsx } from 'theme-ui'
 import { graphql, PageProps } from 'gatsby'
-import { Cocktail } from '../typings'
-import MenuSection from '../components/menuSection'
+import { CocktailProps } from '../typings'
+import MenuCategorySection from '../components/menuCategorySection'
 import Seo from '../components/seo'
 
-interface Props extends PageProps {
+interface ICocktailProps {
     data: {
-        allSanityDrink: {
-            nodes: Array<Cocktail>
+        sanityCategory: {
+            nodes: Array<CocktailProps>
         }
     }
 }
 
-const Cocktails = (props: Props) => {
-    const {nodes: cocktails} = props.data.allSanityDrink
+type CocktailPageProps = ICocktailProps & PageProps
+
+const Cocktails = (props: CocktailPageProps) => {
+    const {nodes: cocktails} = props.data.sanityCategory
     return (
         <React.Fragment>
           <Seo pageTitle={`Cocktails`}  />
-            <MenuSection menuitems={cocktails.filter(i => i.available)} descriptionItems={["liquor", "ingredients"]} />
+            <MenuCategorySection nested index={0} menuitems={cocktails?.filter(i => i.available) || []} descriptionItems={["liquor", "ingredients"]} />
         </React.Fragment>
     )
 }
@@ -32,20 +34,12 @@ export const query = graphql`
     sanityCategory {
       drinks {
         ... on SanityCocktail {
-          _key
-          _type
-          ingredients
-          available
-          liquor
-          name
-          price
+          ...CocktailFragment
         }
       }
       id
       categoryImage {
-        asset {
-          gatsbyImageData
-        }
+        ...ImageFragment
       }
     }
   }
