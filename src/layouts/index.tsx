@@ -2,7 +2,7 @@
 
 import React from "react";
 import { PageProps, graphql, useStaticQuery } from "gatsby";
-import { Themed, jsx, Grid, Box } from "theme-ui";
+import { Themed, jsx, Grid, Box, Theme } from "theme-ui";
 import "animate.css/animate.compat.css";
 import {
   Navbar,
@@ -56,11 +56,17 @@ export default (context: LayoutProps) => {
   return (
     <React.Fragment>
       <Global
-        styles={(theme) => ({
+        styles={(theme: Theme) => ({
           "*": {
             scrollBehavior: "smooth",
           },
           main: {
+            "section": {
+              "&:not(:first-child)": {
+                marginTop: `${theme?.space?.[6] || "128px"}`,
+                maxWidth: `${theme?.space?.[11] || "1280px"}`,
+              }
+            },
             minHeight: "100vh",
           },
           body: {
@@ -98,35 +104,6 @@ export default (context: LayoutProps) => {
             siteTitle={data.site.siteMetadata.title}
           />
         </Box>
-
-        <Grid
-          sx={{
-            position: "relative",
-            placeItems: "center",
-            alignContent: "center",
-            justifyContent: "center",
-            overflow: "hidden",
-            gridColumn: isHome ? "span 1" : "span 2",
-          }}
-        >
-          {!isHome && (
-            <>
-              <Themed.h2
-                sx={{
-                  alignSelf: "flex-start",
-                  justifySelf: "center",
-                  textAlign: "center",
-                  gridColumn: "span 2",
-                  p: 3,
-                  mb: 5,
-                }}
-              >
-                {context?.pageContext?.title ||
-                  context.location.pathname.slice(1).toUpperCase()}
-              </Themed.h2>
-            </>
-          )}
-        </Grid>
       </Grid>
 
       <main sx={{ variant: "layout.main" }}>{context.children}</main>

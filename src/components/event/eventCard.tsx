@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Themed, Box, Card, Button, Flex } from "theme-ui";
+import { jsx, Themed, Box, Card, Button, Flex, Link } from "theme-ui";
 import { capitalizeString } from "../../utils";
 import { GatsbyImage } from "gatsby-plugin-image";
-import { Link } from 'gatsby'
+import { Link as GatsbyLink } from 'gatsby'
 import { IEvent } from "../../typings";
 import { alpha } from '@theme-ui/color'
 import ScrollAnimation from "react-animate-on-scroll";
@@ -32,7 +32,6 @@ const EventCard: React.FC<IEventCard> = ({e, index}) => {
           sx={{
             flexBasis: ["100%", "60%", null],
             position: "relative",
-            p: 0,
             overflow: "hidden",
           }}
         >
@@ -63,7 +62,7 @@ const EventCard: React.FC<IEventCard> = ({e, index}) => {
                 backgroundColor: alpha("background", 0.9),
                 alignSelf: "flex-start",
                 py: 2,
-                px: 2,
+                px: 3,
               }}
             >
               {capitalizeString(e.fromNow)}
@@ -80,12 +79,9 @@ const EventCard: React.FC<IEventCard> = ({e, index}) => {
           }}
         >
           <Link
+            as={GatsbyLink}
+            //@ts-ignore
             to={`/events/${e.slug.current}`}
-            sx={{
-              textDecoration: "none",
-              color: "primary",
-              mb: 3,
-            }}
           >
             {e.date}
           </Link>
@@ -106,9 +102,9 @@ const EventCard: React.FC<IEventCard> = ({e, index}) => {
               ))}
             </Themed.h5>
           )}
-          <Link to={`/events/${e.slug.current}`}>
-            <Button variant="secondary">Learn more &rarr;</Button>
-          </Link>
+          <GatsbyLink to={`/events/${e.slug.current}`}>
+            <Button variant="action">Learn more &rarr;</Button>
+          </GatsbyLink>
         </Flex>
       </Card>
     </ScrollAnimation>

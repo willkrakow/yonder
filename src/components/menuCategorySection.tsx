@@ -1,11 +1,10 @@
 /** @jsx jsx */
 import React from 'react'
-import { jsx, Box, Themed, Grid, Button, Flex } from 'theme-ui'
+import { jsx, Themed, Grid, Button, Flex } from 'theme-ui'
 import ListItem from './listItem'
-import { WineProps, BeerProps, CocktailProps } from '../typings'
+import { WineProps, BeerProps, CocktailProps, ImageAsset } from '../typings'
 import { Link } from 'gatsby'
-import { StaticImage } from 'gatsby-plugin-image'
-import { alpha, lighten } from '@theme-ui/color'
+import { GatsbyImage } from "gatsby-plugin-image";
 
 interface MenuCategorySectionProps {
   title?: string;
@@ -13,60 +12,44 @@ interface MenuCategorySectionProps {
   descriptionItems: [string, string],
   link?: string,
   index: number,
+  image: ImageAsset,
   nested?: boolean
 }
 
-const MenuCategorySection = ({ title, index, menuitems, descriptionItems, link="#", nested=false }: MenuCategorySectionProps) => {
-  const flexDirection = ((index + 1 ) % 2 ) === 0 ? "row" : "row-reverse"
+const MenuCategorySection = ({ title, image, menuitems, descriptionItems, link="#", nested=false }: MenuCategorySectionProps) => {
   return (
     <React.Fragment>
-      <Flex
-        sx={{
-          flexWrap: "wrap",
-          justifyContent: "space-evenly",
-          flexDirection: flexDirection,
-          alignItems: "center",
-          margin: "auto",
-          pl: 0,
-          mb: 7,
-        }}
-      >
-        <StaticImage
-          sx={{ flexBasis: 9, boxShadow: "lg", zIndex: 200 }}
-          src="https://images.pexels.com/photos/3044/restaurant-love-romantic-dinner.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-          alt={title || "Menu"}
-        />
-        <Box sx={{ flexBasis: 9, p: 5}}>
-          <Themed.h3>{title}</Themed.h3>
-          <Grid
-            as="ul"
-            columns={[1, 1, 1]}
+        <Grid columns={[1, 2, 2]} gap={6} mb={6}>
+            <GatsbyImage
+              image={image.asset.gatsbyImageData}
+              alt={title || "Menu"}
+            />
+          <Flex
             sx={{
-              flexBasis: "100%",
-              px: 0,
-              py: [2, 3, 4],
-              alignContent: "center",
-              gridGap: ["16px 16px", "16px 32px", "16px 32px"],
+              flexDirection: "column",
             }}
           >
-            {menuitems.map((drink) => (
-              <ListItem
-                key={drink.id || drink._key}
-                drink={drink}
-                descriptionItems={descriptionItems}
-              />
-            ))}
-            {!nested && ( <li sx={{ listStyle: "none" }}>
-              <Link to={link}>
-                <Button color="primary" variant="action">
-                  See full selection
-                </Button>
-              </Link>
-            </li>)}
-            
-          </Grid>
-        </Box>
-      </Flex>
+            <Themed.h3>{title}</Themed.h3>
+            <Themed.ul>
+              {menuitems.map((drink) => (
+                <ListItem
+                  key={drink.id || drink._key}
+                  drink={drink}
+                  descriptionItems={descriptionItems}
+                />
+              ))}
+              {!nested && (
+                <li sx={{ listStyle: "none" }}>
+                  <Link to={link}>
+                    <Button variant="action">
+                      See full selection
+                    </Button>
+                  </Link>
+                </li>
+              )}
+            </Themed.ul>
+          </Flex>
+        </Grid>
     </React.Fragment>
   );
 };

@@ -1,11 +1,10 @@
 /**@jsx jsx */
-import { PageProps } from "gatsby";
 import React from "react";
 import { Themed, Container, Box, Select, jsx, Button, Grid, Textarea, Input, Label, Card, Flex } from "theme-ui";
 import Seo from '../components/seo'
-import AddressBlock from "../components/addressBlock";
+import SocialIcons from "../components/navigation/socialIcons";
 
-const EventsPage = (props: PageProps) => {
+const ContactPage = () => {
   const [email, setEmail] = React.useState('')
   const [name, setName] = React.useState('')
   const [ message, setMessage ] = React.useState('')
@@ -19,39 +18,15 @@ const EventsPage = (props: PageProps) => {
   const handleType = (e: React.FormEvent<HTMLSelectElement>) => setEventType(e.currentTarget.value)
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => console.log(e)
 
-  const eventItems = [
-    "Music",
-    "Weddings",
-    "Poetry",
-    "Art shows",
-    "Parties",
-    '"Meetings"',
-  ];
-  console.log(props);
   return (
     <Container>
+      <Themed.h2 sx={{ textAlign: "center" }} >Contact us</Themed.h2>
       <Seo pageTitle={`Contact Us`} />
       <Grid columns={[1, 2, null]} gap={[3, 4, 6]}>
-        <div>
-          <Grid columns={2} mb={5}>
-            {eventItems.map((i, index) => (
-              <Themed.h4
-              key={index}
-                sx={{
-                  borderBottom: "none",
-                  textTransform: "none",
-                  span: { pr: 3 },
-                }}
-              >
-                <span sx={{ color: "accent" }} >&#10003;</span>
-                {i}
-                <br />
-              </Themed.h4>
-            ))}
-          </Grid>
-          <Themed.p sx={{ fontWeight: "bold", mb: 4, mt: 3 }}>
+        <Box>
+          <Themed.h3>
             Tell us what you have in mind, and we'll make it work.
-          </Themed.p>
+          </Themed.h3>
           <Themed.p sx={{ mb: 3 }}>
             Yonder is a cozy, invigorating, and charming place to host events
             both big and small.
@@ -62,10 +37,9 @@ const EventsPage = (props: PageProps) => {
             details of your event. If you have any questions, give us a call or
             stop on by.
           </Themed.p>
-
-          <AddressBlock withContactInfo withLocation withLogo={false} textColor={"text"} />
-        </div>
-        <Card mb={5} sx={{ width: "100%" }}>
+          <SocialIcons />
+        </Box>
+        <Card my={6} sx={{ width: "100%" }}>
           <Flex
             as="form"
             //@ts-ignore
@@ -149,4 +123,4 @@ const EventsPage = (props: PageProps) => {
   );
 };
 
-export default EventsPage;
+export default ContactPage;

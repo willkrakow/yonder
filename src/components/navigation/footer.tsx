@@ -1,11 +1,9 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Themed, Grid, Flex } from "theme-ui";
+import { jsx, Themed, Grid, Flex, Link } from "theme-ui";
 import AddressBlock from "../addressBlock";
-import { Link } from "gatsby";
 import SocialIcons from "./socialIcons";
 import SiteTitle from "./siteTitle";
-import { darken } from "@theme-ui/color";
 interface Props {
   copyright: Date;
   street: string;
@@ -18,7 +16,6 @@ interface Props {
 const Footer = ({ copyright }: Props) => {
   return (
     <React.Fragment>
-      <div sx={{ backgroundColor: darken("secondary", 0.4) }}>
       <Grid
         as="footer"
         columns={["50% 50%", "2fr 1fr 1fr", "2fr 1fr 1fr 1fr"]}
@@ -80,26 +77,25 @@ const Footer = ({ copyright }: Props) => {
         </div>
         <Flex>
           <Themed.h5 sx={{ flexBasis: "100%" }}>Menus</Themed.h5>
-          <Link to="/wine">Wine</Link>
-          <Link to="/beer">Beer</Link>
-          <Link to="/cocktails">Cocktails</Link>
-          <Link to="/menu">Full menu</Link>
+          <Link href="/wine">Wine</Link>
+          <Link href="/beer">Beer</Link>
+          <Link href="/cocktails">Cocktails</Link>
+          <Link href="/menu">Full menu</Link>
         </Flex>
         <Flex>
           <Themed.h5 sx={{ flexBasis: "100%" }}>More</Themed.h5>
-          <Link to="/about">About</Link>
-          <Link to="/food">Food</Link>
-          <Link to="/events">Events</Link>
-          <Link to="/art">Art</Link>
-          <Link to="/togo">To-go</Link>
-          <Link to="/contact">Contact us</Link>
+          <Link href="/about">About</Link>
+          <Link href="/food">Food</Link>
+          <Link href="/events">Events</Link>
+          <Link href="/art">Art</Link>
+          <Link href="/togo">To-go</Link>
+          <Link href="/contact">Contact us</Link>
         </Flex>
         <div sx={{ gridColumn: ["span 2", "span 1", null] }}>
           <Themed.h5 sx={{ flexBasis: "100%" }}>Social</Themed.h5>
           <SocialIcons />
         </div>
       </Grid>
-      </div>
     </React.Fragment>
   );
 };

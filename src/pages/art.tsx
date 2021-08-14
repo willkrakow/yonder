@@ -1,8 +1,8 @@
 /** @jsx jsx */
 
-import { PageProps, graphql, Link } from 'gatsby'
+import { PageProps, graphql, Link as GatsbyLink } from 'gatsby'
 import React from 'react'
-import { Button, Container, jsx, Themed } from 'theme-ui'
+import { Button, Container, jsx, Themed, Link } from 'theme-ui'
 import { Art } from '../typings'
 import { ArtGrid } from '../components/art'
 import Seo from '../components/seo'
@@ -24,7 +24,7 @@ const ArtPage = (props: ArtProps) => {
   const { art } = props.data;
   return (
     <React.Fragment>
-      <Container sx={{ maxWidth: 10 }} >
+      <Container sx={{ maxWidth: 10 }}>
         <Seo pageTitle={`Art`} />
         {art.nodes.map((artExpo) => (
           <article key={artExpo._key}>
@@ -32,9 +32,16 @@ const ArtPage = (props: ArtProps) => {
               <Themed.h3>{artExpo.name}</Themed.h3>
               <Themed.h5>by {artExpo.artist.name}</Themed.h5>
             </header>
-            <ArtGrid artist={artExpo.artist} artArr={artExpo.images.slice(0,2)} />
-            <Link to={`/art/${artExpo.slug.current}`}>
-              <Button variant="primary">More info</Button>
+            <ArtGrid
+              artist={artExpo.artist}
+              artArr={artExpo.images.slice(0, 2)}
+            />
+            <Link
+              as={GatsbyLink}
+              //@ts-ignore
+              to={`/art/${artExpo.slug.current}`}
+            >
+              <Button variant="action">More info</Button>
             </Link>
           </article>
         ))}

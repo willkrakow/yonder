@@ -1,7 +1,7 @@
 /** @jsx jsx*/
 import * as React from "react";
 import { graphql } from "gatsby";
-import { CenterTextSection, MenuSection, MenuSectionProps, FormSection, FormSectionProps, Hero, EventSection, EventSectionProps } from '../components/pageSections'
+import { CenterTextSection, LocationSection, MenuSection, MenuSectionProps, FormSection, FormSectionProps, Hero, EventSection, EventSectionProps } from '../components/pageSections'
 import {
   CenterTextProps,
   CtaProps,
@@ -40,7 +40,7 @@ export const query = graphql`
             }
             image {
               asset {
-                gatsbyImageData(height: 500, layout: FULL_WIDTH)
+                gatsbyImageData(height: 500, width: 900, layout: CONSTRAINED)
               }
             }
           }
@@ -97,6 +97,7 @@ export const query = graphql`
 const IndexPage: React.FC<IndexPageProps> = (props) => {
   console.log(props);
   const { content } = props.data.sanityLandingPage;
+  content.push({_type: "locationSection"})
   const blocks = content.map(b => {
     let el
     switch (b._type) {
@@ -115,8 +116,11 @@ const IndexPage: React.FC<IndexPageProps> = (props) => {
       case "formSection":
         el = <FormSection key={b._key} _key={b._key} _type={b._type} collectEmail={b.collectEmail} collectName={b.collectName || false} collectMessage={b.collectMessage || false} buttonText={b.buttonText || "Submit"} />
         break
+      case "locationSection":
+        el = <LocationSection />;
+        break
       default:
-        el = null
+        el = null;
         break;
     }
     return el

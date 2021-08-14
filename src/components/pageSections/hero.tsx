@@ -5,11 +5,12 @@ import { HeroProps } from '../../typings'
 import ScrollAnimation from 'react-animate-on-scroll'
 import { Link } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import { alpha } from '@theme-ui/color'
 
 const Hero: React.FC<HeroProps> = (props) => {
   const { title, image } = props
     return (
-      <Grid columns={[1, 1, "1fr 1fr"]} mb={6} sx={{ height: "90vh" }}>
+      <Grid columns={[1, 1, "1fr 1fr"]} sx={{ height: "90vh" }}>
         <Box
           sx={{
             placeContent: "center",
@@ -22,6 +23,11 @@ const Hero: React.FC<HeroProps> = (props) => {
             display: "flex",
             position: "relative",
             flexDirection: "column",
+            backgroundColor: [
+              alpha("dark", 0.4),
+              alpha("primary", 0.4),
+              "none",
+            ],
           }}
         >
           <ScrollAnimation
@@ -35,8 +41,8 @@ const Hero: React.FC<HeroProps> = (props) => {
                 my: 2,
                 fontSize: ["4.5em", "6em", "7em"],
                 lineHeight: "120%",
+                color: ["light", "light", "primary"],
                 fontWeight: 100,
-                color: "light",
                 textAlign: ["center", null, "left"],
                 "&::after": { content: "none" },
               }}
@@ -56,9 +62,16 @@ const Hero: React.FC<HeroProps> = (props) => {
             offset={0}
             delay={500}
           >
-            <Flex sx={{ my: 5, justifyContent: "space-between", flexWrap: "wrap", "a": {
-              my: 4,
-            } }}>
+            <Flex
+              sx={{
+                my: 5,
+                justifyContent: "space-between",
+                flexWrap: "wrap",
+                a: {
+                  my: 4,
+                },
+              }}
+            >
               <Link to="/menu">
                 <Button variant="primary">View menu</Button>
               </Link>
@@ -69,7 +82,7 @@ const Hero: React.FC<HeroProps> = (props) => {
           </ScrollAnimation>
         </Box>
         <GatsbyImage
-        sx={{ gridArea: ["1 / 1", null, "1 / 2"]}}
+          sx={{ gridArea: ["1 / 1", null, "1 / 2"] }}
           image={image.asset.gatsbyImageData}
           alt={image.altText || image.caption || title}
           //@ts-ignore

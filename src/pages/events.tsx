@@ -34,10 +34,10 @@ const Events = (props: IEventsPrototype & PageProps) => {
   };
 
   return (
-    <Container sx={{ maxWidth: 11, px: [2, 2, 0], pt: 0 }}>
+    <Container>
+      <Themed.h2 sx={{ textAlign: "center" }}>Upcoming events</Themed.h2>
       <Seo pageTitle={`Events`} />
-
-      <Grid columns={[1, "1fr 5fr", "1fr 5fr"]} gap={5}>
+      <Grid sx={{ mt: 6 }} columns={[1, "1fr 5fr", "1fr 5fr"]} gap={5}>
         <Box
           sx={{
             display: ["block", "block", "none"],
@@ -203,7 +203,7 @@ export const query = graphql`
               name
               image {
                 asset {
-                  gatsbyImageData(height: 400, aspectRatio: 1)
+                  gatsbyImageData(height: 500, width: 900, layout: CONSTRAINED)
                 }
               }
             }

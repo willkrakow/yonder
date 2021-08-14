@@ -4,13 +4,14 @@ import React from 'react'
 import { jsx } from 'theme-ui'
 import MenuCategorySection from '../components/menuCategorySection'
 import _ from 'lodash'
-import { WineProps } from '../typings'
+import { ImageAsset, WineProps } from '../typings'
 import Seo from '../components/seo'
 
 interface IWinePage {
   data: {
     sanityCategory: {
       drinks: Array<WineProps>;
+      categoryImage: ImageAsset
     };
   };
 }
@@ -20,7 +21,7 @@ type WinePageProps = IWinePage & PageProps
 
 
 const WinePage = (props: WinePageProps) => {
-    const { drinks } = props.data.sanityCategory
+    const { drinks, categoryImage } = props.data.sanityCategory
 
     const groupObject = _.groupBy(drinks, 'drinkType')
     const menuSections = _.toPairs(groupObject)
@@ -28,7 +29,7 @@ const WinePage = (props: WinePageProps) => {
       <React.Fragment>
         <Seo pageTitle={`Wine`} />
         {menuSections.map(s => (
-          <MenuCategorySection nested index={0} key={s[0]} title={s[0]} menuitems={s[1].filter(i => i.available)} descriptionItems={["ABV", "origin"]} />
+          <MenuCategorySection image={categoryImage} index={0} key={s[0]} title={s[0]} menuitems={s[1].filter(i => i.available)} descriptionItems={["ABV", "origin"]} />
         ))}
       </React.Fragment>
     );

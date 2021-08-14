@@ -18,13 +18,13 @@ const ArtTemplate = (props: ArtPageProps) => {
   const { art } = props.data;
   return (
     <React.Fragment>
-      <Container sx={{ maxWidth: 10 }} >
-        <header sx={{ mb: 5 }}>
-          <Themed.h3>{art.name}</Themed.h3>
+      <Container as="article">
+        <header>
+          <Themed.h2>{art.name}</Themed.h2>
           <Themed.h5>by {art.artist.name}</Themed.h5>
         </header>
         <ArtDescription {...art} />
-        <Themed.h4 sx={{ mt: 5 }}>Gallery</Themed.h4>
+        <Themed.h3>Gallery</Themed.h3>
         <ArtGrid artist={art.artist} artArr={art.images} />
         <ArtistBio {...art.artist} />
       </Container>

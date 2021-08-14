@@ -2,7 +2,7 @@
 import { PageProps, graphql } from "gatsby";
 import React from "react";
 import MenuCategorySection from "../components/menuCategorySection";
-import { BeerProps } from "../typings";
+import { BeerProps, ImageAsset } from "../typings";
 //@ts-ignore
 import { jsx } from 'theme-ui'
 import Seo from "../components/seo";
@@ -11,6 +11,7 @@ interface IBeerPage {
   data: {
     sanityCategory: {
         drinks: Array<BeerProps>;
+        categoryImage: ImageAsset
     };
   };
 }
@@ -19,7 +20,7 @@ type BeerPageProps = IBeerPage & PageProps
 
 const BeerPage = (props: BeerPageProps) => {
   console.log(props)
-  const { drinks: beers } = props.data.sanityCategory;
+  const { drinks: beers, categoryImage: image } = props.data.sanityCategory;
 
   const draft = beers.filter(b => b.medium === "Draft")
   const bottles = beers.filter(b => b.medium === "Bottle")
@@ -31,6 +32,7 @@ const BeerPage = (props: BeerPageProps) => {
     <Seo pageTitle={`Beer`} />
       {sections.map((s) => (
         <MenuCategorySection
+        image={image}
           key={s.name}
           nested
           index={0}

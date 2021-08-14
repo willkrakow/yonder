@@ -1,7 +1,6 @@
 /**@jsx jsx */
 import React from 'react'
 import { jsx, Container, Themed, Flex } from 'theme-ui'
-import LocationSection from './locationSection'
 import {darken } from '@theme-ui/color'
 interface CenterTextSectionProps {
     bodyText: string,
@@ -38,9 +37,7 @@ const CenterTextSection: React.FC<CenterTextSectionProps> = ({headerText, bodyTe
             )}
           </Flex>
         </Container>
-        <Container as="section">
-          <LocationSection />
-        </Container>
+          {/* <LocationSection /> */}
       </>
     );
 }

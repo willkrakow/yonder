@@ -12,10 +12,10 @@ interface Props {
 const EventBadges = ({badges, centered}: Props) => {
   return (
     <React.Fragment>
-      <Flex sx={{ flexWrap: "wrap", flexDirection: "row", justifyContent: centered ? "center" : "left", mt: 3, mb: 4 }}>
+      <Flex sx={{ flexWrap: "wrap", flexDirection: "row", justifyContent: centered ? "center" : "left" }}>
         {badges.map((b, index) => (
             //@ts-ignore
-          <Badge key={index} px={4} py={1} mx={4} variant={"primary"}>{b}</Badge>
+          <Badge key={index} px={4} py={1} mx={4} my={2} variant={"primary"}>{b}</Badge>
         ))}
       </Flex>
     </React.Fragment>

@@ -1,24 +1,27 @@
 /**@jsx jsx */
 import { graphql, PageProps } from "gatsby";
 import React from "react";
-import { jsx, Container, Button, Flex, Box, Grid, Themed } from "theme-ui";
+import { jsx, Container, Themed } from "theme-ui";
 import MenuCategorySection from "../components/menuCategorySection";
-import { BeerProps, CocktailProps, WineProps } from "../typings";
+import { BeerProps, CocktailProps, ImageAsset, WineProps } from "../typings";
 import Seo from "../components/seo";
-import { navigate } from "@reach/router";
+// import { navigate } from "@reach/router";
 interface IMenuPage {
   data: {
     beer: {
       name: string;
       drinks: Array<BeerProps>;
+      categoryImage: ImageAsset
     };
     wine: {
       name: string;
       drinks: Array<WineProps>;
+      categoryImage: ImageAsset
     };
     cocktails: {
       name: string;
       drinks: Array<CocktailProps>;
+      categoryImage: ImageAsset
     };
   };
 }
@@ -53,74 +56,39 @@ const Menu: React.FC<MenuPageProps> = (props) => {
       document.removeEventListener("scroll", scrollTrack);
     };
   });
-  const executeScroll = (e: React.MouseEvent<HTMLButtonElement>) => {
-    navigate(`#${e.currentTarget.value.toLowerCase()}`);
-  };
+  // const executeScroll = (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   navigate(`#${e.currentTarget.value.toLowerCase()}`);
+  // };
 
   return (
-    <Container sx={{ p: [0, 0, 4]}} >
+    <Container>
       <Seo pageTitle={`Menu`} />
-      <Grid columns={1}>
-        {/* <Flex
-          sx={{
-            justifyContent: "flex-start",
-            position: "sticky",
-            zIndex: 50,
-            flexDirection: "column",
-          }}
-        >
-          <Themed.h5 sx={{ textAlign: "center" }}>Jump to</Themed.h5>
-          {[wine, beer, cocktails].map((c) => (
-            <Button
-              variant="action"
-              key={c.name}
-              value={c.name}
-              onClick={executeScroll}
-              sx={{
-                fontSize: 2,
-                my: 3,
-                backgroundColor: selectedCategory.includes(c.name.toLowerCase())
-                  ? "warning"
-                  : "auto",
-                color: selectedCategory.includes(c.name.toLowerCase())
-                  ? "background"
-                  : "muted",
-              }}
-            >
-              {c.name}
-            </Button>
-          ))}
-        </Flex> */}
-        <section>
-          <Box id="wine" ref={wineRef}>
-            <MenuCategorySection
-              title={`Wine`}
-              menuitems={wine.drinks}
-              descriptionItems={["ABV", "maker"]}
-              link={"/wine"}
-              index={1}
-            />
-          </Box>
-          <Box id="beer" ref={beerRef}>
-            <MenuCategorySection
-              title={`Beer`}
-              menuitems={beer.drinks}
-              descriptionItems={["ABV", "origin"]}
-              link={`/beer`}
-              index={2}
-            />
-          </Box>
-          <Box id="cocktails" ref={cocktailsRef}>
-            <MenuCategorySection
-              title={`Cocktails`}
-              menuitems={cocktails.drinks}
-              descriptionItems={["liquor", "ingredients"]}
-              link={`/cocktails`}
-              index={3}
-            />
-          </Box>
-        </section>
-      </Grid>
+
+      <Themed.h2 sx={{ textAlign: "center" }}>Menus</Themed.h2>
+      <MenuCategorySection
+        title={`Wine`}
+        menuitems={wine.drinks}
+        descriptionItems={["ABV", "maker"]}
+        link={"/wine"}
+        image={wine.categoryImage}
+        index={1}
+      />
+      <MenuCategorySection
+        title={`Beer`}
+        menuitems={beer.drinks}
+        descriptionItems={["ABV", "origin"]}
+        link={`/beer`}
+        index={2}
+        image={beer.categoryImage}
+      />
+      <MenuCategorySection
+        title={`Cocktails`}
+        menuitems={cocktails.drinks}
+        descriptionItems={["liquor", "ingredients"]}
+        link={`/cocktails`}
+        index={3}
+        image={cocktails.categoryImage}
+      />
     </Container>
   );
 };
@@ -134,6 +102,9 @@ export const query = graphql`
           ...BeerFragment
         }
       }
+      categoryImage {
+        ...ImageFragment
+      }
     }
     wine: sanityCategory(name: { eq: "Wine" }) {
       name
@@ -142,6 +113,9 @@ export const query = graphql`
           ...WineFragment
         }
       }
+      categoryImage {
+        ...ImageFragment
+      }
     }
     cocktails: sanityCategory(name: { eq: "Cocktails" }) {
       name
@@ -149,6 +123,9 @@ export const query = graphql`
         ... on SanityCocktail {
           ...CocktailFragment
         }
+      }
+      categoryImage {
+        ...ImageFragment
       }
     }
   }

@@ -76,19 +76,18 @@ const theme = {
             letterSpacing: 3,
             color: "primary",
             margin: 'auto',
-            mt: 6,
+            my: 6,
+            lineHeight: 1.5
         },
         h3: {
             fontSize: 6,
             mb: 4,
-            mt: 6,
             fontFamily: 'display',
             color: "primary",
             fontWeight: 200,
             letterSpacing: 1,
             position: "relative",
             lineHeight: "heading",
-            width: "max-content",
         },
         h4: {
             variant: 'text.body',
@@ -96,8 +95,11 @@ const theme = {
             fontSize: 2,
             fontWeight: "bold",
             letterSpacing: `1px`,
-            mb: 4,
+            mb: 3,
             mt: 0,
+            borderBottomColor: "muted",
+            borderBottomStyle: "solid",
+            borderBottomWidth: 2
         },
         h5: {
             fontFamily: "'Arial', sans-serif",
@@ -139,7 +141,6 @@ const theme = {
         },
         ul: {
             paddingInlineStart: 0,
-            maxWidth: 9,
         },
         li: {
             listStyleType: 'none',
@@ -166,11 +167,51 @@ const theme = {
             color: "text",
             mt: 1,
             mb: 4,
-            maxWidth: 9,
         },
         address: {
             fontWeight: "bold",
         },
+        a: {
+            fontSize: 1,
+            textDecoration: "none",
+            textDecorationThickness: 3,
+            py: 3,
+            color: "primary",
+            textTransform: "uppercase",
+            letterSpacing: "2px",
+            transition: "all 0.4s ease",
+            "::before": {
+                top: "calc(50% - 6px)",
+                left: "-20px",
+                position: "absolute",
+                opacity: "0.0",
+                width: "0px",
+                borderRight: "4px solid transparent",
+                borderTop: "4px solid transparent",
+                borderBottomStyle: "solid",
+                borderBottomWidth: "4px",
+                borderBottomColor: "primary",
+                content: "''",
+                transition: "all 0.3s ease",
+            },
+            "&:hover": {
+                color: "primary",
+                textShadow: "sm",
+                "::before": {
+                    content: "''",
+                    opacity: "1.0",
+                    position: "absolute",
+                    top: "calc(50% - 6px)",
+                    left: "-20px",
+                    width: "12px",
+                    borderRight: "4px solid transparent",
+                    borderTop: "4px solid transparent",
+                    borderBottomStyle: "solid",
+                    borderBottomWidth: "4px",
+                    borderBottomColor: "primary",
+                },
+            },
+        }
     },
     forms: {
         label: {
@@ -324,7 +365,7 @@ const theme = {
     cards: {
         primary: {
             position: "relative",
-            backgroundColor: lighten("background", 0.05),
+            backgroundColor: "background",
             boxShadow: "lg",
             borderRadius: 1,
         }
@@ -370,7 +411,7 @@ const theme = {
         },
         container: {
             py: 6,
-            px: [2, 5, 6],
+            px: [4, 5, 6],
             maxWidth: "1280px",
         },
         links: {

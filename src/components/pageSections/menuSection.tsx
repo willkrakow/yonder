@@ -22,7 +22,7 @@ const MenuSection = ({
 }: MenuSectionProps) => {
   return (
     <>
-      <Container as="section" sx={{ backgroundColor: "background" }}>
+      <Container as="section" >
         <Grid columns={[1, 2, 3]} gap={5}>
           <ScrollAnimation animateIn="fadeInUp" animateOnce={true}>
             <Box

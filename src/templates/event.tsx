@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react'
-import { jsx, Flex, Themed, Box } from 'theme-ui'
+import { jsx, Flex, Themed, Container } from 'theme-ui'
 import { IEvent as EventProps } from '../typings'
 import {graphql, PageProps} from 'gatsby'
 import {EventBadges} from '../components/event'
@@ -22,18 +22,15 @@ const Event = (props: EventPageProps) => {
 
     return (
       <React.Fragment>
-        <Box sx={{ maxWidth: 10, margin: "auto", px: 3 }} as="article">
+        <Container as="article">
           <header>
-            {eventTags && (
-              <EventBadges centered badges={event.eventTags || []} />
-            )}
-            <Themed.h4 sx={{ textAlign: "center" }}>
+            <Themed.h2>{name}</Themed.h2>
+            <Themed.h4>
               {date} <br />
             </Themed.h4>
-            <Themed.h5 sx={{ textAlign: "center" }}>{timeSpan}</Themed.h5>
+            <Themed.h5>{timeSpan}</Themed.h5>
             <Themed.p
               sx={{
-                textAlign: "center",
                 fontWeight: "body",
                 color: "muted",
                 fontSize: 0,
@@ -46,8 +43,9 @@ const Event = (props: EventPageProps) => {
                 {subtitle}
               </Themed.p>
             )}
+            
           </header>
-          <Flex sx={{ flexDirection: "column", mb: 5 }}>
+          <Flex sx={{ flexDirection: "column" }}>
             <GatsbyImage
               image={image.asset.gatsbyImageData}
               alt={image.caption || event.name}
@@ -56,7 +54,7 @@ const Event = (props: EventPageProps) => {
           {description.map((d) => (
             <Themed.p key={d._key}>{d.children[0].text}</Themed.p>
           ))}
-        </Box>
+        </Container>
       </React.Fragment>
     );
 }
