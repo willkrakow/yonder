@@ -37,7 +37,7 @@ const ContactPage = () => {
             details of your event. If you have any questions, give us a call or
             stop on by.
           </Themed.p>
-          <SocialIcons />
+          <SocialIcons withText />
         </Box>
         <Card my={6} sx={{ width: "100%" }}>
           <Flex

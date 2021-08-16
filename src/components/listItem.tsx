@@ -1,21 +1,25 @@
 /**@jsx jsx */
-import React, { HTMLAttributes } from 'react'
-import { jsx, Themed } from 'theme-ui'
-import { WineProps, BeerProps, CocktailProps } from '../typings'
-
+import React, { HTMLAttributes } from "react";
+import { jsx, Themed } from "theme-ui";
+import { WineProps, BeerProps, CocktailProps } from "../typings";
+import _ from "lodash";
 
 interface ListItemProps {
-  drink: WineProps & BeerProps & CocktailProps | any;
+  drink: (WineProps & BeerProps & CocktailProps) | any;
   props?: HTMLAttributes<HTMLLIElement>;
-  descriptionItems: Array<string>,
+  descriptionItems: Array<string>;
+  title: string;
 }
 
+const ListItem = ({
+  title,
+  drink,
+  descriptionItems,
+  ...props
+}: ListItemProps) => {
+  const firstDescriptor = descriptionItems[0];
+  const secondDescriptor = descriptionItems[1];
 
-
-const ListItem = ({ drink, descriptionItems, ...props }: ListItemProps) => {
-  const firstDescriptor = descriptionItems[0]
-  const secondDescriptor = descriptionItems[1]
-  
   return (
     <React.Fragment>
       <li
@@ -27,9 +31,7 @@ const ListItem = ({ drink, descriptionItems, ...props }: ListItemProps) => {
           mb: 4,
         }}
       >
-        <Themed.h4 sx={{ flexBasis: "70%", mb: 0, fontSize: 1 }}>
-          {drink.name}
-        </Themed.h4>
+        <Themed.h4 sx={{ flexBasis: "70%", mb: 0 }}>{drink.name}</Themed.h4>
         <span
           sx={{
             flex: "1 1 20%",
@@ -45,20 +47,13 @@ const ListItem = ({ drink, descriptionItems, ...props }: ListItemProps) => {
           ${drink.price.toString()}
         </span>
         <Themed.p sx={{ flexBasis: "100%", position: "relative", mb: 0 }}>
-          <span>
-            {drink[firstDescriptor] && `${drink[firstDescriptor]}% ${" "}`}
-          </span>
-          <span>
-            {drink[firstDescriptor] && drink[secondDescriptor] && `  |  `}
-          </span>
-          <span>
-            {drink[secondDescriptor] && `${" "} ${drink[secondDescriptor]}`}
-          </span>
+          <span >{`${drink[firstDescriptor]}`}</span>
+          {" | "}
+          <span sx={{ color: "muted" }}>{drink[secondDescriptor]}</span>
         </Themed.p>
       </li>
     </React.Fragment>
   );
 };
 
-
-export default ListItem
+export default ListItem;

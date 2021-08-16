@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react'
-import { jsx } from 'theme-ui'
+import { Container, jsx, Themed } from 'theme-ui'
 import { graphql, PageProps } from 'gatsby'
 import { CocktailProps, ImageAsset } from '../typings'
 import MenuCategorySection from '../components/menuCategorySection'
@@ -20,11 +20,20 @@ type CocktailPageProps = ICocktailProps & PageProps
 const Cocktails = (props: CocktailPageProps) => {
     const {drinks: cocktails, categoryImage: image} = props.data.sanityCategory
     return (
-        <React.Fragment>
-          <Seo pageTitle={`Cocktails`}  />
-            <MenuCategorySection image={image} nested index={0} menuitems={cocktails?.filter(i => i.available) || []} descriptionItems={["liquor", "ingredients"]} />
-        </React.Fragment>
-    )
+      <React.Fragment>
+        <Seo pageTitle={`Cocktails`} />
+        <Container>
+          <Themed.h2 sx={{ textAlign: "center" }} >Cocktails</Themed.h2>
+          <MenuCategorySection
+            image={image}
+            nested
+            index={0}
+            menuitems={cocktails?.filter((i) => i.available) || []}
+            descriptionItems={["liquor", "ingredients"]}
+          />
+        </Container>
+      </React.Fragment>
+    );
 }
 
 export default Cocktails

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { PageProps, graphql, useStaticQuery } from "gatsby";
-import { Themed, jsx, Grid, Box, Theme } from "theme-ui";
+import { jsx, Grid, Box, Theme } from "theme-ui";
 import "animate.css/animate.compat.css";
 import {
   Navbar,
@@ -52,7 +52,6 @@ export default (context: LayoutProps) => {
   `);
   const { menuLinks } = data.site.siteMetadata;
 
-  const isHome = context.location.pathname === "/"
   return (
     <React.Fragment>
       <Global
@@ -62,10 +61,8 @@ export default (context: LayoutProps) => {
           },
           main: {
             "section": {
-              "&:not(:first-child)": {
                 marginTop: `${theme?.space?.[6] || "128px"}`,
                 maxWidth: `${theme?.space?.[11] || "1280px"}`,
-              }
             },
             minHeight: "100vh",
           },
@@ -76,6 +73,9 @@ export default (context: LayoutProps) => {
                 0.05
               )(theme)}, ${darken("background", 0.1)(theme)})`,
           },
+          address: {
+            fontStyle: "normal"
+          }
         })}
       />
       <StaticHead />
@@ -89,7 +89,6 @@ export default (context: LayoutProps) => {
       <Grid
         as="header"
         columns={[1, 1, 2]}
-        px={[1, 3, 4]}
         sx={{ rowGap: 0, columnGap: [0, 0, 6] }}
       >
         <Box sx={{ gridColumn: ["span 1", "span 1", "span 2"] }}>

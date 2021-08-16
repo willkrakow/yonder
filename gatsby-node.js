@@ -71,15 +71,18 @@ async function createArtPages(graphql, createPage) {
 }
 
 exports.onCreateNode = ({ node, actions }) => {
-    const { createNode } = actions
+    parseEventDates(actions, node);
+}
+function parseEventDates(actions, node) {
+    const { createNode } = actions;
 
-    if (node.internal.type === "SanityEvent"){
-        const date = new Date(node.date)
-        const year = date.getFullYear()
-        const month = date.getMonth() + 1
-        const year_month = `${year}-${month}`
-        const day = date.getDate()
-        const id = crypto.randomBytes(16).toString("hex")
+    if (node.internal.type === "SanityEvent") {
+        const date = new Date(node.date);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const year_month = `${year}-${month}`;
+        const day = date.getDate();
+        const id = crypto.randomBytes(16).toString("hex");
 
         const fieldData = {
             year: year,
@@ -89,7 +92,7 @@ exports.onCreateNode = ({ node, actions }) => {
             id: id,
             parent: node.id,
             children: [],
-        }
+        };
         createNode({
             ...fieldData,
             internal: {
@@ -98,8 +101,9 @@ exports.onCreateNode = ({ node, actions }) => {
                     .createHash(`md5`)
                     .update(JSON.stringify(fieldData))
                     .digest(`hex`),
-                description: `Sanity Event with detailed date data`, // optional
+                description: `Sanity Event with detailed date data`,
             }
-        })
+        });
     }
+    return
 }

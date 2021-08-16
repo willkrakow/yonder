@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Themed, Grid, Flex, Link } from "theme-ui";
+import { jsx, Themed, Box, Flex, Link, Container } from "theme-ui";
 import AddressBlock from "../addressBlock";
 import SocialIcons from "./socialIcons";
 import SiteTitle from "./siteTitle";
@@ -15,88 +15,58 @@ interface Props {
 
 const Footer = ({ copyright }: Props) => {
   return (
-    <React.Fragment>
-      <Grid
+    <>
+      <Container
         as="footer"
-        columns={["50% 50%", "2fr 1fr 1fr", "2fr 1fr 1fr 1fr"]}
-        gap={4}
         sx={{
+          display: "flex",
+          borderTopColor: "muted",
+          borderTopWidth: 1,
+          borderTopStyle: "solid",
           margin: "auto",
           my: 3,
-          p: 4,
           py: 5,
-          maxWidth: [null, null, 11],
-          overflow: "hidden",
-          div: {
-            flexWrap: "wrap",
-            alignContent: "flex-start",
+          flexWrap: "wrap",
+          "& > div": {
+            minWidth: "fit-content",
+            borderLeftColor: "muted",
+            borderLeftStyle: "solid",
+            borderLeftWidth: 1,
+            p: 3,
+            my: 4,
+            ml: -3,
             a: {
-              color: "muted",
-              position: "relative",
-              textDecoration: "none",
-              flexBasis: "100%",
-              transition: "all 0.4s ease",
-              "::before": {
-                top: "calc(50% - 6px)",
-                left: "-20px",
-                position: "absolute",
-                opacity: "0.0",
-                width: "0px",
-                borderRight: "4px solid transparent",
-                borderTop: "4px solid transparent",
-                borderBottomStyle: "solid",
-                borderBottomWidth: "4px",
-                borderBottomColor: "primary",
-                content: "''",
-                transition: "all 0.3s ease",
-              },
-              "&:hover": {
-                color: "primary",
-                textShadow: "sm",
-                "::before": {
-                  content: "''",
-                  opacity: "1.0",
-                  position: "absolute",
-                  top: "calc(50% - 6px)",
-                  left: "-20px",
-                  width: "12px",
-                  borderRight: "4px solid transparent",
-                  borderTop: "4px solid transparent",
-                  borderBottomStyle: "solid",
-                  borderBottomWidth: "4px",
-                  borderBottomColor: "primary",
-                },
-              },
+              fontSize: 0,
             },
           },
         }}
       >
-        <div sx={{ gridColumn: ["span 2", "span 1", "span 1"] }}>
-          <SiteTitle />
+        <Box as="address" sx={{ flex: ["100%", 2, 2] }}>
+          <Themed.h5 sx={{ fontFamily: "heading", color: "primary", fontWeight: "bold" }}><span></span></Themed.h5>
           <AddressBlock copyright={copyright} withLocation />
-        </div>
-        <Flex>
-          <Themed.h5 sx={{ flexBasis: "100%" }}>Menus</Themed.h5>
+        </Box>
+        <Flex sx={{ flexDirection: "column", flex: 1 }}>
+          <Themed.h5>Menus</Themed.h5>
           <Link href="/wine">Wine</Link>
           <Link href="/beer">Beer</Link>
           <Link href="/cocktails">Cocktails</Link>
-          <Link href="/menu">Full menu</Link>
+          <Link href="/togo">To-go</Link>
+          <Link href="/menu">Food</Link>
         </Flex>
-        <Flex>
-          <Themed.h5 sx={{ flexBasis: "100%" }}>More</Themed.h5>
+        <Flex sx={{ flexDirection: "column", flex: 1 }}>
+          <Themed.h5>More</Themed.h5>
           <Link href="/about">About</Link>
-          <Link href="/food">Food</Link>
+          <Link href="/membership">Membership</Link>
           <Link href="/events">Events</Link>
           <Link href="/art">Art</Link>
-          <Link href="/togo">To-go</Link>
           <Link href="/contact">Contact us</Link>
         </Flex>
-        <div sx={{ gridColumn: ["span 2", "span 1", null] }}>
+        <div sx={{ gridColumn: ["span 2", "span 1", null], flex: 1 }}>
           <Themed.h5 sx={{ flexBasis: "100%" }}>Social</Themed.h5>
-          <SocialIcons />
+          <SocialIcons withText layout="column" />
         </div>
-      </Grid>
-    </React.Fragment>
+      </Container>
+    </>
   );
 };
 

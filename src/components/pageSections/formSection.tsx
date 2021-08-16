@@ -39,14 +39,13 @@ const FormSection: React.FC<FormSectionProps> = ({
     watch()
   return (
     <Container as="section">
-      <Grid columns={1} bg="dark" sx={{ zIndex: 100 }}>
+      <Grid columns={1} sx={{ zIndex: 100 }}>
         <StaticImage
           sx={{ gridArea: "1/1" }}
           src="https://images.pexels.com/photos/1283219/pexels-photo-1283219.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
           alt="Colorful liquor bottles on a shelf"
           layout="constrained"
           height={700}
-          //@ts-ignore
         />
         <Box
           sx={{

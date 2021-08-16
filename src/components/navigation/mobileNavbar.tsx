@@ -1,18 +1,17 @@
 /** @jsx jsx */
 import React from 'react'
-import { Flex, Switch, Close, jsx, MenuButton, Themed, Grid, useColorMode, Box, Label } from 'theme-ui'
+import { Flex, Switch, Close, jsx, MenuButton, Grid, useColorMode, Box, Label } from 'theme-ui'
 import { NavbarProps } from '.';
 import NavListItem from './navListItem';
 import { alpha } from '@theme-ui/color';
 import AddressBlock from '../addressBlock';
-import SocialIcons from './socialIcons';
 import SiteTitle from './siteTitle';
 
 
 
 
 
-const MobileNavbar = ({ menuLinks, siteTitle, context }: NavbarProps) => {
+const MobileNavbar = ({ menuLinks, context }: NavbarProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [ colorMode, setColorMode ] = useColorMode();
 
@@ -37,7 +36,15 @@ const MobileNavbar = ({ menuLinks, siteTitle, context }: NavbarProps) => {
   const handleClick = () => setIsOpen(!isOpen);
   return (
     <React.Fragment>
-      <div sx={{ display: isOpen ? "flex" : "none", position: "fixed", inset: 0, zIndex: 700, backgroundColor: alpha("background", 0.5) }}></div>
+      <div
+        sx={{
+          display: isOpen ? "flex" : "none",
+          position: "fixed",
+          inset: 0,
+          zIndex: 700,
+          backgroundColor: alpha("background", 0.5),
+        }}
+      ></div>
       <Flex
         as="nav"
         sx={{
@@ -70,21 +77,6 @@ const MobileNavbar = ({ menuLinks, siteTitle, context }: NavbarProps) => {
             }}
           />
         </Grid>
-        <Close
-          onClick={handleClick}
-          sx={{
-            display: isOpen ? "block" : "none",
-            color: "primary",
-            position: "absolute",
-            top: 5,
-            right: 4,
-            zIndex: 702,
-            svg: {
-              width: 5,
-              height: 5,
-            },
-          }}
-        />
         <ul
           sx={{
             listStyleType: "none",
@@ -93,9 +85,10 @@ const MobileNavbar = ({ menuLinks, siteTitle, context }: NavbarProps) => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-around",
+            alignContent: "flex-end",
             position: "fixed",
             top: 0,
-            left: isOpen ? [6, 9, null] : "100%",
+            left: isOpen ? ["25%", 9, null] : "100%",
             bottom: 0,
             right: 0,
             margin: 0,
@@ -104,30 +97,36 @@ const MobileNavbar = ({ menuLinks, siteTitle, context }: NavbarProps) => {
             opacity: isOpen ? "1.0" : "0.0",
             transition: "all 0.2s ease",
             overflow: "hidden",
-            pt: isOpen ? 6 : 0,
+            pt: isOpen ? 4 : 0,
+            pb: 6
           }}
         >
+          <li>
+            <Close
+              onClick={handleClick}
+              sx={{
+                color: "primary",
+                svg: {
+                  width: 5,
+                  height: 5,
+                },
+              }}
+            />
+          </li>
           {menuLinks.map((l, index) => (
             <NavListItem
               isActive={context.location.pathname === l.path}
               key={index}
               index={index}
               link={l}
-              menulength={menuLinks.length}
-              border={true}
-              variant="light"
-              position="right"
             />
           ))}
           <li>
             <SiteTitle />
-            <AddressBlock withLocation />
-          </li>
-          <li>
-            <SocialIcons />
+            <AddressBlock withLocation withSocial />
           </li>
           <Flex
-          as="li"
+            as="li"
             sx={{
               justifyContent: "space-between",
               alignItems: "center",

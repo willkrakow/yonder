@@ -11,7 +11,7 @@ import { Themed, jsx } from "theme-ui";
 interface IndexPageProps {
   data: {
     sanityLandingPage: {
-      content: Array<
+      _rawContent: Array<
         CenterTextProps | CtaProps | EventSectionProps | FormSectionProps | MenuSectionProps | any
       >;
       name: string;
@@ -23,81 +23,17 @@ interface IndexPageProps {
 export const query = graphql`
   {
     sanityLandingPage(name: { eq: "Home" }) {
-      content {
-        ... on SanityCta {
-          ...CtaFragment
-        }
-        ... on SanityCenterTextSection {
-          ...CenterTextFragment
-        }
-        ... on SanityEventSection {
-          _key
-          _type
-          content {
-            ...EventFragment
-            slug {
-              current
-            }
-            image {
-              asset {
-                gatsbyImageData(height: 500, width: 900, layout: CONSTRAINED)
-              }
-            }
-          }
-        }
-        ... on SanityMenuSection {
-          _key
-          _type
-          title
-          description
-          cta {
-            ...CtaFragment
-          }
-          categories {
-            categoryImage {
-              asset {
-                gatsbyImageData(aspectRatio: 1.1)
-                altText
-              }
-            }
-            name
-            slug {
-              current
-            }
-          }
-        }
-        ... on SanityFormSection {
-          ...FormFragment
-        }
-        ... on SanityHero {
-          _key
-          _type
-          cta {
-            buttonText
-            isInternal
-            link
-            text
-          }
-          title
-          subtitle
-          image {
-            asset {
-              gatsbyImageData(layout: FULL_WIDTH)
-              altText
-            }
-          }
-        }
-      }
+      _id
+      _key
+      id
+      _rawContent(resolveReferences: { maxDepth: 10 })
     }
   }
 `;
 
-
 // markup
 const IndexPage: React.FC<IndexPageProps> = (props) => {
-  console.log(props);
-  const { content } = props.data.sanityLandingPage;
-  content.push({_type: "locationSection"})
+  const { _rawContent: content } = props.data.sanityLandingPage;
   const blocks = content.map(b => {
     let el
     switch (b._type) {
@@ -106,6 +42,7 @@ const IndexPage: React.FC<IndexPageProps> = (props) => {
         break
       case "hero":
         el = <Hero key={b._key} _key={b._key} _type={b._type} image={b.image} title={b.title} subtitle={b.subtitle || null} cta={b.cta || null} />
+        console.log(b.image)
         break
       case "menuSection":
         el = <MenuSection categories={b.categories} title={b.title} description={b.description} cta={b.cta} key={b._key} />
@@ -117,7 +54,7 @@ const IndexPage: React.FC<IndexPageProps> = (props) => {
         el = <FormSection key={b._key} _key={b._key} _type={b._type} collectEmail={b.collectEmail} collectName={b.collectName || false} collectMessage={b.collectMessage || false} buttonText={b.buttonText || "Submit"} />
         break
       case "locationSection":
-        el = <LocationSection />;
+        el = <LocationSection key={b._key} />;
         break
       default:
         el = null;

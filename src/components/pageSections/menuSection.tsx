@@ -2,10 +2,11 @@
 import React from "react";
 import { jsx, Themed, Grid, Button, Card, Container, Box } from "theme-ui";
 import { Link } from "gatsby";
-import { ICategory, ICta } from "../../typings";
-import { GatsbyImage } from "gatsby-plugin-image";
+import { ICategory, ICta, ISanityImage } from "../../typings";
+import { GatsbyImage, IGatsbyImageData } from "gatsby-plugin-image";
 import ScrollAnimation from "react-animate-on-scroll";
-
+import { getGatsbyImageData } from "gatsby-source-sanity";
+import { sanityConfig } from "../../utils";
 
 export interface MenuSectionProps {
   title: string;
@@ -20,6 +21,11 @@ const MenuSection = ({
   cta,
   categories,
 }: MenuSectionProps) => {
+
+  const getImage = (image: ISanityImage): IGatsbyImageData | null => {
+    const imageData = getGatsbyImageData(image, {}, sanityConfig);
+    return imageData
+  }
   return (
     <>
       <Container as="section" >
@@ -38,11 +44,11 @@ const MenuSection = ({
               
               {cta.isInternal ? (
                 <Link to="/menu">
-                  <Button>{cta.buttonText}</Button>
+                  <Button variant="action">{cta.buttonText}</Button>
                 </Link>
               ): (
                 <a href={"/menu"}>
-                  <Button>{cta.buttonText}</Button>
+                  <Button variant="action">{cta.buttonText}</Button>
                 </a>
               )}
             </Box>
@@ -50,7 +56,8 @@ const MenuSection = ({
           {categories.map((category) => (
             <Card key={category.slug.current} sx={{ display: "grid" }}>
               <GatsbyImage
-                image={category.categoryImage.asset.gatsbyImageData}
+                //@ts-ignore
+                image={getImage(category.categoryImage)}
                 alt={category.name}
                 sx={{ gridArea: "1/1" }}
               />

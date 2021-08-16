@@ -353,7 +353,9 @@ const LocationSection = () => {
             <div style={{ height: "100%", width: "100%" }}>
               <GoogleMapReact
                 bootstrapURLKeys={{
-                  key: process.env.GATSBY_GOOGLE_MAP_KEY || "",
+                  key:
+                    process.env.GATSBY_GOOGLE_MAP_KEY ||
+                    "AIzaSyCvVDXPXHetj1jbEsA2Cd1LYEAukq7RN2M",
                 }}
                 defaultCenter={defaultProps.center}
                 defaultZoom={defaultProps.zoom}
@@ -374,12 +376,13 @@ const LocationSection = () => {
               stay for a day. Heck you can even help us close if you're about
               that.
             </Themed.p>
-            <Themed.ul sx={{ pl: 0, ml: 5 }}>
+            <Themed.ul sx={{ ml: 5 }}>
               {hours.map((h) => (
                 <Themed.li
                   key={h.day}
                   sx={{
                     py: 3,
+                    px: 3,
                     listStyleType: "none",
                     backgroundColor:
                       h.day === currentDay ? alpha("primary", 0.2) : null,
@@ -390,7 +393,6 @@ const LocationSection = () => {
                     aria-label={h.day}
                     sx={{
                       color: "primary",
-                      pl: 4,
                       fontWeight: h.day === currentDay ? "bold" : "normal",
                     }}
                   >
@@ -408,16 +410,18 @@ const LocationSection = () => {
                     </span>
                   )}
                   {isOpen && h.day === currentDay && (
+                    <>
+                    <br />
                     <span
                       sx={{
                         color: "accent",
                         textTransform: "uppercase",
                         fontWeight: "bold",
-                        ml: 3,
                       }}
                     >
                       open now
                     </span>
+                    </>
                   )}
                 </Themed.li>
               ))}

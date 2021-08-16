@@ -1,11 +1,10 @@
 /** @jsx jsx */
 import React from 'react'
-import { jsx, Link } from 'theme-ui'
+import { jsx, NavLink } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
 import ScrollAnimation from 'react-animate-on-scroll';
 
 interface Props {
-    menulength: number,
     index?: number,
     link: {
         path: string,
@@ -25,13 +24,14 @@ const NavListItem = ({ link, index }: Props) => {
           animateIn="fadeInDown"
         >
           <li>
-            <Link
+            <NavLink
               as={GatsbyLink}
               //@ts-ignore
               to={link.path}
+              sx={{ px: 3 }}
             >
               {link.name}
-            </Link>
+            </NavLink>
           </li>
         </ScrollAnimation>
       </>

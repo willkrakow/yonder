@@ -3,17 +3,23 @@ import * as React from 'react';
 import { jsx, Flex } from 'theme-ui';
 import { useStaticQuery, graphql } from 'gatsby'
 import {Instagram, Email, Facebook, } from '../icons/'
-interface Props {
+import PhoneNumber from '../icons/phoneNumber';
+interface QueryProps {
         socialLinks: {
             instagram: string;
             facebook: string;
             email: string;
             phoneNumber: string;
-        }
+        },
 }
 
-const SocialIcons = () => {
-    const data: Props = useStaticQuery(graphql`
+interface ISocialIcons {
+  withText?: boolean
+  layout?: "column" | "row"
+}
+
+const SocialIcons = ({ withText, layout }: ISocialIcons) => {
+    const data: QueryProps = useStaticQuery(graphql`
     {
       socialLinks: sanitySiteSettings {
         instagram
@@ -23,25 +29,29 @@ const SocialIcons = () => {
       }
     }
   `)
+  
+  const { socialLinks } = data
+  const { instagram, facebook, email, phoneNumber } = socialLinks
     return (
       <>
         <Flex
           sx={{
             justifyContent: "flex-start",
-            flexDirection: "column",
+            flexDirection: layout || "column",
             a: {
-              pr: 4,
-              color: "muted",
+              flex: 1,
               span: {
                 pl: 3,
                 verticalAlign: "top",
               },
             },
+            
           }}
         >
-          <Instagram link={data.socialLinks.instagram} />
-          <Facebook link={data.socialLinks.facebook} />
-          <Email link={data.socialLinks.email} />
+          <Instagram withText={withText} link={instagram} />
+          <Facebook withText={withText} link={facebook} />
+          <Email withText={withText} link={email} />
+          <PhoneNumber withText={withText} link={phoneNumber || ""} />
         </Flex>
       </>
     );

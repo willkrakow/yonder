@@ -25,6 +25,7 @@ const ArtPage = (props: ArtProps) => {
   return (
     <React.Fragment>
       <Container sx={{ maxWidth: 10 }}>
+        <Themed.h2 sx={{ textAlign: "center" }} >Art</Themed.h2>
         <Seo pageTitle={`Art`} />
         {art.nodes.map((artExpo) => (
           <article key={artExpo._key}>

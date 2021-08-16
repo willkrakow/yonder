@@ -4,6 +4,7 @@ import { jsx, Themed } from "theme-ui";
 import { useStaticQuery, graphql } from "gatsby";
 import { Address, ImageAsset } from "../typings";
 import { GatsbyImage } from 'gatsby-plugin-image'
+import SocialIcons from "./navigation/socialIcons";
 
 interface Props {
         siteSettings: {
@@ -23,9 +24,10 @@ interface BlockProps {
   centered?: boolean,
   withTitle?: boolean,
   copyright?: Date,
+  withSocial?: boolean,
 }
 
-const AddressBlock = ({withLogo, withTitle, withLocation, centered, withContactInfo, copyright }: BlockProps) => {
+const AddressBlock = ({withLogo, withTitle, withLocation, centered, withContactInfo, withSocial, copyright, ...props }: BlockProps) => {
     const data: Props = useStaticQuery(graphql`
       {
         siteSettings: sanitySiteSettings {
@@ -54,8 +56,10 @@ const AddressBlock = ({withLogo, withTitle, withLocation, centered, withContactI
         sx={{
           textAlign: `${centered ? "center" : "left"}`,
           fontStyle: "normal",
-          fontSize: 0
+          fontSize: 0,
+
         }}
+        {...props}
       >
         {withLogo && (
           <div sx={{ px: 5, py: 3,  }}>
@@ -70,7 +74,7 @@ const AddressBlock = ({withLogo, withTitle, withLocation, centered, withContactI
           <Themed.h5>{title}</Themed.h5>
         )}
         {withLocation && (
-          <Themed.p>
+          <Themed.p sx={{ color: "muted", fontSize: 0 }}>
             {address.streetOne}
             <br />
             {address.streetTwo && (
@@ -94,6 +98,7 @@ const AddressBlock = ({withLogo, withTitle, withLocation, centered, withContactI
             {email}
           </Themed.p>
         )}
+        {withSocial && <SocialIcons layout="row" />}
         {copyright && (
           <Themed.p sx={{ color: "muted"}}>
             &copy; Copyright {copyright.getFullYear().toString()}

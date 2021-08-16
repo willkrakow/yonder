@@ -1,7 +1,7 @@
 
 import colors, { lightColors } from './colors'
 import spaces from './spaces'
-import { lighten, alpha,  } from '@theme-ui/color'
+import { lighten, alpha, darken  } from '@theme-ui/color'
 
 
 const theme = {
@@ -41,7 +41,8 @@ const theme = {
         "default": `4px 4px 8px rgba(0,0,0,0.2)` ,
         "sm": `0px 2px 4px rgba(0,0,0,0.225)`,
         "lg": `0px 8px 12px 0px rgba(0,0,0,0.25)`,
-        "primary": "6px 6px 0 hsl(201, 24%, 47%)",
+        "primary": "6px 6px 0 hsla(0, 0%, 98%, 0.8)",
+        "secondary": "6px 6px 0 hsl(201, 24%, 47%)",
         "accent": "4px 4px 8px rgba(0, 0, 0, 0.3), 16px 16px 0 #c96"
     },
     text: {
@@ -71,16 +72,16 @@ const theme = {
         },
         h2: {
             fontFamily: "display",
-            fontSize: 6,
-            fontWeight: 600,
+            fontSize: "5em",
+            fontWeight: 200,
             letterSpacing: 3,
             color: "primary",
             margin: 'auto',
-            my: 6,
+            my: 5,
             lineHeight: 1.5
         },
         h3: {
-            fontSize: 6,
+            fontSize: 5,
             mb: 4,
             fontFamily: 'display',
             color: "primary",
@@ -88,18 +89,21 @@ const theme = {
             letterSpacing: 1,
             position: "relative",
             lineHeight: "heading",
+            borderLeftStyle: "solid",
+            borderLeftWidth: 4,
+            borderLeftColor: "accent",
+            pl: 3,
+            ml: -4
         },
         h4: {
             variant: 'text.body',
-            color: "primary",
+            color: "text",
             fontSize: 2,
             fontWeight: "bold",
             letterSpacing: `1px`,
             mb: 3,
             mt: 0,
-            borderBottomColor: "muted",
-            borderBottomStyle: "solid",
-            borderBottomWidth: 2
+            
         },
         h5: {
             fontFamily: "'Arial', sans-serif",
@@ -175,42 +179,28 @@ const theme = {
             fontSize: 1,
             textDecoration: "none",
             textDecorationThickness: 3,
+            color: "muted",
+            transition: "all 0.4s ease",
+            
+        }
+    },
+    links: {
+        nav: {
+            letterSpacing: "2px",
+            textTransform: "uppercase",
+            fontSize: 1,
+            textDecoration: "none",
+            fontWeight: "body",
             py: 3,
             color: "primary",
-            textTransform: "uppercase",
-            letterSpacing: "2px",
             transition: "all 0.4s ease",
-            "::before": {
-                top: "calc(50% - 6px)",
-                left: "-20px",
-                position: "absolute",
-                opacity: "0.0",
-                width: "0px",
-                borderRight: "4px solid transparent",
-                borderTop: "4px solid transparent",
-                borderBottomStyle: "solid",
-                borderBottomWidth: "4px",
-                borderBottomColor: "primary",
-                content: "''",
-                transition: "all 0.3s ease",
-            },
+            borderBottomStyle: "solid",
+            borderBottomWidth: 2,
+            borderBottomColor: "transparent",
             "&:hover": {
                 color: "primary",
-                textShadow: "sm",
-                "::before": {
-                    content: "''",
-                    opacity: "1.0",
-                    position: "absolute",
-                    top: "calc(50% - 6px)",
-                    left: "-20px",
-                    width: "12px",
-                    borderRight: "4px solid transparent",
-                    borderTop: "4px solid transparent",
-                    borderBottomStyle: "solid",
-                    borderBottomWidth: "4px",
-                    borderBottomColor: "primary",
+                borderBottomColor: "primary",
                 },
-            },
         }
     },
     forms: {
@@ -274,8 +264,11 @@ const theme = {
     },
     buttons: {
         primary: {
-            backgroundColor: alpha("primary", 0.9),
-            color: "background",
+            background: (t) => `linear-gradient(
+                45deg,
+                ${lighten("accent", 0.1)(t)},
+                ${darken("accent", 0.1)(t)})`,
+            color: "light",
             py: 3,
             fontWeight: "bold",
             px: 5,
@@ -286,12 +279,14 @@ const theme = {
             borderRadius: 0,
             borderWidth: 2,
             borderStyle: "solid",
-            borderColor: "primary",
+            borderColor: "transparent",
             cursor: "pointer",
             transition: 'all 0.2s ease',
-            boxShadow: "primary",
             '&:hover': {
-                backgroundColor: "primary",
+                background: t => `linear-gradient(
+                    90deg,
+                    ${lighten("accent", 0.15)(t)},
+                    ${lighten("accent", 0.00)(t)})`,
                 transform: 'translate(-2px, -2px)',
                 boxShadow: `lg`,
             },
@@ -300,23 +295,17 @@ const theme = {
                 color: "muted",
             },
             "&[disabled], &[aria-disabled=true]": {
-                backgroundColor: "secondary",
+                backgroundColor: lighten("accent", 0.4),
                 color: "muted",
                 cursor: "not-allowed",
-                "&:hover": {
-                    backgroundColor: "secondary",
-                    transform: 'none',
-                    boxShadow: "primary",
-                }
             },
         },
         secondary: {
-            backgroundColor: alpha("background", 0.9),
+            background: alpha("background", 0.9),
             color: "primary",
             borderWidth: 2,
             borderStyle: "solid",
             borderColor: "primary",
-            boxShadow: "primary",
             borderRadius: 0,
             fontSize: 1,
             letterSpacing: 1,
@@ -342,8 +331,8 @@ const theme = {
             fontSize: spaces.space[4],
         },
         action: {
-            backgroundColor: alpha("primary", 0.1),
-            color: "secondary",
+            backgroundColor: "accent",
+            color: "light",
             py: 1,
             cursor: "pointer",
             px: 4,
@@ -352,13 +341,12 @@ const theme = {
             fontWeight: "normal",
             transition: "all 0.2s ease",
             textAlign: "left",
+            borderRadius: 2,
             "&:hover": {
-                backgroundColor: lighten("warning", 0.2),
-                color: "background",
+                backgroundColor: lighten("accent", 0.1),
             },
             "&.active": {
                 backgroundColor: "warning",
-                color: "background",
             },
         }
     },
@@ -384,16 +372,6 @@ const theme = {
                 display: "block",
                 h1: {
                     mt: 0
-                }
-            }
-        },
-        footer: {
-            color: "text",
-            textAlign: "center",
-            p: 5,
-            address: {
-                "*": {
-                    color: "text",
                 }
             }
         },

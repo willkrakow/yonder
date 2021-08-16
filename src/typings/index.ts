@@ -18,7 +18,7 @@ export interface ICategory {
   _type: string,
   name: string,
   slug: ISlug,
-  categoryImage: ImageAsset,
+  categoryImage: ISanityImage,
   description: string,
   drinks: Array<WineProps & BeerProps & CocktailProps>
 }
@@ -49,7 +49,7 @@ export interface IWine {
 
 export interface ICocktail {
     liquor: string,
-    ingredients: string[]
+    ingredients: string
 }
 
 export type BeerProps = IBeer & IDrink
@@ -94,7 +94,7 @@ export interface IEvent {
     dateEnd: string,
     timeStart: string,
     timeEnd?: string,
-    image: ImageAsset,
+    image: ISanityImage,
     description: BlockText[],
     id: string,
     slug: ISlug,
@@ -134,7 +134,8 @@ export interface Artist {
 
 
 export interface IconProps {
-    link: string
+    link: string,
+    withText?: boolean,
 }
 
 export interface Address {
@@ -159,8 +160,51 @@ export type HeroProps = IHero & QueryPrototypeProps
 export interface IHero  {
     title: string,
     subtitle?: string,
-    image: ImageAsset,
+    image: ISanityImage,
     cta?: CtaProps
+}
+
+export interface ISanityImage {
+  asset: {
+    _id: string,
+    _type: "sanity.imageAsset"
+    _createdAt: string,
+    _updatedAt: string,
+    assetId: string,
+    extension: "jpg" | "png" | "webp" | "jpeg",
+    metadata: {
+      dimensions: {
+        aspectRatio: number,
+        height: number,
+        width: number,
+      },
+      hasAlpha: boolean,
+      isOpaque: boolean,
+      lqip: string,
+      palette: ISanityImagePalette
+    },
+    path: string,
+    uploadId: string,
+    url: string,
+    id: string,
+  }
+}
+
+export interface ISanityImagePalette {
+  darkMuted: ISanityImagePaletteSwatch,
+  darkVibrant: ISanityImagePaletteSwatch,
+  lightMuted: ISanityImagePaletteSwatch,
+  lightVibrant: ISanityImagePaletteSwatch,
+  dominant: ISanityImagePaletteSwatch,
+  muted: ISanityImagePaletteSwatch,
+  vibrant: ISanityImagePaletteSwatch,
+}
+
+export interface ISanityImagePaletteSwatch {
+  background: string,
+  foreground: string,
+  population: number,
+  title: string,
 }
 
 export type CenterTextProps = ICenterText & QueryPrototypeProps

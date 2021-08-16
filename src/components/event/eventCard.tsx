@@ -7,14 +7,15 @@ import { Link as GatsbyLink } from 'gatsby'
 import { IEvent } from "../../typings";
 import { alpha } from '@theme-ui/color'
 import ScrollAnimation from "react-animate-on-scroll";
-
+import { getGatsbyImageData } from "gatsby-source-sanity";
+import {sanityConfig} from '../../utils'
 interface IEventCard {
   e: IEvent;
   index: number
 }
 
 const EventCard: React.FC<IEventCard> = ({e, index}) => {
-  console.log(index)
+    const imageData = getGatsbyImageData(e.image, { width: 1000, height: 600, fit: "fill" }, sanityConfig);
   return (
     <ScrollAnimation animateIn="fadeInUp" animateOnce={true}>
       <Card
@@ -36,7 +37,8 @@ const EventCard: React.FC<IEventCard> = ({e, index}) => {
           }}
         >
           <GatsbyImage
-            image={e.image.asset.gatsbyImageData}
+          //@ts-ignore
+            image={imageData}
             alt={e.name}
             sx={{
               gridArea: "1/1",
@@ -65,7 +67,7 @@ const EventCard: React.FC<IEventCard> = ({e, index}) => {
                 px: 3,
               }}
             >
-              {capitalizeString(e.fromNow)}
+              {/* {capitalizeString(e.fromNow)} */}
             </Themed.p>
           </div>
         </Box>

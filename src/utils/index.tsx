@@ -7,3 +7,7 @@ export const monthName = (num: number): string => {
   const months = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
   return months[num]
 }
+export const sanityConfig = {
+  projectId: process.env.GATSBY_SANITY_PROJECT_ID || "",
+  dataset: "production",
+};

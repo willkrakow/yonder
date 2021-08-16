@@ -30,32 +30,32 @@ type MenuPageProps = IMenuPage & PageProps;
 
 const Menu: React.FC<MenuPageProps> = (props) => {
   const { wine, beer, cocktails } = props.data;
-  const [ selectedCategory, setSelectedCategory ] = React.useState("");
+  // const [ selectedCategory, setSelectedCategory ] = React.useState("");
 
-  const wineRef = React.useRef(null);
-  const beerRef = React.useRef(null);
-  const cocktailsRef = React.useRef(null);
-  React.useEffect(() => {
-    const scrollTrack = () =>
-      [wineRef, beerRef, cocktailsRef].forEach((ref: React.RefObject<HTMLDivElement>) => {
-        if (!ref.current) {
-          console.log("no ref");
-          return;
-        } else {
-          const top = ref.current.offsetTop
-          const clientPosition = window.scrollY
-          const bottom = top + ref.current.offsetHeight
+  // const wineRef = React.useRef(null);
+  // const beerRef = React.useRef(null);
+  // const cocktailsRef = React.useRef(null);
+  // React.useEffect(() => {
+  //   const scrollTrack = () =>
+  //     [wineRef, beerRef, cocktailsRef].forEach((ref: React.RefObject<HTMLDivElement>) => {
+  //       if (!ref.current) {
+  //         console.log("no ref");
+  //         return;
+  //       } else {
+  //         const top = ref.current.offsetTop
+  //         const clientPosition = window.scrollY
+  //         const bottom = top + ref.current.offsetHeight
 
-          if (clientPosition > top && clientPosition < bottom) {
-            setSelectedCategory(ref.current.id)
-          }
-        }
-      });
-    document.addEventListener("scroll", scrollTrack);
-    return () => {
-      document.removeEventListener("scroll", scrollTrack);
-    };
-  });
+  //         if (clientPosition > top && clientPosition < bottom) {
+  //           setSelectedCategory(ref.current.id)
+  //         }
+  //       }
+  //     });
+  //   document.addEventListener("scroll", scrollTrack);
+  //   return () => {
+  //     document.removeEventListener("scroll", scrollTrack);
+  //   };
+  // });
   // const executeScroll = (e: React.MouseEvent<HTMLButtonElement>) => {
   //   navigate(`#${e.currentTarget.value.toLowerCase()}`);
   // };

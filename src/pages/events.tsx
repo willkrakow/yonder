@@ -10,7 +10,7 @@ import _ from "lodash";
 import { eventTags } from "../typings";
 import { monthName } from "../utils";
 import useFilterList from "../utils/useFilterList";
-import { lighten } from "@theme-ui/color";
+import { alpha, lighten } from "@theme-ui/color";
 
   const getMonthNames = (groups: any[]) => {
     return groups.map((m) => monthName(parseInt(m.fieldValue)))
@@ -37,12 +37,13 @@ const Events = (props: IEventsPrototype & PageProps) => {
     <Container>
       <Themed.h2 sx={{ textAlign: "center" }}>Upcoming events</Themed.h2>
       <Seo pageTitle={`Events`} />
-      <Grid sx={{ mt: 6 }} columns={[1, "1fr 5fr", "1fr 5fr"]} gap={5}>
+      <Grid sx={{ mt: 6 }} columns={[1, 1, "1fr 5fr"]} gap={5}>
         <Box
           sx={{
-            display: ["block", "block", "none"],
+            display: ["flex", "flex", "none"],
             zIndex: 99,
             p: 3,
+            justifyContent: "space-around",
           }}
         >
           <Button
@@ -61,8 +62,8 @@ const Events = (props: IEventsPrototype & PageProps) => {
           {true && (
             <Button
               variant="action"
-              sx={{ fontWeight: "bold", fontStyle: "normal", position: "absolute", right: 5 }}
               onClick={clear}
+              sx={{ backgroundColor: alpha("text", 0.1), color: "accent" }}
             >
               Clear filters &times;
             </Button>
@@ -111,8 +112,8 @@ const Events = (props: IEventsPrototype & PageProps) => {
             ))}
           </Flex>
         </Box>
-        <Box sx={{ display: ["none", "block", "block"] }}>
-          <Flex sx={{ flexDirection: "column", mb: 4, }}>
+        <Box sx={{ display: ["none", "none", "block"] }}>
+          <Flex sx={{ flexDirection: "column", mb: 4 }}>
             <Themed.h5>Tags</Themed.h5>
             {eventTags.map((t) => (
               <Button
@@ -126,11 +127,13 @@ const Events = (props: IEventsPrototype & PageProps) => {
                 {`#${t.toLowerCase()}`}
               </Button>
             ))}
-            {list.length > 0 && <Button
+            <Button
               onClick={clear}
+              variant="action"
+              sx={{ backgroundColor: alpha("text", 0.1), color: "accent" }}
             >
               &times; Clear
-            </Button>}
+            </Button>
           </Flex>
           <Flex sx={{ flexDirection: "column", my: 4, mt: 5 }}>
             <Themed.h5>Jump to</Themed.h5>
@@ -201,11 +204,7 @@ export const query = graphql`
               ...EventFragment
               id
               name
-              image {
-                asset {
-                  gatsbyImageData(height: 500, width: 900, layout: CONSTRAINED)
-                }
-              }
+              image: _rawImage(resolveReferences: { maxDepth: 10 })
             }
           }
         }

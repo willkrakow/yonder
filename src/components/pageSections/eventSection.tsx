@@ -21,7 +21,7 @@ const EventSection = ({ content }: EventSectionProps) => {
         <Container
           as="section"
         >
-          <Themed.h3 sx={{ textAlign: "center", mx: "auto", mb: 5 }}>
+          <Themed.h3 sx={{ textAlign: "center", mx: "auto", mb: 5, borderLeft: "none", ml: "auto", pl: "auto" }}>
             Events
           </Themed.h3>
           <Grid columns={1} gap={6}>

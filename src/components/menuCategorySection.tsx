@@ -31,13 +31,16 @@ const MenuCategorySection = ({ title, image, menuitems, descriptionItems, link="
           >
             <Themed.h3>{title}</Themed.h3>
             <Themed.ul>
-              {menuitems.map((drink) => (
-                <ListItem
+              {menuitems.map((drink) => {
+                return (
+                  <ListItem
+                  title={title || ""}
                   key={drink.id || drink._key}
                   drink={drink}
                   descriptionItems={descriptionItems}
                 />
-              ))}
+                )}
+              )}
               {!nested && (
                 <li sx={{ listStyle: "none" }}>
                   <Link to={link}>

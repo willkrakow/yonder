@@ -35,14 +35,12 @@ const Navbar = ({ menuLinks, context  }: NavbarProps) => {
               alignItems: "center",
               listStyleType: "none",
               flexWrap: "wrap",
-              flexBasis: "50%",
             }}
           >
             {menuLinks.map((menuItem: MenuLinkProps, index: number) => (
               <NavListItem
                 isActive={context.location.pathname === menuItem.path}
                 link={menuItem}
-                menulength={menuLinks.length}
                 index={index}
                 key={index}
               />

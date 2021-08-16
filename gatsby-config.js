@@ -1,3 +1,7 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
+
 module.exports = {
   siteMetadata: {
     title: "Yonder",
@@ -22,6 +26,10 @@ module.exports = {
         name: "Events",
         path: "/events",
       },
+      {
+        name: "Art",
+        path: "/art",
+      }
     ],
   },
   plugins: [
@@ -42,7 +50,6 @@ module.exports = {
         icon: "src/images/yonderlogo.png",
       },
     },
-    "gatsby-plugin-mdx",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     {
