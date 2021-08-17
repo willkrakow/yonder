@@ -72,7 +72,7 @@ const theme = {
         },
         h2: {
             fontFamily: "display",
-            fontSize: "5em",
+            fontSize: "calc(1.3rem + 3.6vw)",
             fontWeight: 200,
             letterSpacing: 3,
             color: "primary",
@@ -301,7 +301,7 @@ const theme = {
             },
         },
         secondary: {
-            background: alpha("background", 0.9),
+            background: (t) => `${alpha("background", 0.9)(t)}`,
             color: "primary",
             borderWidth: 2,
             borderStyle: "solid",
