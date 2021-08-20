@@ -1,13 +1,10 @@
 /** @jsx jsx */
 import React from 'react'
 import { IconProps } from '../../typings';
-import { useThemeUI, jsx, Link } from 'theme-ui';
+import { jsx, Link } from 'theme-ui';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Facebook = ({link, withText}: IconProps) => {
-  const context = useThemeUI();
-  const fillColor = context?.theme?.colors?.primary?.toString() || "#fafafa";
-  console.log(fillColor)
   return (
     <>
       <Link href={link} target="_blank" rel="noopener noreferrer">

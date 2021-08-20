@@ -20,11 +20,10 @@ const CenterTextSection: React.FC<CenterTextSectionProps> = ({headerText, bodyTe
         >
           <Flex
             sx={{
-              maxWidth: 10,
+              maxWidth: 9,
               flexWrap: "wrap",
               margin: "auto",
               justifyContent: "center",
-              px: [4, 5, 6],
             }}
           >
             {headerText && (

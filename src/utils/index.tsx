@@ -8,6 +8,6 @@ export const monthName = (num: number): string => {
   return months[num]
 }
 export const sanityConfig = {
-  projectId: process.env.GATSBY_SANITY_PROJECT_ID || "",
+  projectId: "hiyhitvr",
   dataset: "production",
 };

@@ -38,19 +38,9 @@ const MenuSection = ({
             >
               <Themed.h3>{title}</Themed.h3>
               <Themed.p>{description}</Themed.p>
-              {cta.text && (
-                <Themed.p sx={{ fontWeight: "bold" }}>{cta.text}</Themed.p>
-              )}
-              
-              {cta.isInternal ? (
                 <Link to="/menu">
                   <Button variant="action">{cta.buttonText}</Button>
                 </Link>
-              ): (
-                <a href={"/menu"}>
-                  <Button variant="action">{cta.buttonText}</Button>
-                </a>
-              )}
             </Box>
           </ScrollAnimation>
           {categories.map((category) => (

@@ -86,6 +86,20 @@ Holiday = "HOLIDAY",
 
 export type EventTag = EEventTag | string | null
 
+export enum ESocialPlatform {
+    Facebook = "Facebook",
+    Twitter = "Twitter",
+    Instagram = "Instagram",
+    Linkedin = "Linkedin",
+    Email = "Email",
+    Spotify = "Spotify",
+    Website = "Website",
+}
+
+export interface SocialLink {
+  platform: ESocialPlatform | string,
+  url: string,
+}
 export interface IEvent {
     name: string,
     subtitle?: string,
@@ -100,7 +114,15 @@ export interface IEvent {
     slug: ISlug,
     eventUrl?: string,
     eventTags?: EventTag[]
-
+    socialLinks? : SocialLink[]
+    facebook: string,
+    twitter: string,
+    instagram: string,
+    linkedin: string,
+    email: string,
+    spotify: string,
+    website: string,
+    youtube: string,
 }
 
 export interface Art {

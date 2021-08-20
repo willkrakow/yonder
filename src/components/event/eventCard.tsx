@@ -1,20 +1,36 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Themed, Box, Card, Button, Flex, Link } from "theme-ui";
-import { capitalizeString } from "../../utils";
+import { jsx, Themed, Box, Card, Button, Flex, Link, Badge } from "theme-ui";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { Link as GatsbyLink } from 'gatsby'
 import { IEvent } from "../../typings";
-import { alpha } from '@theme-ui/color'
 import ScrollAnimation from "react-animate-on-scroll";
 import { getGatsbyImageData } from "gatsby-source-sanity";
 import {sanityConfig} from '../../utils'
+
 interface IEventCard {
   e: IEvent;
   index: number
 }
 
-const EventCard: React.FC<IEventCard> = ({e, index}) => {
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const EventCard: React.FC<IEventCard> = ({e}) => {
+  const eventDate = new Date(e.date)
+  const dateString = `${MONTHS[eventDate.getMonth()]} ${eventDate.getDate()}, ${eventDate.getFullYear()}`
     const imageData = getGatsbyImageData(e.image, { width: 1000, height: 600, fit: "fill" }, sanityConfig);
   return (
     <ScrollAnimation animateIn="fadeInUp" animateOnce={true}>
@@ -37,7 +53,7 @@ const EventCard: React.FC<IEventCard> = ({e, index}) => {
           }}
         >
           <GatsbyImage
-          //@ts-ignore
+            //@ts-ignore
             image={imageData}
             alt={e.name}
             sx={{
@@ -56,55 +72,31 @@ const EventCard: React.FC<IEventCard> = ({e, index}) => {
               top: 4,
               left: 4,
             }}
-          >
-            <Themed.p
-              sx={{
-                color: "primary",
-                fontWeight: "bold",
-                backgroundColor: alpha("background", 0.9),
-                alignSelf: "flex-start",
-                py: 2,
-                px: 3,
-              }}
-            >
-              {/* {capitalizeString(e.fromNow)} */}
-            </Themed.p>
-          </div>
+          ></div>
         </Box>
         <Flex
           sx={{
             flexBasis: ["100%", "40%", null],
-            p: 4,
+            py: [4, 5, 6],
+            px: 4,
             zIndex: 20,
             flexDirection: "column",
-            justifyContent: "center",
           }}
         >
+          <Themed.p>{dateString}</Themed.p>
           <Link
             as={GatsbyLink}
             //@ts-ignore
             to={`/events/${e.slug.current}`}
           >
-            {e.date}
+            <Themed.h3 sx={{ mb: 5, mt: 0 }}>{e.name}</Themed.h3>
           </Link>
-          <Themed.h4>{e.name}</Themed.h4>
-          {e.eventTags && (
-            <Themed.h5
-              sx={{
-                mb: 5,
-                color: "muted",
-                fontWeight: "body",
-                textTransform: "lowercase",
-                fontStyle: "italic",
-                fontSize: 0,
-              }}
-            >
-              {e.eventTags.map((e, i) => (
-                <span key={i}>#{e?.toLowerCase()} </span>
-              ))}
-            </Themed.h5>
-          )}
-          <GatsbyLink to={`/events/${e.slug.current}`}>
+
+          <Box sx={{ flex: "100%"}}>
+            {e.eventTags &&
+              e.eventTags.map((tag, i) => <Badge key={i}>#{tag} </Badge>)}
+          </Box>
+          <GatsbyLink sx={{ mt: 4, }} to={`/events/${e.slug.current}`}>
             <Button variant="action">Learn more &rarr;</Button>
           </GatsbyLink>
         </Flex>

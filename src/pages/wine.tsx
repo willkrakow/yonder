@@ -36,8 +36,10 @@ const WinePage = (props: WinePageProps) => {
               index={0}
               key={s[0]}
               title={s[0]}
+              nested
               menuitems={s[1].filter((i) => i.available)}
               descriptionItems={["ABV", "origin"]}
+              appendFirstDescription={"%"}
             />
           ))}
         </Container>

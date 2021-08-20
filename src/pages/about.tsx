@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { StaticImage } from "gatsby-plugin-image";
 import React from "react";
 import { jsx, Container, Themed, Box, Grid, Flex } from "theme-ui";
 import { graphql } from "gatsby";

@@ -72,6 +72,7 @@ const Menu: React.FC<MenuPageProps> = (props) => {
         link={"/wine"}
         image={wine.categoryImage}
         index={1}
+        appendFirstDescription={"%"}
       />
       <MenuCategorySection
         title={`Beer`}
@@ -80,6 +81,7 @@ const Menu: React.FC<MenuPageProps> = (props) => {
         link={`/beer`}
         index={2}
         image={beer.categoryImage}
+        appendFirstDescription={"%"}
       />
       <MenuCategorySection
         title={`Cocktails`}

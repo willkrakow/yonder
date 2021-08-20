@@ -38,7 +38,9 @@ module.exports = {
       options: {
         projectId: "hiyhitvr",
         dataset: "production",
-        token: process.env.SANITY_READ_TOKEN,
+        watchMode: true,
+        overlayDrafts: true,
+        token: process.env.SANITY_TOKEN
       },
     },
     "gatsby-plugin-theme-ui",

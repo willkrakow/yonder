@@ -9,17 +9,20 @@ interface ListItemProps {
   props?: HTMLAttributes<HTMLLIElement>;
   descriptionItems: Array<string>;
   title: string;
+  appendFirstDescription?: string;
 }
 
 const ListItem = ({
   title,
   drink,
   descriptionItems,
+  appendFirstDescription,
   ...props
 }: ListItemProps) => {
   const firstDescriptor = descriptionItems[0];
   const secondDescriptor = descriptionItems[1];
 
+  const append = appendFirstDescription ? `${appendFirstDescription} ` : "";
   return (
     <React.Fragment>
       <li
@@ -47,7 +50,7 @@ const ListItem = ({
           ${drink.price.toString()}
         </span>
         <Themed.p sx={{ flexBasis: "100%", position: "relative", mb: 0 }}>
-          <span >{`${drink[firstDescriptor]}`}</span>
+          <span >{`${drink[firstDescriptor]}${append}`}</span>
           {" | "}
           <span sx={{ color: "muted" }}>{drink[secondDescriptor]}</span>
         </Themed.p>

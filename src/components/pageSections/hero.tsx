@@ -7,25 +7,25 @@ import { Link as GatsbyLink } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { alpha } from '@theme-ui/color'
 import { getGatsbyImageData } from "gatsby-source-sanity";
-import { sanityConfig } from '../../utils'
 
 const Hero: React.FC<HeroProps> = (props) => {
   const { title, image } = props
   const imageData = getGatsbyImageData(
     image,
-    { fit: "clip" },
+    { fit: "fill" },
     { projectId: "hiyhitvr", dataset: "production"}
   );
 
   console.log(imageData);
     return (
-      <Grid columns={[1, 1, "1fr 1fr"]} sx={{ height: "90vh" }}>
+      <Grid columns={[1, 1, "1fr 1fr"]}>
         <Box
           sx={{
             placeContent: "center",
             placeSelf: "normal",
             zIndex: 60,
             maxWidth: [null, null, 9],
+            minHeight: "80vh",
             px: 4,
             mx: "auto",
             gridArea: ["1 / 1", null, "1 / 1"],
@@ -34,8 +34,8 @@ const Hero: React.FC<HeroProps> = (props) => {
             flexDirection: "column",
             backgroundColor: (t) => {
               return [
-              `${alpha("dark", 0.4)(t)}`,
-              `${alpha("dark", 0.4)(t)}`,
+              `${alpha("dark", 0.5)(t)}`,
+              `${alpha("dark", 0.5)(t)}`,
               "transparent",
             ]},
           }}
@@ -49,7 +49,7 @@ const Hero: React.FC<HeroProps> = (props) => {
             <Themed.h2
               sx={{
                 my: 2,
-                fontSize: ["4.5em", "6em", "7em"],
+                fontSize: ["3.4em", "6em", "6em"],
                 lineHeight: "120%",
                 color: ["light", "light", "primary"],
                 fontWeight: 100,

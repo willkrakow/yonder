@@ -14,9 +14,10 @@ interface MenuCategorySectionProps {
   index: number,
   image: ImageAsset,
   nested?: boolean
+  appendFirstDescription?: string
 }
 
-const MenuCategorySection = ({ title, image, menuitems, descriptionItems, link="#", nested=false }: MenuCategorySectionProps) => {
+const MenuCategorySection = ({ title, image, menuitems, descriptionItems, link="#", nested=false, appendFirstDescription }: MenuCategorySectionProps) => {
   return (
     <React.Fragment>
         <Grid columns={[1, 2, 2]} gap={6} mb={6}>
@@ -38,6 +39,7 @@ const MenuCategorySection = ({ title, image, menuitems, descriptionItems, link="
                   key={drink.id || drink._key}
                   drink={drink}
                   descriptionItems={descriptionItems}
+                  appendFirstDescription={appendFirstDescription}
                 />
                 )}
               )}

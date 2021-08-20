@@ -40,6 +40,7 @@ const BeerPage = (props: BeerPageProps) => {
             title={s.name}
             menuitems={s.items.filter((i) => i.available)}
             descriptionItems={["ABV", "origin"]}
+            appendFirstDescription={"%"}
           />
         ))}
       </Container>

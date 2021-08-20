@@ -42,7 +42,7 @@ const Footer = ({ copyright }: Props) => {
         }}
       >
         <Box as="address" sx={{ flex: ["100%", 2, 2] }}>
-          <Themed.h5 sx={{ fontFamily: "heading", color: "primary", fontWeight: "bold" }}><span></span></Themed.h5>
+          <SiteTitle />
           <AddressBlock copyright={copyright} withLocation />
         </Box>
         <Flex sx={{ flexDirection: "column", flex: 1 }}>

@@ -19,7 +19,7 @@ const theme = {
     fontWeights: {
         body: 200,
         heading: 700,
-        bold: 600,
+        bold: 500,
     },
     sizes: [...spaces.space],
     lineHeights: {
@@ -31,7 +31,7 @@ const theme = {
         modes: {
             light: {
                 ...lightColors,
-            }
+            },
         },
     },
     letterSpacings: ["0px", "1px", "2px", "4px"],
@@ -72,13 +72,14 @@ const theme = {
         },
         h2: {
             fontFamily: "display",
-            fontSize: "calc(1.3rem + 3.6vw)",
+            fontSize: "calc(2.0rem + 1.6vw)",
             fontWeight: 200,
             letterSpacing: 3,
             color: "primary",
             margin: 'auto',
-            my: 5,
-            lineHeight: 1.5
+            mt: 5,
+            mb: 4,
+            lineHeight: 1.25
         },
         h3: {
             fontSize: 5,
@@ -118,6 +119,7 @@ const theme = {
         h6: {
             variant: 'text.heading',
             fontSize: 0,
+            my: 2,
         },
         pre: {
             fontFamily: 'monospace',
@@ -295,13 +297,13 @@ const theme = {
                 color: "muted",
             },
             "&[disabled], &[aria-disabled=true]": {
-                backgroundColor: lighten("accent", 0.4),
+                backgroundColor: (t) => `${lighten("accent", 0.4)(t)}`,
                 color: "muted",
                 cursor: "not-allowed",
             },
         },
         secondary: {
-            background: (t) => `${alpha("background", 0.9)(t)}`,
+            backgroundColor: (t) => `${alpha("background", 0.9)(t)}`,
             color: "primary",
             borderWidth: 2,
             borderStyle: "solid",
@@ -331,19 +333,25 @@ const theme = {
             fontSize: spaces.space[4],
         },
         action: {
-            backgroundColor: "accent",
-            color: "light",
-            py: 1,
+            color: "text",
+            pt: 2,
+            pb: 1,
             cursor: "pointer",
-            px: 4,
             fontFamily: "body",
             fontSize: 1,
             fontWeight: "normal",
             transition: "all 0.2s ease",
             textAlign: "left",
-            borderRadius: 2,
+            borderRadius: 0,
+            backgroundColor: "transparent",
+            borderBottomColor: (t) => `${alpha("accent", 0.9)(t)}`,
+            borderBottomStyle: "solid",
+            letterSpacing: 1,
+            borderBottomWidth: 3,
             "&:hover": {
-                backgroundColor: lighten("accent", 0.1),
+                backgroundColor: (t) => `${alpha("accent", 0.5)(t)}`,
+                borderBottomColor: "accent",
+                color: "text",
             },
             "&.active": {
                 backgroundColor: "warning",
@@ -360,10 +368,15 @@ const theme = {
     },
     badges: {
         primary: {
-            backgroundColor: "secondary",
+            backgroundColor: "accent",
             color: "light",
             px: 4,
+            mb: 4,
+            textTransform: "lowercase",
+            letterSpacing: 1,
             fontWeight: "bold",
+            width: "min-content",
+            mr: 4
         },
     },
     layout: {
@@ -384,7 +397,6 @@ const theme = {
         nav: {
             color: "muted",
             backgroundColor: "background",
-            maxWidth: 9,
             margin: 'auto',
         },
         container: {
