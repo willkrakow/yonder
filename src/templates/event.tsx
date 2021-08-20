@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Flex, Themed, Container, Grid, Box, Badge, Card } from "theme-ui";
+import { jsx, Flex, Themed, Container, Box, Badge } from "theme-ui";
 import { IEvent as EventProps } from "../typings";
 import { graphql, PageProps } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";

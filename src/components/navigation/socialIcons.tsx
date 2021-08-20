@@ -2,14 +2,16 @@
 import * as React from 'react';
 import { jsx, Flex } from 'theme-ui';
 import { useStaticQuery, graphql } from 'gatsby'
-import {Instagram, Email, Facebook, } from '../icons/'
-import PhoneNumber from '../icons/phoneNumber';
+import { GenericIcon, } from '../icons/'
+import { faFacebook, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { faDollarSign, faEnvelopeOpen, faPhone } from '@fortawesome/free-solid-svg-icons';
 interface QueryProps {
         socialLinks: {
-            instagram: string;
-            facebook: string;
-            email: string;
-            phoneNumber: string;
+            instagram?: string;
+            facebook?: string;
+            email?: string;
+            phoneNumber?: string;
+            venmo?: string;
         },
 }
 
@@ -26,12 +28,13 @@ const SocialIcons = ({ withText, layout }: ISocialIcons) => {
         facebook
         email
         phoneNumber
+        venmo
       }
     }
   `)
   
   const { socialLinks } = data
-  const { instagram, facebook, email, phoneNumber } = socialLinks
+  const { instagram, facebook, email, phoneNumber, venmo } = socialLinks
     return (
       <>
         <Flex
@@ -45,13 +48,43 @@ const SocialIcons = ({ withText, layout }: ISocialIcons) => {
                 verticalAlign: "top",
               },
             },
-            
           }}
         >
-          <Instagram withText={withText} link={instagram} />
-          <Facebook withText={withText} link={facebook} />
-          <Email withText={withText} link={email} />
-          <PhoneNumber withText={withText} link={phoneNumber || ""} />
+          {instagram && (
+            <GenericIcon
+              label={withText ? instagram.replace("https://www.instagram.com/", "@").replace("/", "") : ""}
+              url={`https://instagram.com/${instagram}`}
+              icon={faInstagram}
+            />
+          )}
+          {facebook && (
+            <GenericIcon
+              label={withText ? facebook.replace("https://www.", "") : ""}
+              url={`https://facebook.com/${facebook}`}
+              icon={faFacebook}
+            />
+          )}
+          {email && (
+            <GenericIcon
+              label={withText ? email : ""}
+              url={`mailto:${email}`}
+              icon={faEnvelopeOpen}
+            />
+          )}
+          {phoneNumber && (
+            <GenericIcon
+              label={withText ? phoneNumber : ""}
+              url={`tel:${phoneNumber}`}
+              icon={faPhone}
+            />
+          )}
+          {venmo && (
+            <GenericIcon
+              label={withText ? venmo : ""}
+              url={`https://venmo.com/${venmo}`}
+              icon={faDollarSign}
+            />
+          )}
         </Flex>
       </>
     );

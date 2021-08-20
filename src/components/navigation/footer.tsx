@@ -4,6 +4,9 @@ import { jsx, Themed, Box, Flex, Link, Container } from "theme-ui";
 import AddressBlock from "../addressBlock";
 import SocialIcons from "./socialIcons";
 import SiteTitle from "./siteTitle";
+import {useStaticQuery, graphql} from "gatsby";
+import _ from "lodash";
+
 interface Props {
   copyright: Date;
   street: string;
@@ -13,7 +16,59 @@ interface Props {
   phone: string;
 }
 
+interface FooterLink {
+  label: string;
+  url: string;
+  category: string;
+  _key: string;
+}
+
+interface FooterQueryProps {
+  sanitySiteSettings: {
+    footerLinks: FooterLink[],
+    email: string,
+    facebook: string,
+    twitter: string,
+    venmo: string,
+    phoneNumber: string,
+    instagram: string,
+  }
+}
+
 const Footer = ({ copyright }: Props) => {
+  const data: FooterQueryProps = useStaticQuery(graphql`
+    {
+      sanitySiteSettings {
+        footerLinks {
+          label
+          url
+          category
+          _key
+        }
+        email
+        facebook
+        twitter
+        venmo
+        phoneNumber
+        instagram
+      }
+    }
+  `)
+
+  const { footerLinks } = data.sanitySiteSettings;
+
+  const footerCategoryNames = new Set(footerLinks.map(link => link.category));
+    interface SuperCategory {
+      name: string;
+      items: FooterLink[];
+      key: string
+    }
+  const superCategoryArray: SuperCategory[] = []
+  footerCategoryNames.forEach(category => {
+    const categoryLinks = footerLinks.filter(link => link.category === category)
+    superCategoryArray.push({name: category, items: categoryLinks, key: _.uniqueId()})
+  })
+
   return (
     <>
       <Container
@@ -45,22 +100,14 @@ const Footer = ({ copyright }: Props) => {
           <SiteTitle />
           <AddressBlock copyright={copyright} withLocation />
         </Box>
-        <Flex sx={{ flexDirection: "column", flex: 1 }}>
-          <Themed.h5>Menus</Themed.h5>
-          <Link href="/wine">Wine</Link>
-          <Link href="/beer">Beer</Link>
-          <Link href="/cocktails">Cocktails</Link>
-          <Link href="/togo">To-go</Link>
-          <Link href="/menu">Food</Link>
-        </Flex>
-        <Flex sx={{ flexDirection: "column", flex: 1 }}>
-          <Themed.h5>More</Themed.h5>
-          <Link href="/about">About</Link>
-          <Link href="/membership">Membership</Link>
-          <Link href="/events">Events</Link>
-          <Link href="/art">Art</Link>
-          <Link href="/contact">Contact us</Link>
-        </Flex>
+        {superCategoryArray.map(category => (
+          <Flex key={category.key} sx={{ flexDirection: "column", flex: 1 }}>
+            <Themed.h5>{category.name}</Themed.h5>
+            {category.items.map(link => (
+              <Link key={link._key} href={link.url}>{link.label}</Link>
+            ))}
+          </Flex>
+        ))}
         <div sx={{ gridColumn: ["span 2", "span 1", null], flex: 1 }}>
           <Themed.h5 sx={{ flexBasis: "100%" }}>Social</Themed.h5>
           <SocialIcons withText layout="column" />
