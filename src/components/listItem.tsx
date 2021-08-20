@@ -45,6 +45,7 @@ const ListItem = ({
             fontSize: 1,
             height: "50%",
             textAlign: "right",
+            lineHeight: 1.75
           }}
         >
           ${drink.price.toString()}
