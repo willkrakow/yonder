@@ -75,6 +75,9 @@ export default (context: LayoutProps) => {
           },
           address: {
             fontStyle: "normal"
+          },
+          a: {
+            textDecoration: "none",
           }
         })}
       />

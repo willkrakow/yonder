@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react'
-import { Flex, Switch, Close, jsx, MenuButton, Grid, useColorMode, Box, Label } from 'theme-ui'
+import { Flex, Switch, Close, jsx, MenuButton, Grid, useColorMode, Label } from 'theme-ui'
 import { NavbarProps } from '.';
 import NavListItem from './navListItem';
 import { alpha } from '@theme-ui/color';
@@ -125,28 +125,28 @@ const MobileNavbar = ({ menuLinks, context }: NavbarProps) => {
             <SiteTitle />
             <AddressBlock withLocation withSocial />
           </li>
-          <Flex
-            as="li"
+          <li
             sx={{
               justifyContent: "space-between",
               alignItems: "center",
               py: 2,
               px: 3,
+              display: "flex",
               backgroundColor: alpha("primary", 0.2),
               borderRadius: "20px",
             }}
           >
-            <Box>
+            <div>
               <Switch
                 onChange={handleSwitch}
                 value={colorMode}
                 id="colormode"
               />
-            </Box>
+            </div>
             <Label htmlFor="colormode" sx={{ flex: 1, ml: 2 }}>
               {colorMode === "light" ? "🌞 Light mode" : "🌚 Dark mode"}
             </Label>
-          </Flex>
+          </li>
         </ul>
       </Flex>
     </React.Fragment>

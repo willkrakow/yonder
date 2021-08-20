@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Themed, Box, Flex, Link, Container } from "theme-ui";
+import { jsx, Themed, Flex, Link, Container } from "theme-ui";
 import AddressBlock from "../addressBlock";
 import SocialIcons from "./socialIcons";
 import SiteTitle from "./siteTitle";
@@ -96,10 +96,10 @@ const Footer = ({ copyright }: Props) => {
           },
         }}
       >
-        <Box as="address" sx={{ flex: ["100%", 2, 2] }}>
+        <address sx={{ flex: ["100%", 2, 2] }}>
           <SiteTitle />
           <AddressBlock copyright={copyright} withLocation />
-        </Box>
+        </address>
         {superCategoryArray.map(category => (
           <Flex key={category.key} sx={{ flexDirection: "column", flex: 1 }}>
             <Themed.h5>{category.name}</Themed.h5>

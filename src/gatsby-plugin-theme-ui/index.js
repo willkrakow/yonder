@@ -203,7 +203,21 @@ const theme = {
                 color: "primary",
                 borderBottomColor: "primary",
                 },
-        }
+        },
+        text: {
+                color: "accent",
+                letterSpacing: 1,
+                borderBottomColor: "muted",
+                borderBottomStyle: "solid",
+                borderBottomWidth: 2,
+                cursor: "pointer",
+                transition: "all 0.2s ease",
+                py: 3,
+                "&:hover": {
+                    borderBottomColor: "accent",
+                    color: "primary"
+                }
+            }
     },
     forms: {
         label: {

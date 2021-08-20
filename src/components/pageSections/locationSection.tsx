@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import React from "react";
-import { jsx, Grid, Themed, Box, Button, Container } from "theme-ui";
+import { jsx, Grid, Themed, Button, Container } from "theme-ui";
 import GoogleMapReact from "google-map-react";
 import { IDailyHours } from "../../typings";
 import { useStaticQuery, graphql } from "gatsby";
@@ -349,7 +349,6 @@ const LocationSection = () => {
     <ScrollAnimation animateOnce={true} animateIn="fadeInUp">
       <Container as="section">
         <Grid columns={[1, 2, 2]} gap={6}>
-          <Box>
             <div style={{ height: "100%", width: "100%" }}>
               <GoogleMapReact
                 bootstrapURLKeys={{
@@ -368,8 +367,7 @@ const LocationSection = () => {
                 />
               </GoogleMapReact>
             </div>
-          </Box>
-          <Box>
+          <div>
             <Themed.h3>Stop on by</Themed.h3>
             <Themed.p>
               We're open 7 days a week, give or take a few. Stay for a drink,
@@ -432,7 +430,7 @@ const LocationSection = () => {
             >
               <Button sx={{ mt: 4 }}>Get directions</Button>
             </a>
-          </Box>
+          </div>
         </Grid>
       </Container>
     </ScrollAnimation>

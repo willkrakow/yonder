@@ -1,6 +1,6 @@
 /**@jsx jsx */
 import React from 'react'
-import { Flex, useColorMode, jsx, Switch, Label, Box,  } from 'theme-ui';
+import { Flex, useColorMode, jsx, Switch, Label,  } from 'theme-ui';
 import { NavbarProps, MenuLinkProps } from './index'
 import NavListItem from './navListItem';
 import { darken, lighten } from '@theme-ui/color';
@@ -58,7 +58,7 @@ const Navbar = ({ menuLinks, context  }: NavbarProps) => {
                 borderRadius: "20px",
               }}
             >
-              <Box
+              <div
                 sx={{
                   backgroundColor: lighten("background", 0.1),
                   borderRadius: "20px",
@@ -70,7 +70,7 @@ const Navbar = ({ menuLinks, context  }: NavbarProps) => {
                   onChange={handleClick}
                   value={colorMode}
                 />
-              </Box>
+              </div>
               <Label htmlFor="colormode" sx={{ flex: 1, ml: 2 }}>
                 {colorMode === "light" ? "🌞" : "🌚"}
               </Label>

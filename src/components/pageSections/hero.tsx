@@ -1,6 +1,6 @@
 /**@jsx jsx */
 import React from 'react'
-import { Themed, jsx, Flex, Box, Button, Grid } from 'theme-ui'
+import { Themed, jsx, Button, Grid } from 'theme-ui'
 import { HeroProps } from '../../typings'
 import ScrollAnimation from 'react-animate-on-scroll'
 import { Link as GatsbyLink } from 'gatsby'
@@ -19,7 +19,7 @@ const Hero: React.FC<HeroProps> = (props) => {
   console.log(imageData);
     return (
       <Grid columns={[1, 1, "1fr 1fr"]}>
-        <Box
+        <div
           sx={{
             placeContent: "center",
             placeSelf: "normal",
@@ -66,9 +66,10 @@ const Hero: React.FC<HeroProps> = (props) => {
             offset={0}
             delay={500}
           >
-            <Flex
+            <div
               sx={{
                 my: 5,
+                display: "flex",
                 justifyContent: "space-between",
                 flexWrap: "wrap",
                 a: {
@@ -82,9 +83,9 @@ const Hero: React.FC<HeroProps> = (props) => {
               <a href="https://www.google.com/maps/dir//Yonder:+Southern+Cocktails+and+Brew,+114+W+King+St,+Hillsborough,+NC+27278/@36.075492,-79.1022201,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x89acdf924f5833c9:0x39c761f95557be93!2m2!1d-79.1000315!2d36.0754905!3e0">
                 <Button variant="secondary">Get directions</Button>
               </a>
-            </Flex>
+            </div>
           </ScrollAnimation>
-        </Box>
+        </div>
         <GatsbyImage
           sx={{ gridArea: ["1 / 1", null, "1 / 2"] }}
               //@ts-ignore

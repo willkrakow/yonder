@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Themed, Box, Card, Button, Flex, Link, Badge } from "theme-ui";
+import { jsx, Themed, Card, Button, Flex, Link, Badge } from "theme-ui";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { Link as GatsbyLink } from 'gatsby'
 import { IEvent } from "../../typings";
@@ -45,7 +45,7 @@ const EventCard: React.FC<IEventCard> = ({e}) => {
           overflow: "hidden",
         }}
       >
-        <Box
+        <div
           sx={{
             flexBasis: ["100%", "60%", null],
             position: "relative",
@@ -73,7 +73,7 @@ const EventCard: React.FC<IEventCard> = ({e}) => {
               left: 4,
             }}
           ></div>
-        </Box>
+        </div>
         <Flex
           sx={{
             flexBasis: ["100%", "40%", null],
@@ -92,10 +92,10 @@ const EventCard: React.FC<IEventCard> = ({e}) => {
             <Themed.h3 sx={{ mb: 5, mt: 0 }}>{e.name}</Themed.h3>
           </Link>
 
-          <Box sx={{ flex: "100%"}}>
+          <div sx={{ flex: "100%"}}>
             {e.eventTags &&
               e.eventTags.map((tag, i) => <Badge key={i}>#{tag} </Badge>)}
-          </Box>
+          </div>
           <GatsbyLink sx={{ mt: 4, }} to={`/events/${e.slug.current}`}>
             <Button variant="action">Learn more &rarr;</Button>
           </GatsbyLink>

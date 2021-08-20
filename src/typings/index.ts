@@ -284,3 +284,32 @@ export interface IMonthGroup {
   monthNumberString: string,
   index: number,
 }
+
+export interface MenuFile {
+  _key: string
+  _type: "file"
+  asset: {
+    url: string,
+  }
+}
+
+
+
+export interface IRestaurant {
+    address: Address,
+    name: string,
+    phone: string,
+    website: string
+    description: string,
+    cuisines: string[],
+    id: string
+    _id: string
+    _key: string
+    onlineOrdering: string
+    delivery: string
+    image: ImageAsset
+    takeout: string
+    dineIn: string
+    reservations: string
+    menus: Array<MenuFile | SocialLink>,
+}

@@ -9,7 +9,6 @@ interface CenterTextSectionProps {
 
 const CenterTextSection: React.FC<CenterTextSectionProps> = ({headerText, bodyText}) => {
     return (
-      <>
         <Container
           as="section"
           sx={{
@@ -36,8 +35,6 @@ const CenterTextSection: React.FC<CenterTextSectionProps> = ({headerText, bodyTe
             )}
           </Flex>
         </Container>
-          {/* <LocationSection /> */}
-      </>
     );
 }
 

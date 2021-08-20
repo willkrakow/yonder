@@ -1,6 +1,6 @@
 /**@jsx jsx */
 import React from "react";
-import { jsx, Grid, Container, Flex, Box, Input, Themed, Button, Label, Textarea } from "theme-ui";
+import { jsx, Grid, Container, Flex, Input, Themed, Button, Label, Textarea } from "theme-ui";
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { StaticImage } from "gatsby-plugin-image";
 import { alpha } from '@theme-ui/color'
@@ -47,7 +47,7 @@ const FormSection: React.FC<FormSectionProps> = ({
           layout="constrained"
           height={700}
         />
-        <Box
+        <div
           sx={{
             zIndex: 111,
             gridArea: "1/1",
@@ -72,14 +72,14 @@ const FormSection: React.FC<FormSectionProps> = ({
                 Sign up for our newsletter to get notified about the latest
                 events and happenings
               </Themed.p>
-              <Flex
+              <form
                 sx={{
+                  display: "flex",
                   flexWrap: "wrap",
                   justifyContent: "center",
                   maxWidth: 9,
                   margin: "auto",
                 }}
-                as="form"
                 onSubmit={handleSubmit(onSubmit)}
               >
                 {collectName && (
@@ -115,9 +115,9 @@ const FormSection: React.FC<FormSectionProps> = ({
                   </Themed.p>
                 )}
                 <Button variant="primary">{buttonText || "Submit"}</Button>
-              </Flex>
+              </form>
             </Flex>
-        </Box>
+        </div>
       </Grid>
     </Container>
   );
