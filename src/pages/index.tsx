@@ -53,7 +53,7 @@ const IndexPage: React.FC<IndexPageProps> = (props) => {
       case "formSection":
         el = <FormSection key={b._key} _key={b._key} _type={b._type} collectEmail={b.collectEmail} collectName={b.collectName || false} collectMessage={b.collectMessage || false} buttonText={b.buttonText || "Submit"} />
         break
-      case "locationSection":
+      case "locationAndHoursSection":
         el = <LocationSection key={b._key} />;
         break
       default:

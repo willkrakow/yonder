@@ -34,9 +34,9 @@ interface IconProps {
 const GenericIcon = ({ icon, size="1x", color = "primary", url = ".", label, ...props}: IconProps) => {
     return (
         <>
-      <Link href={url} {...props} sx={{ display: "flex", alignItems: "center" }}>
-        <FontAwesomeIcon icon={icon} size={size} sx={{ color: color, flex: "1 1 15%" }} />
-        {label && <span sx={{ pl: 3, verticalAlign: "top", flex: "3 1 100%"  }}>{label}</span>}
+      <Link variant="primary" href={url} {...props}>
+        <FontAwesomeIcon icon={icon} size={size} sx={{ color: color, mr: 4, minWidth: 4, display: "inline-block", ml: 'auto' }} />
+        {label && <span>{label}</span>}
       </Link>
       </>
     );

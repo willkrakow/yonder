@@ -147,11 +147,14 @@ const theme = {
         },
         ul: {
             paddingInlineStart: 0,
+            marginLeft: [0,0,4],
+            listStyleType: 'none',
+            mt: 2,
         },
         li: {
             listStyleType: 'none',
             mb: 3,
-            mr: 5,
+            p: 3,
             transition: "all 0.4s ease",
             position: "relative",
             "&::before": {
@@ -216,6 +219,18 @@ const theme = {
                 "&:hover": {
                     borderBottomColor: "accent",
                     color: "primary"
+                }
+            },
+            primary: {
+                color: "muted",
+                letterSpacing: 1,
+                borderBottomColor: "transparent",
+                borderBottomStyle: "inset",
+                borderBottomWidth: 1,
+                transition: "all 0.2s ease",
+                "&:hover": {
+                    color: "primary",
+                    borderBottomColor: "primary",
                 }
             }
     },
@@ -288,6 +303,7 @@ const theme = {
             py: 3,
             fontWeight: "bold",
             px: 5,
+            my: 4,
             letterSpacing: 1,
             textTransform: "uppercase",
             fontSize: 1,
@@ -332,6 +348,7 @@ const theme = {
             transition: "all 0.2s ease",
             px: 5,
             py: 3,
+            my: 4,
             "&:hover": {
                 backgroundColor: "primary",
                 color: "background",

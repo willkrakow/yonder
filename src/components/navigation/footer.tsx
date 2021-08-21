@@ -2,10 +2,10 @@
 import React from "react";
 import { jsx, Themed, Flex, Link, Container } from "theme-ui";
 import AddressBlock from "../addressBlock";
-import SocialIcons from "./socialIcons";
 import SiteTitle from "./siteTitle";
 import {useStaticQuery, graphql} from "gatsby";
 import _ from "lodash";
+import EventOrArtSocialList from "../eventOrArtSocialList";
 
 interface Props {
   copyright: Date;
@@ -30,7 +30,7 @@ interface FooterQueryProps {
     facebook: string,
     twitter: string,
     venmo: string,
-    phoneNumber: string,
+    phone: string,
     instagram: string,
   }
 }
@@ -49,7 +49,7 @@ const Footer = ({ copyright }: Props) => {
         facebook
         twitter
         venmo
-        phoneNumber
+        phone: phoneNumber
         instagram
       }
     }
@@ -96,22 +96,31 @@ const Footer = ({ copyright }: Props) => {
           },
         }}
       >
-        <address sx={{ flex: ["100%", 2, 2] }}>
+        <address sx={{ flex: "100%" }}>
           <SiteTitle />
           <AddressBlock copyright={copyright} withLocation />
         </address>
-        {superCategoryArray.map(category => (
+        {superCategoryArray.map((category) => (
           <Flex key={category.key} sx={{ flexDirection: "column", flex: 1 }}>
             <Themed.h5>{category.name}</Themed.h5>
-            {category.items.map(link => (
-              <Link key={link._key} href={link.url}>{link.label}</Link>
-            ))}
+            <Themed.ul>
+              {category.items.map((link) => (
+                <li key={link._key}>
+                  <Link variant="primary" key={link._key} href={link.url}>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </Themed.ul>
           </Flex>
         ))}
-        <div sx={{ gridColumn: ["span 2", "span 1", null], flex: 1 }}>
-          <Themed.h5 sx={{ flexBasis: "100%" }}>Social</Themed.h5>
-          <SocialIcons withText layout="column" />
-        </div>
+        <Flex sx={{ flexDirection: "column", minWidth: "", flex: 1 }}>
+          <Themed.h5>Social</Themed.h5>
+          <EventOrArtSocialList
+            withTitle={false}
+            {...data.sanitySiteSettings}
+          />
+        </Flex>
       </Container>
     </>
   );

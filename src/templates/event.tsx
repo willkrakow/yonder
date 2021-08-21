@@ -1,18 +1,10 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Flex, Themed, Container, Box, Badge } from "theme-ui";
+import { jsx, Themed, Container, Box, Badge } from "theme-ui";
 import { IEvent as EventProps } from "../typings";
 import { graphql, PageProps } from "gatsby";
-import { GatsbyImage } from "gatsby-plugin-image";
-import { GenericIcon } from "../components/icons";
-import {
-  faFacebookSquare,
-  faInstagramSquare,
-  faSpotify,
-  faTwitter,
-  faYoutube,
-} from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope, faGlobe } from "@fortawesome/free-solid-svg-icons";
+import PostImage from "../components/postImage";
+import EventOrArtSocialList from "../components/eventOrArtSocialList";
 
 interface IEventPage {
   data: {
@@ -28,13 +20,6 @@ const Event = (props: EventPageProps) => {
     date,
     subtitle,
     name,
-    twitter,
-    facebook,
-    instagram,
-    youtube,
-    website,
-    email,
-    spotify,
     timeStart,
     timeEnd,
     eventTags,
@@ -55,27 +40,12 @@ const Event = (props: EventPageProps) => {
   return (
     <React.Fragment>
       <Container as="article" sx={{ maxWidth: 10 }}>
-        <header
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            alignContent: "flex-start",
-            justifyContent: "space-around",
-          }}
-        >
-          <Themed.p
-            sx={{
-              borderLeftColor: "accent",
-              borderLeftStyle: "solid",
-              borderLeftWidth: 4,
-              pl: 3,
-            }}
-          >
+        <header>
+          <Themed.p>
             {date} <br />
             {timeSpan}
           </Themed.p>
-          <Themed.h2 sx={{ mt: 0, ml: 0, alignSelf: "flex-start" }}>
+          <Themed.h2>
             {name}
           </Themed.h2>
           {eventTags && (
@@ -86,97 +56,16 @@ const Event = (props: EventPageProps) => {
               </Box>
           )}
           {subtitle && (
-            <Themed.p sx={{ fontWeight: "bold", letterSpacing: 2 }}>
+            <Themed.h4>
               {subtitle}
-            </Themed.p>
+            </Themed.h4>
           )}
         </header>
-        <Flex sx={{ flexDirection: "column" }}>
-          <GatsbyImage
-            //@ts-ignore
-            image={image.asset.gatsbyImageData}
-            alt={event.name}
-            sx={{ mt: 4, mb: 5 }}
-          />
-        </Flex>
-        <Box>
+        <PostImage image={image.asset.gatsbyImageData} alt={name} />
           {description.map((d) => (
             <Themed.p key={d._key}>{d.children[0].text}</Themed.p>
           ))}
-        </Box>
-        <Box>
-          <Themed.h3>Social media</Themed.h3>
-          <Themed.ul
-            sx={{ display: "flex", flexDirection: "column", ml: [0, 0, 5] }}
-          >
-            {facebook && (
-              <Themed.li>
-                <GenericIcon
-                  icon={faFacebookSquare}
-                  url={`https://facebook.com/${facebook}`}
-                  label={facebook}
-                />
-              </Themed.li>
-            )}
-            {instagram && (
-              <Themed.li>
-                <GenericIcon
-                  icon={faInstagramSquare}
-                  url={`https://instagram.com/${instagram}`}
-                  label={instagram}
-                />
-              </Themed.li>
-            )}
-            {email && (
-              <Themed.li>
-                <GenericIcon
-                  icon={faEnvelope}
-                  url={`mailto:${email}`}
-                  label={email}
-                />
-              </Themed.li>
-            )}
-            {twitter && (
-              <Themed.li>
-                <GenericIcon
-                  icon={faTwitter}
-                  url={`https://twitter.com/${twitter}`}
-                  label={twitter}
-                />
-              </Themed.li>
-            )}
-            {spotify && (
-              <Themed.li>
-                <GenericIcon
-                  icon={faSpotify}
-                  url={`https://open.spotify.com/user/${spotify}`}
-                  label={"Spotify"}
-                />
-              </Themed.li>
-            )}
-            {youtube && (
-              <Themed.li>
-                <GenericIcon
-                  icon={faYoutube}
-                  url={`https://www.youtube.com/user/${youtube}`}
-                  label={youtube}
-                />
-              </Themed.li>
-            )}
-            {website && (
-              <Themed.li>
-                <GenericIcon
-                  icon={faGlobe}
-                  url={website}
-                  label={website
-                    .replace("http://", "")
-                    .replace("https://", "")
-                    .replace("www.", "")}
-                />
-              </Themed.li>
-            )}
-          </Themed.ul>
-        </Box>
+          <EventOrArtSocialList {...event} />
       </Container>
     </React.Fragment>
   );

@@ -5,6 +5,7 @@ import { useStaticQuery, graphql } from "gatsby";
 import { Address, ImageAsset } from "../typings";
 import { GatsbyImage } from 'gatsby-plugin-image'
 import SocialIcons from "./navigation/socialIcons";
+import SiteTitle from "./navigation/siteTitle";
 
 interface Props {
         siteSettings: {
@@ -71,7 +72,7 @@ const AddressBlock = ({withLogo, withTitle, withLocation, centered, withContactI
           </div>
         )}
         {withTitle && (
-          <Themed.h5>{title}</Themed.h5>
+          <SiteTitle />
         )}
         {withLocation && (
           <Themed.p sx={{ color: "muted", fontSize: 0 }}>
@@ -99,10 +100,6 @@ const AddressBlock = ({withLogo, withTitle, withLocation, centered, withContactI
           </Themed.p>
         )}
         {withSocial && <SocialIcons layout="row" />}
-        {copyright && (
-          <Themed.p sx={{ color: "muted"}}>
-            &copy; Copyright {copyright.getFullYear().toString()}
-          </Themed.p>)}
       </address>
     );
 }

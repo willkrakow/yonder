@@ -188,6 +188,7 @@ export interface IHero  {
 
 export interface ISanityImage {
   asset: {
+    gatsbyImageData: IGatsbyImageData
     _id: string,
     _type: "sanity.imageAsset"
     _createdAt: string,

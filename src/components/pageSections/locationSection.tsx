@@ -374,14 +374,11 @@ const LocationSection = () => {
               stay for a day. Heck you can even help us close if you're about
               that.
             </Themed.p>
-            <Themed.ul sx={{ ml: 5 }}>
+            <Themed.ul>
               {hours.map((h) => (
                 <Themed.li
                   key={h.day}
                   sx={{
-                    py: 3,
-                    px: 3,
-                    listStyleType: "none",
                     backgroundColor:
                       h.day === currentDay ? alpha("primary", 0.2) : null,
                     boxShadow: h.day === currentDay ? "sm" : "none",
@@ -428,7 +425,7 @@ const LocationSection = () => {
               sx={{ textDecoration: "none" }}
               href="https://www.google.com/maps/dir//Yonder:+Southern+Cocktails+and+Brew,+114+W+King+St,+Hillsborough,+NC+27278/@36.075492,-79.1022201,17z/data=!4m9!4m8!1m0!1m5!1m1!1s0x89acdf924f5833c9:0x39c761f95557be93!2m2!1d-79.1000315!2d36.0754905!3e0"
             >
-              <Button sx={{ mt: 4 }}>Get directions</Button>
+              <Button>Get directions</Button>
             </a>
           </div>
         </Grid>

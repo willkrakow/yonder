@@ -4,7 +4,9 @@ import { PageProps, graphql } from "gatsby";
 import React from "react";
 import { jsx, Container, Themed } from "theme-ui";
 import { Art } from "../typings";
-import { ArtGrid, ArtistBio, ArtDescription } from "../components/art";
+import { ArtGrid } from "../components/art";
+import PostImage from "../components/postImage";
+import EventOrArtSocialList from "../components/eventOrArtSocialList";
 interface IArt {
   data: {
     art: Art;
@@ -18,15 +20,22 @@ const ArtTemplate = (props: ArtPageProps) => {
   const { art } = props.data;
   return (
     <React.Fragment>
-      <Container as="article">
+      <Container as="article" sx={{ maxWidth: 10 }}>
         <header>
           <Themed.h2>{art.name}</Themed.h2>
-          <Themed.h5>by {art.artist.name}</Themed.h5>
+          <Themed.h4>by {art.artist.name}</Themed.h4>
+          <PostImage
+            image={art.images[0].asset.gatsbyImageData}
+            alt={art.images[0].caption || art.name}
+          />
+          {art.description[0].children.map((section, index) => (
+            <Themed.p key={index}>{section.text}</Themed.p>
+          ))}
         </header>
-        <ArtDescription {...art} />
         <Themed.h3>Gallery</Themed.h3>
         <ArtGrid artist={art.artist} artArr={art.images} />
-        <ArtistBio {...art.artist} />
+        <Themed.p>{art.artist.bio}</Themed.p>
+        <EventOrArtSocialList {...art.artist} />
       </Container>
     </React.Fragment>
   );
@@ -44,7 +53,7 @@ export const query = graphql`
         facebook
         image {
           asset {
-            gatsbyImageData
+            gatsbyImageData(height: 600, layout: CONSTRAINED, fit: CROP)
           }
         }
         instagram

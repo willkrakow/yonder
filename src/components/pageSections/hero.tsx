@@ -48,9 +48,7 @@ const Hero: React.FC<HeroProps> = (props) => {
           >
             <Themed.h2
               sx={{
-                my: 2,
                 fontSize: ["3.4em", "6em", "6em"],
-                lineHeight: "120%",
                 color: ["light", "light", "primary"],
                 fontWeight: 100,
                 textAlign: ["center", null, "left"],
@@ -68,13 +66,9 @@ const Hero: React.FC<HeroProps> = (props) => {
           >
             <div
               sx={{
-                my: 5,
                 display: "flex",
                 justifyContent: "space-between",
                 flexWrap: "wrap",
-                a: {
-                  my: 4,
-                },
               }}
             >
               <GatsbyLink to="/menu">
