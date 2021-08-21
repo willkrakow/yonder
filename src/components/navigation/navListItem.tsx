@@ -28,7 +28,7 @@ const NavListItem = ({ link, index }: Props) => {
               as={GatsbyLink}
               //@ts-ignore
               to={link.path}
-              sx={{ px: 3 }}
+              sx={{ px: 4 }}
             >
               {link.name}
             </NavLink>

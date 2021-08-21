@@ -15,21 +15,21 @@ module.exports = {
         path: "/menu",
       },
       {
-        name: "About",
-        path: "/about",
-      },
-      {
-        name: "Contact",
-        path: "/contact",
-      },
-      {
         name: "Events",
         path: "/events",
       },
       {
         name: "Art",
         path: "/art",
-      }
+      },
+      {
+        name: "Merch",
+        path: "/merch",
+      },
+      {
+        name: "About",
+        path: "/about",
+      },
     ],
   },
   plugins: [

@@ -191,8 +191,6 @@ const theme = {
     },
     links: {
         nav: {
-            letterSpacing: "2px",
-            textTransform: "uppercase",
             fontSize: 1,
             textDecoration: "none",
             fontWeight: "body",
@@ -444,12 +442,8 @@ const theme = {
             nav: {
                 p: 3,
                 color: "primary",
-                textTransform: "uppercase",
                 letterSpacing: 1,
                 fontWeight: 200,
-                "&:hover": {
-
-                }
             }
         }
     },
