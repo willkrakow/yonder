@@ -97,8 +97,8 @@ const MobileNavbar = ({ menuLinks, context }: NavbarProps) => {
             opacity: isOpen ? "1.0" : "0.0",
             transition: "all 0.2s ease",
             overflow: "hidden",
-            pt: isOpen ? 4 : 0,
-            pb: 6
+            pt: 0,
+            pb: 7
           }}
         >
           <li>

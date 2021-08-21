@@ -72,13 +72,13 @@ const theme = {
         },
         h2: {
             fontFamily: "display",
-            fontSize: "calc(2.0rem + 1.6vw)",
-            fontWeight: 200,
-            letterSpacing: 3,
-            color: "primary",
+            fontSize: "calc(3.4rem + 3vw)",
+            fontWeight: 100,
+            letterSpacing: 0,
+            color: "accent",
             margin: 'auto',
-            mt: 5,
-            mb: 4,
+            mt: 4,
+            mb: 6,
             lineHeight: 1.25
         },
         h3: {

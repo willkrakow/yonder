@@ -8,7 +8,7 @@ import { EventCard } from "../components/event";
 import { navigate } from '@reach/router'
 import _ from "lodash";
 import { eventTags } from "../typings";
-import { monthName } from "../utils";
+import { monthName, monthNumber } from "../utils";
 import useFilterList from "../utils/useFilterList";
 import { alpha, lighten } from "@theme-ui/color";
 
@@ -99,7 +99,7 @@ const Events = (props: IEventsPrototype & PageProps) => {
               </Button>
             ))}
             <Themed.h5 sx={{ flexBasis: "100%" }}>Months</Themed.h5>
-            {months.sort((a, b) => {return parseInt(a) - parseInt(b)}).map((m) => (
+            {months.sort((a, b) => {return monthNumber(a) - monthNumber(b)}).map((m) => (
               <Button
                 key={m}
                 onClick={executeScroll}
