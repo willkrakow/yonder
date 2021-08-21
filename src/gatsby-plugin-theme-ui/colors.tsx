@@ -19,7 +19,7 @@ const lightColors = {
   secondary: "hsl(210, 95%, 30%)",
   accent: "hsl(15, 77%, 52%)",
   muted: "hsl(228, 10%, 40%)",
-  warning: "#1f3f33",
+  warning: "#e9b5b9",
   light: "hsla(0, 0%, 99%, 0.9)",
   dark: "#1f243f",
 };

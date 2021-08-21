@@ -60,6 +60,7 @@ const EventCard: React.FC<IEventCard> = ({e}) => {
               gridArea: "1/1",
               zIndex: 12,
               borderRadius: 1,
+              height: "100%",
             }}
           />
           <div

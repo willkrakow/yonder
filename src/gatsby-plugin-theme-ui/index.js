@@ -385,7 +385,8 @@ const theme = {
                 color: "text",
             },
             "&.active": {
-                backgroundColor: "warning",
+                backgroundColor: "accent",
+                color: "light"
             },
         }
     },

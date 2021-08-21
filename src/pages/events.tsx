@@ -99,7 +99,7 @@ const Events = (props: IEventsPrototype & PageProps) => {
               </Button>
             ))}
             <Themed.h5 sx={{ flexBasis: "100%" }}>Months</Themed.h5>
-            {months.map((m) => (
+            {months.sort((a, b) => {return parseInt(a) - parseInt(b)}).map((m) => (
               <Button
                 key={m}
                 onClick={executeScroll}
@@ -151,7 +151,7 @@ const Events = (props: IEventsPrototype & PageProps) => {
           </Flex>
         </Box>
         <Box>
-          {monthGroups.map((g, index) => (
+          {monthGroups.sort((first, second) => {return parseInt(first.fieldValue) - parseInt(second.fieldValue)}).map((g, index) => (
             <section
               key={g.fieldValue}
               id={`${monthName(parseInt(g.fieldValue))}`}
