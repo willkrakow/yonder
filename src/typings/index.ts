@@ -21,6 +21,7 @@ export interface ICategory {
   categoryImage: ISanityImage,
   description: string,
   drinks: Array<WineProps & BeerProps & CocktailProps>
+  subcategories: Array<ISubcategory>
 }
 
 
@@ -184,6 +185,21 @@ export interface IHero  {
     subtitle?: string,
     image: ISanityImage,
     cta?: CtaProps
+}
+
+export interface ISubcategory {
+  name: string
+  slug: ISlug
+  image: ImageAsset
+  description: string
+  drinks: Array<WineProps & BeerProps & CocktailProps>
+  id: string
+  _key: string
+  _type: string
+  _rawAsset: any
+  _rawCrop: any
+  _rawHotspot: any
+  _id: string
 }
 
 export interface ISanityImage {

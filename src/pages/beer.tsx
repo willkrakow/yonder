@@ -2,16 +2,13 @@
 import { PageProps, graphql } from "gatsby";
 import React from "react";
 import MenuCategorySection from "../components/menuCategorySection";
-import { BeerProps, ImageAsset } from "../typings";
+import { ICategory } from "../typings";
 import { Container, jsx, Themed } from 'theme-ui'
 import Seo from "../components/seo";
 
 interface IBeerPage {
   data: {
-    sanityCategory: {
-        drinks: Array<BeerProps>;
-        categoryImage: ImageAsset
-    };
+    sanityCategory: ICategory
   };
 }
 
@@ -19,26 +16,21 @@ type BeerPageProps = IBeerPage & PageProps
 
 const BeerPage = (props: BeerPageProps) => {
   console.log(props)
-  const { drinks: beers, categoryImage: image } = props.data.sanityCategory;
+  const { subcategories } = props.data.sanityCategory;
 
-  const draft = beers.filter(b => b.medium === "Draft")
-  const bottles = beers.filter(b => b.medium === "Bottle")
-  const cans = beers.filter(b => b.medium === "Can")
-
-  const sections = [{name: "Draft", items: draft},{name: "Bottles", items: bottles}, {name: "Cans", items: cans}]
   return (
     <>
       <Seo pageTitle={`Beer`} />
       <Container>
         <Themed.h2 sx={{ textAlign: "center" }} >Beer</Themed.h2>
-        {sections.map((s) => (
+        {subcategories.map((subcategory) => (
           <MenuCategorySection
-            image={image}
-            key={s.name}
+            image={subcategory.image}
+            key={subcategory._key}
             nested
             index={0}
-            title={s.name}
-            menuitems={s.items.filter((i) => i.available)}
+            title={subcategory.name}
+            menuitems={subcategory.drinks.filter((i) => i.available)}
             descriptionItems={["ABV", "origin"]}
             appendFirstDescription={"%"}
           />
@@ -51,14 +43,28 @@ const BeerPage = (props: BeerPageProps) => {
 export const query = graphql`
   {
     sanityCategory(name: { eq: "Beer" }) {
-      drinks {
-        ... on SanityBeer {
-          ...BeerFragment
+      subcategories {
+        name
+        drinks {
+          ... on SanityBeer {
+            _key
+            _type
+            maker
+            origin
+            price
+            name
+            IBU
+            ABV
+            drinkType
+            available
+          }
         }
-      }
-      id
-      categoryImage {
-        ...ImageFragment
+        image {
+          asset {
+            gatsbyImageData
+          }
+        }
+        _key
       }
     }
   }

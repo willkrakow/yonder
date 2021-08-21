@@ -4,15 +4,12 @@ import React from 'react'
 import { Container, jsx, Themed } from 'theme-ui'
 import MenuCategorySection from '../components/menuCategorySection'
 import _ from 'lodash'
-import { ImageAsset, WineProps } from '../typings'
+import { ICategory, } from '../typings'
 import Seo from '../components/seo'
 
 interface IWinePage {
   data: {
-    sanityCategory: {
-      drinks: Array<WineProps>;
-      categoryImage: ImageAsset
-    };
+    sanityCategory: ICategory
   };
 }
 
@@ -21,23 +18,20 @@ type WinePageProps = IWinePage & PageProps
 
 
 const WinePage = (props: WinePageProps) => {
-    const { drinks, categoryImage } = props.data.sanityCategory
-
-    const groupObject = _.groupBy(drinks, 'drinkType')
-    const menuSections = _.toPairs(groupObject)
+    const { subcategories } = props.data.sanityCategory
     return (
       <React.Fragment>
         <Seo pageTitle={`Wine`} />
         <Container>
           <Themed.h2 sx={{ textAlign: "center" }} >Wine</Themed.h2>
-          {menuSections.map((s) => (
+          {subcategories.map((subcategory) => (
             <MenuCategorySection
-              image={categoryImage}
+              image={subcategory.image}
               index={0}
-              key={s[0]}
-              title={s[0]}
+              key={subcategory._key}
+              title={subcategory.name}
               nested
-              menuitems={s[1].filter((i) => i.available)}
+              menuitems={subcategory.drinks.filter((i) => i.available)}
               descriptionItems={["ABV", "origin"]}
               appendFirstDescription={"%"}
             />
@@ -51,13 +45,27 @@ const WinePage = (props: WinePageProps) => {
 export const query = graphql`
   {
     sanityCategory(name: { eq: "Wine" }) {
-      drinks {
-        ... on SanityWine {
-          ...WineFragment
+      subcategories {
+        name
+        drinks {
+          ... on SanityWine {
+            _key
+            _type
+            maker
+            origin
+            price
+            name
+            ABV
+            drinkType
+            available
+          }
         }
-      }
-      categoryImage {
-        ...ImageFragment
+        image {
+          asset {
+            gatsbyImageData
+          }
+        }
+        _key
       }
     }
   }

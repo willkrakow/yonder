@@ -34,7 +34,7 @@ const ListItem = ({
           mb: 4,
         }}
       >
-        <Themed.h4 sx={{ flexBasis: "70%", mb: 0 }}>{drink.name}</Themed.h4>
+        <Themed.h4 sx={{ flexBasis: "70%", mb: 0, lineHeight: "1.25rem" }}>{drink.name}</Themed.h4>
         <span
           sx={{
             flex: "1 1 20%",
@@ -45,7 +45,7 @@ const ListItem = ({
             fontSize: 1,
             height: "50%",
             textAlign: "right",
-            lineHeight: 1.75
+            lineHeight: "1.25rem"
           }}
         >
           ${drink.price.toString()}
