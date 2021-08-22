@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Grid, Container, Button, Flex, Box, Themed, } from "theme-ui";
+import { jsx, Grid, Container, Button, Flex, Box, Themed, Close, } from "theme-ui";
 import { graphql, PageProps } from "gatsby";
 import Seo from "../components/seo";
 import { IEventsPrototype, IMonthGroup  } from "../typings";
@@ -85,6 +85,7 @@ const Events = (props: IEventsPrototype & PageProps) => {
               opacity: open ? 1.0 : 0.0,
             }}
           >
+            <Close onClick={toggle} sx={{ position: "absolute", right: 4}} />
             <Themed.h5 sx={{ flexBasis: "100%" }}>Tags</Themed.h5>
             {eventTags.map((t) => (
               <Button
@@ -99,17 +100,21 @@ const Events = (props: IEventsPrototype & PageProps) => {
               </Button>
             ))}
             <Themed.h5 sx={{ flexBasis: "100%" }}>Months</Themed.h5>
-            {months.sort((a, b) => {return monthNumber(a) - monthNumber(b)}).map((m) => (
-              <Button
-                key={m}
-                onClick={executeScroll}
-                value={m}
-                variant={"action"}
-                sx={{ my: 3, mr: 4 }}
-              >
-                {m}
-              </Button>
-            ))}
+            {months
+              .sort((a, b) => {
+                return monthNumber(a) - monthNumber(b);
+              })
+              .map((m) => (
+                <Button
+                  key={m}
+                  onClick={executeScroll}
+                  value={m}
+                  variant={"action"}
+                  sx={{ my: 3, mr: 4 }}
+                >
+                  {m}
+                </Button>
+              ))}
           </Flex>
         </Box>
         <Box sx={{ display: ["none", "none", "block"] }}>
@@ -151,19 +156,23 @@ const Events = (props: IEventsPrototype & PageProps) => {
           </Flex>
         </Box>
         <Box>
-          {monthGroups.sort((first, second) => {return parseInt(first.fieldValue) - parseInt(second.fieldValue)}).map((g, index) => (
-            <section
-              key={g.fieldValue}
-              id={`${monthName(parseInt(g.fieldValue))}`}
-            >
-              <MonthGroup
-                index={index}
-                monthNumberString={g.fieldValue}
-                nodes={g.nodes}
-                filterEvents={filter}
-              />
-            </section>
-          ))}
+          {monthGroups
+            .sort((first, second) => {
+              return parseInt(first.fieldValue) - parseInt(second.fieldValue);
+            })
+            .map((g, index) => (
+              <section
+                key={g.fieldValue}
+                id={`${monthName(parseInt(g.fieldValue))}`}
+              >
+                <MonthGroup
+                  index={index}
+                  monthNumberString={g.fieldValue}
+                  nodes={g.nodes}
+                  filterEvents={filter}
+                />
+              </section>
+            ))}
         </Box>
       </Grid>
     </Container>

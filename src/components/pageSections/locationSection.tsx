@@ -330,7 +330,8 @@ const LocationSection = () => {
   
 
   React.useEffect(() => {
-
+    setCurrentDay(days[new Date().getDay()])
+    
     const isCurrentlyOpen = () => {
       const dailySchedule = data.settings.schedule[0].hours.filter(h => h.day === currentDay)[0]
       const currentTime = new Date().getHours();
@@ -341,7 +342,7 @@ const LocationSection = () => {
       }
       return false;
       }
-
+    
     setIsOpen(isCurrentlyOpen())
   }, [currentDay]);
 
