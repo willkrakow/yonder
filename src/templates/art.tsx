@@ -7,6 +7,7 @@ import { Art } from "../typings";
 import { ArtGrid } from "../components/art";
 import PostImage from "../components/postImage";
 import EventOrArtSocialList from "../components/eventOrArtSocialList";
+import Seo from "../components/seo";
 interface IArt {
   data: {
     art: Art;
@@ -20,6 +21,7 @@ const ArtTemplate = (props: ArtPageProps) => {
   const { art } = props.data;
   return (
     <React.Fragment>
+      <Seo pageTitle={art.name} />
       <Container as="article" sx={{ maxWidth: 10 }}>
         <header>
           <Themed.h2>{art.name}</Themed.h2>

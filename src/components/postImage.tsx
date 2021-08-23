@@ -4,7 +4,6 @@ import React from "react";
 import {
   GatsbyImage,
   IGatsbyImageData,
-  StaticImage,
 } from "gatsby-plugin-image";
 
 interface Props {

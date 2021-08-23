@@ -5,6 +5,7 @@ import { IEvent as EventProps } from "../typings";
 import { graphql, PageProps } from "gatsby";
 import PostImage from "../components/postImage";
 import EventOrArtSocialList from "../components/eventOrArtSocialList";
+import Seo from "../components/seo";
 
 interface IEventPage {
   data: {
@@ -39,6 +40,7 @@ const Event = (props: EventPageProps) => {
 
   return (
     <React.Fragment>
+      <Seo pageTitle={name} />
       <Container as="article" sx={{ maxWidth: 10 }}>
         <header>
           <Themed.p>

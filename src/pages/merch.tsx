@@ -4,6 +4,7 @@ import { jsx, Themed, Container, Grid, Flex, Button } from 'theme-ui'
 import { graphql, PageProps } from 'gatsby'
 import { ImageAsset } from '../typings'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import Seo from '../components/seo'
 
 interface IMerch {
     price: number,
@@ -27,6 +28,7 @@ const Merch = (props: PageProps & Props) => {
     return (
       <>
         <Container>
+            <Seo pageTitle="Merch" />
           <Themed.h2 sx={{ textAlign: "center" }}>Merch</Themed.h2>
           <Grid columns={[1, 2, 3]} gap={6}>
             {merch.map((item) => (

@@ -49,7 +49,7 @@ const Menu: React.FC<MenuPageProps> = (props) => {
     <Container>
       <Seo pageTitle={`Menu`} />
 
-      <Themed.h2 sx={{ textAlign: "center" }}>Menus</Themed.h2>
+      <Themed.h2 sx={{ textAlign: "center" }}>Menu</Themed.h2>
       <MenuCategorySection
         title={`Wine`}
         menuitems={mergeSubcategories<WineProps>(wine.subcategories)}

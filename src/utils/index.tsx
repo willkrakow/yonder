@@ -17,3 +17,23 @@ export const sanityConfig = {
   projectId: "hiyhitvr",
   dataset: "production",
 };
+
+interface GoogleMapProps {
+  lat: number;
+  lng: number;
+  width: number;
+  height: number;
+  zoom: number;
+  color?: string;
+}
+
+export const buildGoogleMapsUrl = ({
+  lat,
+  lng,
+  width,
+  height,
+  zoom,
+  color = "3374e5",
+}: GoogleMapProps) => {
+  return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=${zoom}&size=${width}x${height}&maptype=roadmap&markers=color:0x3374e5%7Clabel:Y%7C${lat},${lng}&key=${process.env.GATSBY_GOOGLE_MAP_KEY}`;
+};
