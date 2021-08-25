@@ -2,10 +2,9 @@
 import React from "react";
 import { jsx, Label, Input, Button } from "theme-ui";
 import useSearch from "../../utils/useSearch";
-import { navigate } from 'gatsby'
 
 const SearchBar = () => {
-  if (window.location !== undefined) {
+  if (window !== undefined) {
     const { query, handleChange, handleSubmit } = useSearch();
     return (
       <>
