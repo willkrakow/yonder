@@ -4,7 +4,7 @@ import { jsx, Themed, Grid, Button, Flex } from 'theme-ui'
 import ListItem from './listItem'
 import { WineProps, BeerProps, CocktailProps, ImageAsset } from '../typings'
 import { Link } from 'gatsby'
-import { GatsbyImage } from "gatsby-plugin-image";
+import PostImage from './postImage'
 
 interface MenuCategorySectionProps {
   title?: string;
@@ -21,7 +21,7 @@ const MenuCategorySection = ({ title, image, menuitems, descriptionItems, link="
   return (
     <React.Fragment>
         <Grid columns={[1, 2, 2]} gap={6} mb={6}>
-            <GatsbyImage
+            <PostImage
               image={image.asset.gatsbyImageData}
               alt={title || "Menu"}
             />

@@ -1,16 +1,24 @@
 /**@jsx jsx */
 import React from 'react'
-import { Flex, useColorMode, jsx, Switch, Label,  } from 'theme-ui';
+import { Flex, useColorMode, jsx, Switch, Label, IconButton,  } from 'theme-ui';
 import { NavbarProps, MenuLinkProps } from './index'
 import NavListItem from './navListItem';
 import { darken, lighten } from '@theme-ui/color';
 import SiteTitle from './siteTitle';
+import useModal from '../../utils/useModal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import Modal from '../modal';
+import SearchBar from '../searchBar';
 
 
 const Navbar = ({ menuLinks, context  }: NavbarProps) => {
   const [ colorMode, setColorMode ] = useColorMode()
+  const modalRef = React.useRef(null);
 
+  const { handleClick: handleModal, isOpen, handleClose } = useModal({modalRef: modalRef})
   const handleClick = () => {colorMode === "light" ? setColorMode("dark") : setColorMode("light")}
+
   return (
     <>
         <nav
@@ -45,7 +53,9 @@ const Navbar = ({ menuLinks, context  }: NavbarProps) => {
                 key={index}
               />
             ))}
+            <IconButton onClick={handleModal}><FontAwesomeIcon icon={faSearch} sx={{ color: "primary", cursor: "pointer" }} /></IconButton>
             <Flex
+            as="li"
               sx={{
                 justifyContent: "space-between",
                 alignItems: "center",
@@ -76,6 +86,9 @@ const Navbar = ({ menuLinks, context  }: NavbarProps) => {
               </Label>
             </Flex>
           </Flex>
+          <Modal modalRef={modalRef} isOpen={isOpen} handleClose={handleClose}  >
+            <SearchBar />
+          </Modal>
         </nav>
     </>
   );

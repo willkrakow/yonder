@@ -42,7 +42,6 @@ const IndexPage: React.FC<IndexPageProps> = (props) => {
         break
       case "hero":
         el = <Hero key={b._key} _key={b._key} _type={b._type} image={b.image} title={b.title} subtitle={b.subtitle || null} cta={b.cta || null} />
-        console.log(b.image)
         break
       case "menuSection":
         el = <MenuSection categories={b.categories} title={b.title} description={b.description} cta={b.cta} key={b._key} />

@@ -38,7 +38,6 @@ function mergeSubcategories<T>(subcategories: ISubcategory[]): Array<T> {
     //@ts-ignore
     acc.push(subcategory.drinks)
   });
-  console.log(acc)
   return flatten(acc);
 }
 

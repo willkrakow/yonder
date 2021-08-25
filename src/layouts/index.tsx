@@ -2,7 +2,7 @@
 
 import React from "react";
 import { PageProps, graphql, useStaticQuery } from "gatsby";
-import { jsx, Grid, Box, Theme } from "theme-ui";
+import { jsx, Grid, Box, Theme, useThemeUI } from "theme-ui";
 import "animate.css/animate.compat.css";
 import {
   Navbar,
@@ -33,7 +33,17 @@ export interface LayoutProps extends PageProps {
 }
 
 export default (context: LayoutProps) => {
-  
+  const { theme } = useThemeUI();
+  const [ isDesktop, setIsDesktop ] = React.useState(false);
+
+  const desktopSize = parseInt(theme?.breakpoints?.[2].replace("em", "") || "52")
+
+
+  React.useEffect(() => {
+    const windowSize = window.innerWidth;
+    setIsDesktop(windowSize > (desktopSize * 16));
+  }, [])
+
   const data: MenuProps = useStaticQuery(graphql`
     {
       site {
@@ -60,25 +70,24 @@ export default (context: LayoutProps) => {
             scrollBehavior: "smooth",
           },
           main: {
-            "section": {
-                marginTop: `${theme?.space?.[6] || "128px"}`,
-                maxWidth: `${theme?.space?.[11] || "1280px"}`,
+            section: {
+              marginTop: `${theme?.space?.[6] || "128px"}`,
+              maxWidth: `${theme?.space?.[11] || "1280px"}`,
             },
             minHeight: "100vh",
           },
           body: {
-            background:
-              `linear-gradient(to bottom right, ${lighten(
-                "background",
-                0.05
-              )(theme)}, ${darken("background", 0.1)(theme)})`,
+            background: `linear-gradient(to bottom right, ${lighten(
+              "background",
+              0.05
+            )(theme)}, ${darken("background", 0.1)(theme)})`,
           },
           address: {
-            fontStyle: "normal"
+            fontStyle: "normal",
           },
           a: {
             textDecoration: "none",
-          }
+          },
         })}
       />
       <StaticHead />
@@ -95,16 +104,19 @@ export default (context: LayoutProps) => {
         sx={{ rowGap: 0, columnGap: [0, 0, 6] }}
       >
         <Box sx={{ gridColumn: ["span 1", "span 1", "span 2"] }}>
-          <MobileNavbar
-            context={context}
-            menuLinks={menuLinks}
-            siteTitle={data.site.siteMetadata.title}
-          />
-          <Navbar
-            context={context}
-            menuLinks={menuLinks}
-            siteTitle={data.site.siteMetadata.title}
-          />
+          {isDesktop ? (
+            <Navbar
+              context={context}
+              menuLinks={menuLinks}
+              siteTitle={data.site.siteMetadata.title}
+            />
+          ) : (
+            <MobileNavbar
+              context={context}
+              menuLinks={menuLinks}
+              siteTitle={data.site.siteMetadata.title}
+            />
+          )}
         </Box>
       </Grid>
 

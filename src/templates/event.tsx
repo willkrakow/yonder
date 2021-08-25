@@ -27,7 +27,6 @@ const Event = (props: EventPageProps) => {
     image,
     description,
   } = event;
-  console.log(event);
   // const imageData = getGatsbyImageData(
   //   image,
   //   {},

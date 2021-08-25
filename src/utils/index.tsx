@@ -35,5 +35,5 @@ export const buildGoogleMapsUrl = ({
   zoom,
   color = "3374e5",
 }: GoogleMapProps) => {
-  return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=${zoom}&size=${width}x${height}&maptype=roadmap&markers=color:0x3374e5%7Clabel:Y%7C${lat},${lng}&key=${process.env.GATSBY_GOOGLE_MAP_KEY}`;
+  return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=${zoom}&size=${width}x${height}&maptype=roadmap&markers=color:0x${color}%7Clabel:Y%7C${lat},${lng}&key=${process.env.GATSBY_GOOGLE_MAP_KEY}`;
 };

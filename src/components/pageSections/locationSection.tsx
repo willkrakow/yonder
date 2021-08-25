@@ -332,9 +332,21 @@ const LocationSection = ({ title, subtitle }: Props) => {
   //   zoom: 15,
   // };
 
+  const mapContainerRef = React.useRef(null);
+
   React.useEffect(() => {
     setCurrentDay(days[new Date().getDay()]);
-    const url = buildGoogleMapsUrl({lat:36.077236095375, lng: -79.10064213038407, height: 500, width: 350, zoom: 15})
+    // @ts-ignore
+    const containerWidth = mapContainerRef?.current?.offsetWidth || 350;
+    // @ts-ignore
+    const containerHeight = Math.max(mapContainerRef?.current?.offsetHeight, 400)
+    const url = buildGoogleMapsUrl({
+      lat: 36.077236095375,
+      lng: -79.10064213038407,
+      height: containerHeight,
+      width: containerWidth,
+      zoom: 16,
+    });
     const isCurrentlyOpen = () => {
       const dailySchedule = data.settings.schedule[0].hours.filter(
         (h) => h.day === currentDay
@@ -357,8 +369,9 @@ const LocationSection = ({ title, subtitle }: Props) => {
     <ScrollAnimation animateOnce={true} animateIn="fadeInUp">
       <Container as="section">
         <Grid columns={[1, 2, 2]} gap={6}>
-          
-          <img src={mapUrl} alt="Our Location" />
+          <div ref={mapContainerRef}>
+            <img src={mapUrl} alt="Our Location" sx={{ my: 5 }} />
+          </div>
           <div>
             <Themed.h3>{title}</Themed.h3>
             <Themed.p>{subtitle}</Themed.p>

@@ -3,8 +3,8 @@ import React from 'react'
 import { jsx, Themed, Container, Grid, Flex, Button } from 'theme-ui'
 import { graphql, PageProps } from 'gatsby'
 import { ImageAsset } from '../typings'
-import { GatsbyImage } from 'gatsby-plugin-image'
 import Seo from '../components/seo'
+import PostImage from '../components/postImage'
 
 interface IMerch {
     price: number,
@@ -40,7 +40,7 @@ const Merch = (props: PageProps & Props) => {
                 }}
                 key={item._key}
               >
-                <GatsbyImage
+                <PostImage
                   image={item.image.asset.gatsbyImageData}
                   alt={item.name}
                 />

@@ -17,13 +17,13 @@ const NavListItem = ({ link, index }: Props) => {
   const delay = index ? index * 250 : 250;
     return (
       <>
-        <ScrollAnimation
-          animateOnce={true}
-          delay={delay}
-          offset={0}
-          animateIn="fadeInDown"
-        >
-          <li>
+        <li>
+          <ScrollAnimation
+            animateOnce={true}
+            delay={delay}
+            offset={0}
+            animateIn="fadeInDown"
+          >
             <NavLink
               as={GatsbyLink}
               //@ts-ignore
@@ -32,8 +32,8 @@ const NavListItem = ({ link, index }: Props) => {
             >
               {link.name}
             </NavLink>
-          </li>
-        </ScrollAnimation>
+          </ScrollAnimation>
+        </li>
       </>
     );
 }

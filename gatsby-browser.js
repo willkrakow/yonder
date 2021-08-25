@@ -1,2 +1,1 @@
-import "@fontsource/diplomata"
-import "@fontsource/courier-prime"
+import "@fontsource/fredericka-the-great"

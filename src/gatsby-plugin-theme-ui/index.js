@@ -1,5 +1,4 @@
 
-import colors, { lightColors } from './colors'
 import spaces from './spaces'
 import { lighten, alpha, darken  } from '@theme-ui/color'
 
@@ -27,10 +26,26 @@ const theme = {
         heading: 1.125,
     },
     colors: {
-        ...colors,
+        background: "hsl(210, 75%, 15%)",
+        text: "hsla(0, 0%, 98%, 0.8)",
+        primary: "hsla(228, 50%, 96%, 0.95)",
+        secondary: "hsl(201, 24%, 47%)",
+        accent: "hsl(20, 87%, 46%)",
+        muted: "hsl(228, 10%, 70%)",
+        warning: "hsl(268, 53%, 63%)",
+        light: "hsla(0, 0%, 99%, 0.9)",
+        dark: "hsl(230, 34%, 18%)",
         modes: {
             light: {
-                ...lightColors,
+                background: "hsl(36, 50%, 96%)",
+                text: "hsl(210, 98%, 26%)",
+                primary: "hsl(210, 95%, 30%)",
+                secondary: "hsl(210, 95%, 30%)",
+                accent: "hsl(15, 77%, 52%)",
+                muted: "hsl(218, 5%, 60%)",
+                warning: "hsl(276, 45%, 53%)",
+                light: "hsla(0, 0%, 99%, 0.9)",
+                dark: "hsl(230, 34%, 18%)",
             },
         },
     },
@@ -65,13 +80,13 @@ const theme = {
             backgroundColor: "background",
         },
         h1: {
-            variant: 'text.heading',
+            fontFamily: "'Fredericka The Great', cursive",
             fontSize: 6,
             lineHeight: 'revert',
             color: "primary"
         },
         h2: {
-            fontFamily: "display",
+            fontFamily: "'Fredericka The Great', cursive",
             fontSize: "calc(3.4rem + 3vw)",
             fontWeight: 100,
             letterSpacing: 0,
@@ -84,7 +99,7 @@ const theme = {
         h3: {
             fontSize: 5,
             mb: 4,
-            fontFamily: 'display',
+            fontFamily: "'Fredericka The Great', cursive",
             color: "primary",
             fontWeight: 200,
             letterSpacing: 1,
@@ -103,11 +118,10 @@ const theme = {
             fontWeight: "bold",
             letterSpacing: `1px`,
             mb: 3,
-            mt: 0,
-            
+            mt: 0,            
         },
         h5: {
-            fontFamily: "'Arial', sans-serif",
+            fontFamily: "display",
             fontSize: 1,
             color: "primary",
             textTransform: "uppercase",
@@ -117,9 +131,13 @@ const theme = {
             mb: 3,
         },
         h6: {
-            variant: 'text.heading',
             fontSize: 0,
             my: 2,
+            fontfamily: "body",
+            fontWeight: "bold",
+            textTransform: "uppercase",
+            color: "muted",
+            letterSpacing: 1,
         },
         pre: {
             fontFamily: 'monospace',
@@ -259,7 +277,7 @@ const theme = {
             borderBottomWidth: 3,
             borderColor: "primary",
             color: "primary",
-            fontFamily: "'Arial', sans-serif",
+            fontFamily: "body",
             fontSize: 1,
             fontWeight: 300,
             px: 4,
@@ -271,7 +289,7 @@ const theme = {
             borderStyle: "solid",
             borderColor: "primary",
             mb: 5,
-            fontFamily: "'Arial', sans-serif",
+            fontFamily: "body",
             fontSize: 1,
             fontWeight: 300,
             px: 4,
@@ -281,7 +299,7 @@ const theme = {
             borderStyle: "style",
             borderWidth: 2,
             borderColor: "primary",
-            fontFamily: "'Arial', sans-serif",
+            fontFamily: "body",
             fontSize: 1,
             fontWeight: 300,
             px: 4,
@@ -305,7 +323,7 @@ const theme = {
             letterSpacing: 1,
             textTransform: "uppercase",
             fontSize: 1,
-            fontFamily: "'Arial', sans-serif",
+            fontFamily: "body",
             borderRadius: 0,
             borderWidth: 2,
             borderStyle: "solid",

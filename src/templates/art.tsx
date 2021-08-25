@@ -17,7 +17,6 @@ interface IArt {
 type ArtPageProps = IArt & PageProps
 
 const ArtTemplate = (props: ArtPageProps) => {
-  console.log(props);
   const { art } = props.data;
   return (
     <React.Fragment>

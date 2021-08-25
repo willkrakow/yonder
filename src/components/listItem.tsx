@@ -1,28 +1,27 @@
 /**@jsx jsx */
 import React, { HTMLAttributes } from "react";
 import { jsx, Themed } from "theme-ui";
-import { WineProps, BeerProps, CocktailProps } from "../typings";
+import { IBeer, IWine, ICocktail, IDrink } from "../typings";
 import _ from "lodash";
+import Modal from '../components/modal'
+import useModal from '../utils/useModal'
+import { lighten } from "@theme-ui/color";
 
 interface ListItemProps {
-  drink: (WineProps & BeerProps & CocktailProps) | any;
+  drink: (IWine | IBeer | ICocktail) & IDrink;
   props?: HTMLAttributes<HTMLLIElement>;
-  descriptionItems: Array<string>;
-  title: string;
   appendFirstDescription?: string;
 }
 
 const ListItem = ({
-  title,
   drink,
-  descriptionItems,
-  appendFirstDescription,
   ...props
 }: ListItemProps) => {
-  const firstDescriptor = descriptionItems[0];
-  const secondDescriptor = descriptionItems[1];
 
-  const append = appendFirstDescription ? `${appendFirstDescription} ` : "";
+  const abvOrLiquor = drink.ABV ? `${drink.ABV}%` : drink.liquor;
+  const ingredientsOrOrigin = drink?.origin || drink.ingredients;
+  const modalRef = React.useRef()
+  const { isOpen, handleOpen, handleClose } = useModal({ modalRef: modalRef });
   return (
     <React.Fragment>
       <li
@@ -31,8 +30,15 @@ const ListItem = ({
           position: "relative",
           display: "flex",
           flexWrap: "wrap",
-          mb: 4,
+          p: 3,
+          transition: "all 0.2s ease",
+          cursor: "pointer",
+          '&:hover': {
+            backgroundColor: lighten("background", 0.05),
+            boxShadow: "sm",
+          }
         }}
+        onClick={handleOpen}
       >
         <Themed.h4 sx={{ flexBasis: "70%", mb: 0, lineHeight: "1.25rem" }}>{drink.name}</Themed.h4>
         <span
@@ -51,11 +57,20 @@ const ListItem = ({
           ${drink.price.toString()}
         </span>
         <Themed.p sx={{ flexBasis: "100%", position: "relative", mb: 0 }}>
-          <span >{`${drink[firstDescriptor]}${append}`}</span>
+          <span >{abvOrLiquor}</span>
           {" | "}
-          <span sx={{ color: "muted" }}>{drink[secondDescriptor]}</span>
+          <span sx={{ color: "muted" }}>{ingredientsOrOrigin}</span>
         </Themed.p>
       </li>
+      <Modal handleClose={handleClose} isOpen={isOpen} modalRef={modalRef} >
+        <Themed.h3>{drink.name}</Themed.h3>
+        <Themed.h6 sx={{ color: "muted" }}>{drink.ABV ? "ABV" : "Liquor"}</Themed.h6>
+        <Themed.p>{abvOrLiquor}</Themed.p>
+        <Themed.h6 sx={{ color: "muted" }}>{drink.origin ? "Origin" : "Ingredients"}</Themed.h6>
+        <Themed.p>{ingredientsOrOrigin}</Themed.p>
+        <Themed.h6>About</Themed.h6>
+        <Themed.p>{drink.variety || drink.medium || drink.maker || drink.drinkType || drink.drinkType || drink.description}</Themed.p>
+      </Modal>
     </React.Fragment>
   );
 };

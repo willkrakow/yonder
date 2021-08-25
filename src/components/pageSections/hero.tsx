@@ -16,7 +16,6 @@ const Hero: React.FC<HeroProps> = (props) => {
     { projectId: "hiyhitvr", dataset: "production"}
   );
 
-  console.log(imageData);
     return (
       <Grid columns={[1, 1, "1fr 1fr"]}>
         <div

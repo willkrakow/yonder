@@ -15,7 +15,6 @@ interface IBeerPage {
 type BeerPageProps = IBeerPage & PageProps
 
 const BeerPage = (props: BeerPageProps) => {
-  console.log(props)
   const { subcategories } = props.data.sanityCategory;
 
   return (

@@ -1,26 +1,54 @@
 /** @jsx jsx */
 import React from 'react'
-import { Flex, Switch, Close, jsx, MenuButton, Grid, useColorMode, Label } from 'theme-ui'
+import { Flex, Switch, Close, jsx, MenuButton, Grid, useColorMode, Label, Box } from 'theme-ui'
 import { NavbarProps } from '.';
 import NavListItem from './navListItem';
 import { alpha } from '@theme-ui/color';
 import AddressBlock from '../addressBlock';
 import SiteTitle from './siteTitle';
-
-
-
-
+import { startsWith } from 'lodash';
 
 const MobileNavbar = ({ menuLinks, context }: NavbarProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [ colorMode, setColorMode ] = useColorMode();
 
-  const handleSwitch = (): void => {
-    colorMode === "light" ? setColorMode("dark") : setColorMode("light");
+  const setColorPreferenceCookie = (colorMode: string) => {
+    const date = new Date();
+    date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
+    const expires = `expires=${date.toUTCString()}`;
+    document.cookie = `color-mode=${colorMode};${expires};path=/`;
   }
 
+  const handleSwitch = (): void => {
+    switch(colorMode) {
+      case 'dark':
+        setColorPreferenceCookie("light");
+        setColorMode('light');
+        break;
+      case 'light':
+        setColorMode('dark');
+        setColorPreferenceCookie('dark');
+        break;
+      default:
+        setColorMode('dark');
+        setColorPreferenceCookie("dark");
+        break;
+  }
+}
+  const handleClick = () => setIsOpen(!isOpen);
+
   React.useEffect(() => {
-      
+    const checkCookie = (): void => {
+      const cookie = document.cookie.split(';');
+      const cookieValue = cookie.find(c => startsWith(c, 'color-mode'));
+
+      if (cookieValue) {
+        const colorMode = cookieValue.split('=')[1];
+        setColorMode(colorMode);
+        return
+      }
+      return
+    }
       const mouseListener = (e: globalThis.MouseEvent) => {
           //@ts-ignore
         if (e.composedPath()[0].tagName !== "UL" && isOpen){
@@ -29,14 +57,13 @@ const MobileNavbar = ({ menuLinks, context }: NavbarProps) => {
         }
         return
       }
-
+      
       document.addEventListener('click', mouseListener )
-    return () => document.removeEventListener('click', mouseListener)
-  })
-  const handleClick = () => setIsOpen(!isOpen);
+    return () => {document.removeEventListener('click', mouseListener)}
+  }, [colorMode])
   return (
     <React.Fragment>
-      <div
+      <Box
         sx={{
           display: isOpen ? "flex" : "none",
           position: "fixed",
@@ -44,7 +71,7 @@ const MobileNavbar = ({ menuLinks, context }: NavbarProps) => {
           zIndex: 700,
           backgroundColor: alpha("background", 0.5),
         }}
-      ></div>
+      ></Box>
       <Flex
         as="nav"
         sx={{
