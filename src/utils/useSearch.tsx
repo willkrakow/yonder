@@ -11,6 +11,7 @@ export interface ISearchResults {
 const useSearch = () => {
     const [ query, setQuery ] = React.useState('');
     const [ results, setResults ] = React.useState<ISearchResults>({});
+    const [ loading, setLoading ] = React.useState(false);
 
     const handleChange: React.EventHandler<React.FormEvent> = (e: React.FormEvent<HTMLInputElement>) => {
         setQuery(e.currentTarget.value);
@@ -21,7 +22,7 @@ const useSearch = () => {
         const url = new URL(`/api/suggest`, window.location.origin || "http://localhost:8000");
         const params = {search: query}
         url.search = new URLSearchParams(params).toString();
-
+        setLoading(true);
         const res = await fetch(url.toString(), {
             method: "POST",
             headers: {
@@ -36,11 +37,12 @@ const useSearch = () => {
                 results: json,
             }
         })
+        setLoading(false);
     }
     
     
 
-    return { query, handleChange, handleSubmit, results, setResults };
+    return { query, handleChange, handleSubmit, results, setResults, loading };
 }
 
 export default useSearch;

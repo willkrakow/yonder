@@ -29,17 +29,11 @@ const useModal = ({ modalRef }: Props) => {
             }
         }
         
-        document.addEventListener('click', handleClickOutside);
-        document.addEventListener('touchstart', handleClickOutside)
         document.addEventListener('keydown', handleKeyDown);
-        if (isOpen) {
-            modalRef.current.focus();
-        }
+        
 
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
-            document.removeEventListener('click', handleClickOutside);
-            document.removeEventListener("touchstart", handleClickOutside);
         }
     }, [])
     return { isOpen, handleClick, handleClose, handleOpen };

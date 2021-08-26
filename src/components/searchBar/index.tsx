@@ -1,26 +1,39 @@
 /** @jsx jsx */
 import React from "react";
-import { jsx, Label, Input, Button } from "theme-ui";
+import { jsx, Label, Input, Button, Spinner } from "theme-ui";
 import useSearch from "../../utils/useSearch";
 
+interface Props {
+  slim?: boolean;
+  onSearch?: () => void;
+}
+
 const isBrowser = typeof window !== "undefined";
-const SearchBar = () => {
+const SearchBar = ({slim = false, onSearch}: Props) => {
   if (isBrowser) {
-    const { query, handleChange, handleSubmit } = useSearch();
+    const { query, handleChange, handleSubmit, loading } = useSearch();
+
+    const onSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      handleSubmit(e);
+      onSearch && onSearch();
+    }
     return (
       <>
-        <form onSubmit={handleSubmit}>
-          <Label htmlFor="query">
+        <form onSubmit={onSubmit} sx={{ display: "flex" }}>
+          <Label htmlFor="query" sx={{ flexBasis: "80%" }}>
             <Input
               id="query"
-              type="text"
+              type="search"
               name="query"
               value={query}
               onChange={handleChange}
               placeholder="Search"
+              sx={{ mb: 0, }}
             />
           </Label>
-          <Button type="submit">Go</Button>
+          {!slim && <Button sx={{ flexBasis: "20%" }} type="submit" variant="search">&rarr;</Button>}
+          {loading && <Spinner sx={{ mb: 0, mx: "auto" }} />}
         </form>
       </>
     );

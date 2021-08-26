@@ -1,14 +1,14 @@
 /** @jsx jsx */
 import React from 'react'
-import { Flex, Switch, Close, jsx, MenuButton, Grid, useColorMode, Label, Box } from 'theme-ui'
+import { Flex, Switch, Close, jsx, MenuButton, Grid, useColorMode, Label } from 'theme-ui'
 import { NavbarProps } from '.';
 import NavListItem from './navListItem';
 import { alpha } from '@theme-ui/color';
 import AddressBlock from '../addressBlock';
 import SiteTitle from './siteTitle';
-import { startsWith } from 'lodash';
+import SearchBar from '../searchBar';
 
-const MobileNavbar = ({ menuLinks, context }: NavbarProps) => {
+const MobileNavbar = ({ menuLinks, context, ...props }: NavbarProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [ colorMode, setColorMode ] = useColorMode();
 
@@ -35,43 +35,25 @@ const MobileNavbar = ({ menuLinks, context }: NavbarProps) => {
         break;
   }
 }
-  const handleClick = () => setIsOpen(!isOpen);
-
-  React.useEffect(() => {
-    const checkCookie = (): void => {
-      const cookie = document.cookie.split(';');
-      const cookieValue = cookie.find(c => startsWith(c, 'color-mode'));
-
-      if (cookieValue) {
-        const colorMode = cookieValue.split('=')[1];
-        setColorMode(colorMode);
-        return
-      }
-      return
-    }
-      const mouseListener = (e: globalThis.MouseEvent) => {
-          //@ts-ignore
-        if (e.composedPath()[0].tagName !== "UL" && isOpen){
-            setIsOpen(false)
-            return
-        }
-        return
-      }
-      
-      document.addEventListener('click', mouseListener )
-    return () => {document.removeEventListener('click', mouseListener)}
-  }, [colorMode])
+  const handleClick = () => {
+    console.log("click")
+    setIsOpen(!isOpen)
+  }
+  
   return (
-    <React.Fragment>
-      <Box
-        sx={{
-          display: isOpen ? "flex" : "none",
-          position: "fixed",
-          inset: 0,
-          zIndex: 700,
-          backgroundColor: alpha("background", 0.5),
-        }}
-      ></Box>
+    <>
+      {isOpen && (
+        <div
+          {...props}
+          sx={{
+            display: "flex",
+            position: "fixed",
+            inset: 0,
+            zIndex: 700,
+            backgroundColor: alpha("background", 0.5),
+          }}
+        />
+      )}
       <Flex
         as="nav"
         sx={{
@@ -80,10 +62,6 @@ const MobileNavbar = ({ menuLinks, context }: NavbarProps) => {
           display: ["flex", null, "none"],
           flexDirection: "column",
           placeSelf: "start",
-          justifySelf: "center",
-          borderBottomWidth: 1,
-          borderBottomStyle: "solid",
-          borderBottomColor: "secondary",
         }}
       >
         <Grid
@@ -91,18 +69,34 @@ const MobileNavbar = ({ menuLinks, context }: NavbarProps) => {
           sx={{ placeItems: "center", justifyItems: "start" }}
         >
           <SiteTitle />
-          <MenuButton
-            variant="icon"
-            onClick={handleClick}
-            sx={{
-              width: 6,
-              height: 6,
-              placeSelf: "center",
-              justifyContent: "flex-end",
-              svg: { width: 5, height: 5 },
-              color: "primary",
-            }}
-          />
+          {!isOpen ? (
+            <MenuButton
+              variant="icon"
+              onClick={handleClick}
+              sx={{
+                width: 6,
+                height: 6,
+                zIndex: 999,
+                placeSelf: "center",
+                justifyContent: "flex-end",
+                svg: { width: 5, height: 5 },
+                color: "primary",
+              }}
+            />
+          ) : (
+            <Close
+              onClick={handleClick}
+              sx={{
+                width: 6,
+                height: 6,
+                zIndex: 999,
+                placeSelf: "center",
+                justifyContent: "flex-end",
+                svg: { width: 5, height: 5 },
+                color: "primary",
+              }}
+            />
+          )}
         </Grid>
         <ul
           sx={{
@@ -125,21 +119,9 @@ const MobileNavbar = ({ menuLinks, context }: NavbarProps) => {
             transition: "all 0.2s ease",
             overflow: "hidden",
             pt: 0,
-            pb: 7
+            pb: 7,
           }}
         >
-          <li>
-            <Close
-              onClick={handleClick}
-              sx={{
-                color: "primary",
-                svg: {
-                  width: 5,
-                  height: 5,
-                },
-              }}
-            />
-          </li>
           {menuLinks.map((l, index) => (
             <NavListItem
               isActive={context.location.pathname === l.path}
@@ -148,6 +130,9 @@ const MobileNavbar = ({ menuLinks, context }: NavbarProps) => {
               link={l}
             />
           ))}
+          <li>
+            <SearchBar onSearch={handleClick} slim />
+          </li>
           <li>
             <SiteTitle />
             <AddressBlock withLocation withSocial />
@@ -165,9 +150,10 @@ const MobileNavbar = ({ menuLinks, context }: NavbarProps) => {
           >
             <div>
               <Switch
-                onChange={handleSwitch}
+                onClick={handleSwitch}
                 value={colorMode}
                 id="colormode"
+                sx={{ display: isOpen ? "initial" : "none" }}
               />
             </div>
             <Label htmlFor="colormode" sx={{ flex: 1, ml: 2 }}>
@@ -176,7 +162,7 @@ const MobileNavbar = ({ menuLinks, context }: NavbarProps) => {
           </li>
         </ul>
       </Flex>
-    </React.Fragment>
+    </>
   );
 };
 

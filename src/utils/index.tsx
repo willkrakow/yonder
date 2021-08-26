@@ -37,3 +37,4 @@ export const buildGoogleMapsUrl = ({
 }: GoogleMapProps) => {
   return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=${zoom}&size=${width}x${height}&maptype=roadmap&markers=color:0x${color}%7Clabel:Y%7C${lat},${lng}&key=${process.env.GATSBY_GOOGLE_MAP_KEY}`;
 };
+

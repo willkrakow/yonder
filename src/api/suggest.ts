@@ -3,12 +3,21 @@ import sanityClient from "@sanity/client";
 import { ICategory, IDrink } from '../typings'
 import { flatten, flattenDeep, values } from "lodash";
 
+
+export const stemString = (str: string): string => {
+  return str.replace(/s$/, "");
+};
+
 export default function handler(
   req: GatsbyFunctionRequest,
   res: GatsbyFunctionResponse
 ) {
   const search = req.query.search;
-  const searchTerms = search.split(' ');
+  const searchTerms = search
+                        .split(' ')
+                        .map(term => stemString(term.toLowerCase()))
+                        .filter(term => term.length > 0);
+
 
   const today = new Date();
 

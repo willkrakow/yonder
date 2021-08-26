@@ -310,6 +310,19 @@ const theme = {
         }
     },
     buttons: {
+        close: {
+            color: "accent",
+            borderRadius: "50%",
+            backgroundColor: darken("background", 0.05),
+            boxShadow: "sm",
+            fontSize: "1.5rem",
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+            "&:hover": {
+                backgroundColor: "accent",
+                color: "light",
+            }
+        },
         primary: {
             background: (t) => `linear-gradient(
                 45deg,
@@ -404,7 +417,18 @@ const theme = {
                 backgroundColor: "accent",
                 color: "light"
             },
-        }
+        },
+        search: {
+            color: "background",
+            backgroundColor: "primary",
+            borderRadius: 0,
+            fontFamily: "body",
+            cursor: "pointer",
+            transition: "all 0.3s ease",
+            "&:hover": {
+                backgroundColor: darken("primary", 0.1),
+            }
+        },
     },
     cards: {
         primary: {
