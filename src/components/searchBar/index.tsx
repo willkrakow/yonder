@@ -3,8 +3,9 @@ import React from "react";
 import { jsx, Label, Input, Button } from "theme-ui";
 import useSearch from "../../utils/useSearch";
 
+const isBrowser = typeof window !== "undefined";
 const SearchBar = () => {
-  if (window !== undefined) {
+  if (isBrowser) {
     const { query, handleChange, handleSubmit } = useSearch();
     return (
       <>

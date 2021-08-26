@@ -32,6 +32,7 @@ export interface LayoutProps extends PageProps {
   };
 }
 
+const isBrowser = typeof window !== "undefined";
 export default (context: LayoutProps) => {
   const { theme } = useThemeUI();
   const [ isDesktop, setIsDesktop ] = React.useState(false);
@@ -40,8 +41,10 @@ export default (context: LayoutProps) => {
 
 
   React.useEffect(() => {
-    const windowSize = window.innerWidth;
-    setIsDesktop(windowSize > (desktopSize * 16));
+    if (isBrowser) {
+      const windowSize = window.innerWidth;
+      setIsDesktop(windowSize > (desktopSize * 16));
+    }
   }, [])
 
   const data: MenuProps = useStaticQuery(graphql`
