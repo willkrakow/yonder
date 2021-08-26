@@ -52,25 +52,20 @@ const Menu: React.FC<MenuPageProps> = (props) => {
       <MenuCategorySection
         title={`Wine`}
         menuitems={mergeSubcategories<WineProps>(wine.subcategories)}
-        descriptionItems={["ABV", "maker"]}
         link={"/wine"}
         image={wine.categoryImage}
         index={1}
-        appendFirstDescription={"%"}
       />
       <MenuCategorySection
         title={`Beer`}
         menuitems={mergeSubcategories<BeerProps>(beer.subcategories)}
-        descriptionItems={["ABV", "origin"]}
         link={`/beer`}
         index={2}
         image={beer.categoryImage}
-        appendFirstDescription={"%"}
       />
       <MenuCategorySection
         title={`Cocktails`}
         menuitems={mergeSubcategories<CocktailProps>(cocktails.subcategories)}
-        descriptionItems={["liquor", "ingredients"]}
         link={`/cocktails`}
         index={3}
         image={cocktails.categoryImage}

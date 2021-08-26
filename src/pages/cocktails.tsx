@@ -30,7 +30,6 @@ const Cocktails = (props: CocktailPageProps) => {
             index={0}
             title={subcategory.name}
             menuitems={subcategory.drinks.filter((i) => i.available) || []}
-            descriptionItems={["liquor", "ingredients"]}
           />))}
         </Container>
       </React.Fragment>

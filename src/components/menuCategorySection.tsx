@@ -9,15 +9,13 @@ import PostImage from './postImage'
 interface MenuCategorySectionProps {
   title?: string;
   menuitems: Array<WineProps | BeerProps | CocktailProps>;
-  descriptionItems: [string, string],
   link?: string,
   index: number,
   image: ImageAsset,
   nested?: boolean
-  appendFirstDescription?: string
 }
 
-const MenuCategorySection = ({ title, image, menuitems, descriptionItems, link="#", nested=false, appendFirstDescription }: MenuCategorySectionProps) => {
+const MenuCategorySection = ({ title, image, menuitems, link="#", nested=false }: MenuCategorySectionProps) => {
   return (
     <React.Fragment>
         <Grid columns={[1, 2, 2]} gap={6} mb={6}>
@@ -35,11 +33,8 @@ const MenuCategorySection = ({ title, image, menuitems, descriptionItems, link="
               {menuitems.map((drink) => {
                 return (
                   <ListItem
-                  title={title || ""}
                   key={drink.id || drink._key}
                   drink={drink}
-                  descriptionItems={descriptionItems}
-                  appendFirstDescription={appendFirstDescription}
                 />
                 )}
               )}

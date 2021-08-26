@@ -30,8 +30,6 @@ const BeerPage = (props: BeerPageProps) => {
             index={0}
             title={subcategory.name}
             menuitems={subcategory.drinks.filter((i) => i.available)}
-            descriptionItems={["ABV", "origin"]}
-            appendFirstDescription={"%"}
           />
         ))}
       </Container>
