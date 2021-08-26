@@ -24,7 +24,7 @@ const useModal = ({ modalRef }: Props) => {
 
         return () => {
         }
-    }, [history])
+    }, [])
     return { isOpen, handleClick, handleClose, handleOpen };
 }
 
