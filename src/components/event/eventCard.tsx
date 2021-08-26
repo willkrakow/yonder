@@ -31,7 +31,7 @@ const MONTHS = [
 const EventCard: React.FC<IEventCard> = ({e}) => {
   const eventDate = new Date(e.date)
   const dateString = `${MONTHS[eventDate.getMonth()]} ${eventDate.getDate()}, ${eventDate.getFullYear()}`
-    const imageData = getGatsbyImageData(e.image, { width: 1000, height: 600, fit: "fill" }, sanityConfig);
+    const imageData = getGatsbyImageData(e.image, { width: 900, height: 600, fit: "fill" }, sanityConfig);
   return (
     <ScrollAnimation animateIn="fadeInUp" animateOnce={true}>
       <Card

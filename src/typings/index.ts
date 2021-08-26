@@ -115,6 +115,7 @@ export interface IEvent {
   image: ISanityImage;
   description: BlockText[];
   id: string;
+  _id: string;
   slug: ISlug;
   eventUrl?: string;
   eventTags?: EventTag[];

@@ -69,7 +69,7 @@ export default (context: LayoutProps) => {
     <React.Fragment>
       <Global
         styles={(theme: Theme) => ({
-          "*": {
+          html: {
             scrollBehavior: "smooth",
           },
           main: {

@@ -3,7 +3,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 import { jsx } from "theme-ui";
-import { Address, IDailyHours } from "../../typings";
+import { Address, IDailyHours, ImageAsset } from "../../typings";
 
 interface Props {
   siteSettings: {
@@ -17,6 +17,9 @@ interface Props {
     siteUrl: string;
     title: string;
     description: string;
+    seoImage1x1: ImageAsset;
+    seoImage16x9: ImageAsset;
+    seoImage4x3: ImageAsset;
     logo: {
       asset: {
         url: string;
@@ -52,6 +55,21 @@ const Seo = ({ path, pageTitle, pageDescription }: SeoProps) => {
   const data: Props = useStaticQuery(graphql`
     {
       siteSettings: sanitySiteSettings {
+        seoImage1x1: seoImage {
+          asset {
+            gatsbyImageData(aspectRatio: 1)
+          }
+        }
+        seoImage16x9: seoImage {
+          asset {
+            gatsbyImageData(aspectRatio: 1.7777)
+          }
+        }
+        seoImage4x3: seoImage {
+          asset {
+            gatsbyImageData(aspectRatio: 1.3333)
+          }
+        }
         openingHours {
           opensAt
           closesAt
@@ -125,13 +143,12 @@ const Seo = ({ path, pageTitle, pageDescription }: SeoProps) => {
             href: siteUrl,
           },
         ]}
-        
         title={defaultTitle || "Yonder"}
         defer={false}
         meta={[
           {
-              name: "charset",
-              content: "utf-8"
+            name: "charset",
+            content: "utf-8",
           },
           {
             name: "description",
@@ -150,8 +167,8 @@ const Seo = ({ path, pageTitle, pageDescription }: SeoProps) => {
             content: "website",
           },
           {
-              property: "og:url",
-              content: defaultPath,
+            property: "og:url",
+            content: defaultPath,
           },
           {
             property: "og:image",
@@ -181,20 +198,20 @@ const Seo = ({ path, pageTitle, pageDescription }: SeoProps) => {
           },
         ]}
       >
-        <script type="ld+json">{`
+        <script type="application/ld+json">{`
           {
             "@context": "https://schema.org",
             "@type": "BarOrPub",
+            "name": "${title}",
             "address": {
                 "@type": "PostalAddress",
-                "addressLocality": ${address.city},
-                "addressRegion": ${address.region},
-                "postalCode": ${address.zip},
-                "streetAddress": ${address.streetOne}
+                "streetAddress": "${address.streetOne}",
+                "addressLocality": "${address.city}",
+                "addressRegion": "${address.region}",
+                "postalCode": "${address.zip}"
             },
-            "name": ${title},
-            "email": ${email}
-            "openingHours": ${JSON.stringify(schedule)},
+            "email": "${email}",
+            "openingHoursSpecification": ${JSON.stringify(schedule)},
             "priceRange": "$$",
             "servesCuisine": [
                 "Cocktails",
@@ -202,8 +219,10 @@ const Seo = ({ path, pageTitle, pageDescription }: SeoProps) => {
                 "Wine",
                 "Spirits"
             ],
-            "telephone": ${phoneNumber},
-            "url": ${siteUrl}
+            "telephone": "${phoneNumber}",
+            "url": "${siteUrl}",
+            "image": "${logo.asset.url}",
+            "menu": "${siteUrl}/menu"
             }
           `}</script>
       </Helmet>

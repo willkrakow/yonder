@@ -23,14 +23,14 @@ const useModal = ({ modalRef }: Props) => {
             }
         }
 
-        const handleClickOutside = (e: MouseEvent) => {
+        const handleClickOutside = (e: MouseEvent | TouchEvent ) => {
             if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
                 handleClose();
             }
         }
         
         document.addEventListener('click', handleClickOutside);
-
+        document.addEventListener('touchstart', handleClickOutside)
         document.addEventListener('keydown', handleKeyDown);
         if (isOpen) {
             modalRef.current.focus();
@@ -39,6 +39,7 @@ const useModal = ({ modalRef }: Props) => {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
             document.removeEventListener('click', handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
         }
     }, [])
     return { isOpen, handleClick, handleClose, handleOpen };
