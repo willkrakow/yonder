@@ -17,12 +17,28 @@ const useModal = ({ modalRef }: Props) => {
                 handleClose();
             }
         })
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                handleClose();
+            }
+        }
 
+        const handleClickOutside = (e: MouseEvent) => {
+            if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+                handleClose();
+            }
+        }
+        
+        document.addEventListener('click', handleClickOutside);
+
+        document.addEventListener('keydown', handleKeyDown);
         if (isOpen) {
             modalRef.current.focus();
         }
 
         return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+            document.removeEventListener('click', handleClickOutside);
         }
     }, [])
     return { isOpen, handleClick, handleClose, handleOpen };
