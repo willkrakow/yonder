@@ -2,7 +2,6 @@
 import React from 'react'
 import { jsx, NavLink } from 'theme-ui'
 import { Link as GatsbyLink } from 'gatsby'
-import ScrollAnimation from 'react-animate-on-scroll';
 
 interface Props {
     index?: number,
@@ -13,17 +12,10 @@ interface Props {
     isActive: boolean,
 }
 
-const NavListItem = ({ link, index }: Props) => {
-  const delay = index ? index * 250 : 250;
+const NavListItem = ({ link }: Props) => {
     return (
       <>
         <li>
-          <ScrollAnimation
-            animateOnce={true}
-            delay={delay}
-            offset={0}
-            animateIn="fadeInDown"
-          >
             <NavLink
               as={GatsbyLink}
               //@ts-ignore
@@ -32,7 +24,6 @@ const NavListItem = ({ link, index }: Props) => {
             >
               {link.name}
             </NavLink>
-          </ScrollAnimation>
         </li>
       </>
     );

@@ -18,7 +18,7 @@ const theme = {
     fontWeights: {
         body: 200,
         heading: 700,
-        bold: 500,
+        bold: 600,
     },
     sizes: [...spaces.space],
     lineHeights: {
@@ -28,12 +28,12 @@ const theme = {
     colors: {
         background: "hsl(210, 75%, 15%)",
         text: "hsla(0, 0%, 98%, 0.8)",
-        primary: "hsla(228, 50%, 96%, 0.95)",
+        primary: "hsl(228, 50%, 96%)",
         secondary: "hsl(201, 24%, 47%)",
-        accent: "hsl(20, 87%, 46%)",
+        accent: "#b703e4",
         muted: "hsl(228, 10%, 70%)",
         warning: "hsl(268, 53%, 63%)",
-        light: "hsla(0, 0%, 99%, 0.9)",
+        light: "hsl(228, 20%, 96%)",
         dark: "hsl(230, 34%, 18%)",
         modes: {
             light: {
@@ -88,7 +88,7 @@ const theme = {
         h2: {
             fontFamily: "'Fredericka The Great', cursive",
             fontSize: "calc(3.4rem + 3vw)",
-            fontWeight: 100,
+            fontWeight: "bold",
             letterSpacing: 0,
             color: "accent",
             margin: 'auto',

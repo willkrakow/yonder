@@ -23,11 +23,6 @@ const useModal = ({ modalRef }: Props) => {
             }
         }
 
-        const handleClickOutside = (e: MouseEvent | TouchEvent ) => {
-            if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-                handleClose();
-            }
-        }
         
         document.addEventListener('keydown', handleKeyDown);
         

@@ -1,12 +1,13 @@
 /** @jsx jsx */
 import React from 'react'
-import { Flex, Switch, Close, jsx, MenuButton, Grid, useColorMode, Label } from 'theme-ui'
+import { Flex, Switch, Close, jsx, MenuButton, useColorMode, Label, IconButton } from 'theme-ui'
 import { NavbarProps } from '.';
 import NavListItem from './navListItem';
 import { alpha } from '@theme-ui/color';
-import AddressBlock from '../addressBlock';
 import SiteTitle from './siteTitle';
 import SearchBar from '../searchBar';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 
 const MobileNavbar = ({ menuLinks, context, ...props }: NavbarProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -59,45 +60,41 @@ const MobileNavbar = ({ menuLinks, context, ...props }: NavbarProps) => {
         sx={{
           width: "100%",
           px: 4,
+          py: 3,
           display: ["flex", null, "none"],
-          flexDirection: "column",
           placeSelf: "start",
+          justifyContent: "space-between",
         }}
       >
-        <Grid
-          columns={["3fr 1fr"]}
-          sx={{ placeItems: "center", justifyItems: "start" }}
-        >
-          <SiteTitle />
-          {!isOpen ? (
-            <MenuButton
-              variant="icon"
-              onClick={handleClick}
-              sx={{
-                width: 6,
-                height: 6,
-                zIndex: 999,
-                placeSelf: "center",
-                justifyContent: "flex-end",
-                svg: { width: 5, height: 5 },
-                color: "primary",
-              }}
-            />
-          ) : (
-            <Close
-              onClick={handleClick}
-              sx={{
-                width: 6,
-                height: 6,
-                zIndex: 999,
-                placeSelf: "center",
-                justifyContent: "flex-end",
-                svg: { width: 5, height: 5 },
-                color: "primary",
-              }}
-            />
-          )}
-        </Grid>
+        <SiteTitle />
+
+        {!isOpen ? (
+          <MenuButton
+            variant="icon"
+            onClick={handleClick}
+            sx={{
+              zIndex: 999,
+              placeSelf: "center",
+              justifyContent: "flex-end",
+              svg: { width: 5, height: 5 },
+              mx: 3,
+              color: "primary",
+              transform: "scale(1.3)",
+            }}
+          />
+        ) : (
+          <Close
+            onClick={handleClick}
+            sx={{
+              zIndex: 999,
+              placeSelf: "center",
+              justifyContent: "flex-end",
+              svg: { width: 5, height: 5 },
+              mx: 4,
+            }}
+          />
+        )}
+
         <ul
           sx={{
             listStyleType: "none",
@@ -118,8 +115,7 @@ const MobileNavbar = ({ menuLinks, context, ...props }: NavbarProps) => {
             opacity: isOpen ? "1.0" : "0.0",
             transition: "all 0.2s ease",
             overflow: "hidden",
-            pt: 0,
-            pb: 7,
+            pb: 6,
           }}
         >
           {menuLinks.map((l, index) => (
@@ -130,35 +126,23 @@ const MobileNavbar = ({ menuLinks, context, ...props }: NavbarProps) => {
               link={l}
             />
           ))}
-          <li>
-            <SearchBar onSearch={handleClick} slim />
-          </li>
-          <li>
-            <SiteTitle />
-            <AddressBlock withLocation withSocial />
-          </li>
           <li
             sx={{
-              justifyContent: "space-between",
-              alignItems: "center",
-              py: 2,
-              px: 3,
-              display: "flex",
-              backgroundColor: alpha("primary", 0.2),
-              borderRadius: "20px",
+              transition: "all 0.4s ease",
+              borderBottomStyle: "solid",
+              borderBottomWidth: 2,
+              borderBottomColor: "transparent",
+              "&:hover": {
+                color: "primary",
+                borderBottomColor: "primary",
+              },
             }}
           >
-            <div>
-              <Switch
-                onClick={handleSwitch}
-                value={colorMode}
-                id="colormode"
-                sx={{ display: isOpen ? "initial" : "none" }}
-              />
-            </div>
-            <Label htmlFor="colormode" sx={{ flex: 1, ml: 2 }}>
-              {colorMode === "light" ? "🌞 Light mode" : "🌚 Dark mode"}
-            </Label>
+            <SearchBar onSearch={handleClick} slim />
+          </li>
+          <li
+          >
+            <IconButton onClick={handleSwitch} value={colorMode} id="colormode" ><FontAwesomeIcon sx={{color: "primary"}} icon={colorMode === "light" ? faSun : faMoon} /></IconButton>
           </li>
         </ul>
       </Flex>

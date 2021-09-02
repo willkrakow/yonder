@@ -1,12 +1,14 @@
 /**@jsx jsx */
 import React from 'react'
-import { Themed, jsx, Button, Grid } from 'theme-ui'
+import { Themed, jsx, Button, Grid, IconButton } from 'theme-ui'
 import { HeroProps } from '../../typings'
 import ScrollAnimation from 'react-animate-on-scroll'
 import { Link as GatsbyLink } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { alpha } from '@theme-ui/color'
 import { getGatsbyImageData } from "gatsby-source-sanity";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
 const Hero: React.FC<HeroProps> = (props) => {
   const { title, image } = props
@@ -15,6 +17,9 @@ const Hero: React.FC<HeroProps> = (props) => {
     { fit: "fill" },
     { projectId: "hiyhitvr", dataset: "production"}
   );
+  const handleScroll = () => {
+    window.scroll(0, 800)
+  }
 
     return (
       <Grid columns={[1, 1, "1fr 1fr"]}>
@@ -24,7 +29,7 @@ const Hero: React.FC<HeroProps> = (props) => {
             placeSelf: "normal",
             zIndex: 60,
             maxWidth: [null, null, 9],
-            minHeight: "80vh",
+            minHeight: "90vh",
             px: 4,
             mx: "auto",
             gridArea: ["1 / 1", null, "1 / 1"],
@@ -47,11 +52,12 @@ const Hero: React.FC<HeroProps> = (props) => {
           >
             <Themed.h2
               sx={{
-                fontSize: ["3.4em", "6em", "6em"],
+                fontSize: ["4.4em", "6em", "6em"],
                 color: ["light", "light", "primary"],
-                fontWeight: 100,
+                fontWeight: "bold",
                 textAlign: ["center", null, "left"],
                 "&::after": { content: "none" },
+                letterSpacing: 2,
               }}
             >
               {title}
@@ -66,7 +72,7 @@ const Hero: React.FC<HeroProps> = (props) => {
             <div
               sx={{
                 display: "flex",
-                justifyContent: "space-between",
+                justifyContent: ["center", null, "space-between"],
                 flexWrap: "wrap",
               }}
             >
@@ -78,6 +84,7 @@ const Hero: React.FC<HeroProps> = (props) => {
               </a>
             </div>
           </ScrollAnimation>
+          <IconButton onClick={handleScroll} sx={{ mx: "auto", my: 4, display: ["inherit", null, "none"], }} ><FontAwesomeIcon size="3x" icon={faCaretDown} sx={{ color: "light" }} /></IconButton>
         </div>
         <GatsbyImage
           sx={{ gridArea: ["1 / 1", null, "1 / 2"] }}

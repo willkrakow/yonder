@@ -5,7 +5,7 @@ const colors = {
   text: "hsla(0, 0%, 98%, 0.8)",
   primary: "hsla(228, 50%, 96%, 0.95)",
   secondary: "hsl(201, 24%, 47%)",
-  accent: "hsl(15, 77%, 52%)",
+  accent: "#ff8860",
   muted: "hsl(228, 10%, 60%)",
   warning: "hsl(157, 34%, 44%)",
   light: "hsla(0, 0%, 99%, 0.9)",

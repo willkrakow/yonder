@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from "react";
 import { jsx, Container, Close } from "theme-ui";
-import { alpha, darken } from "@theme-ui/color";
+import { alpha } from "@theme-ui/color";
 
 interface Props {
   isOpen: boolean;
