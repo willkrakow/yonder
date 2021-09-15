@@ -15,12 +15,12 @@ interface Props {
 const NavListItem = ({ link }: Props) => {
     return (
       <>
-        <li>
+        <li sx={{ textAlign: "center" }}>
             <NavLink
               as={GatsbyLink}
               //@ts-ignore
               to={link.path}
-              sx={{ px: 4 }}
+              sx={{ px: 4, textAlign: "center" }}
             >
               {link.name}
             </NavLink>

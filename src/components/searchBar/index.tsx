@@ -22,8 +22,8 @@ const SearchBar = ({slim = false, onSearch}: Props) => {
     }
     return (
       <>
-        <form onSubmit={onSubmit} sx={{ display: "flex" }}>
-          <Label htmlFor="query" sx={{ flexBasis: "80%" }}>
+        <form onSubmit={onSubmit} sx={{ display: "flex", justifyContent: "center", }}>
+          <Label htmlFor="query" sx={{ flexBasis: "100%" }}>
             <Input
               id="query"
               type="search"
@@ -31,7 +31,7 @@ const SearchBar = ({slim = false, onSearch}: Props) => {
               value={query}
               onChange={handleChange}
               placeholder="Search"
-              sx={{ mb: 0, color: "primary" }}
+              sx={{ mb: 0, color: "primary", }}
             />
           </Label>
           {!slim && <IconButton sx={{ flexBasis: "20%", cursor: "pointer" }} type="submit"><FontAwesomeIcon size="2x" sx={{ color: "primary" }} icon={faArrowCircleRight} /></IconButton>}

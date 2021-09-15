@@ -359,11 +359,12 @@ const LocationSection = ({ title, subtitle }: Props) => {
       if (currentTime >= openHour && currentTime <= closeHour) {
         return true;
       }
+      console.log("ran");
       return false;
     };
     setMapUrl(url);
     setIsOpen(isCurrentlyOpen());
-  }, [currentDay]);
+  }, []);
 
   return (
     <ScrollAnimation animateOnce={true} animateIn="fadeInUp">

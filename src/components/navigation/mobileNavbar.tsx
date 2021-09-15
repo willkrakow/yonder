@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import React from 'react'
-import { Flex, Switch, Close, jsx, MenuButton, useColorMode, Label, IconButton } from 'theme-ui'
+import { Flex, Close, jsx, MenuButton, useColorMode, IconButton } from 'theme-ui'
 import { NavbarProps } from '.';
 import NavListItem from './navListItem';
 import { alpha } from '@theme-ui/color';
@@ -12,7 +12,11 @@ import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 const MobileNavbar = ({ menuLinks, context, ...props }: NavbarProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [ colorMode, setColorMode ] = useColorMode();
-
+  console.log(colorMode);
+  if (typeof colorMode === 'undefined') {
+    
+    setColorMode('dark');
+  }
   const setColorPreferenceCookie = (colorMode: string) => {
     const date = new Date();
     date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
@@ -37,7 +41,6 @@ const MobileNavbar = ({ menuLinks, context, ...props }: NavbarProps) => {
   }
 }
   const handleClick = () => {
-    console.log("click")
     setIsOpen(!isOpen)
   }
   
@@ -106,7 +109,7 @@ const MobileNavbar = ({ menuLinks, context, ...props }: NavbarProps) => {
             alignContent: "flex-end",
             position: "fixed",
             top: 0,
-            left: isOpen ? ["25%", 9, null] : "100%",
+            left: isOpen ? ["0", "0", null] : "100%",
             bottom: 0,
             right: 0,
             margin: 0,
@@ -132,6 +135,7 @@ const MobileNavbar = ({ menuLinks, context, ...props }: NavbarProps) => {
               borderBottomStyle: "solid",
               borderBottomWidth: 2,
               borderBottomColor: "transparent",
+              textAlign: "center",
               "&:hover": {
                 color: "primary",
                 borderBottomColor: "primary",
